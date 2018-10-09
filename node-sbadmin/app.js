@@ -11,7 +11,7 @@ var app = express();
 var passport = require('passport');
 var expressSession = require('express-session');
 var flash = require('connect-flash');
-
+var methodOverride = require('method-override')
 
 // view engine setup
 app.engine('ejs', engine);
@@ -23,6 +23,7 @@ app.set('view engine', 'ejs');
 app.use(expressSession({secret: 'mySecretKey'}));
 
 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,9 +32,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(methodOverride('_method'));
 
 require('./passport/pass')(passport);
 require('./routes/index')(app, passport);
+var apirouter = require('./routes/apirouter');  
+apirouter(app);
+ 
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
