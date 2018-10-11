@@ -49,17 +49,12 @@ module.exports = function(app) {
 		.post(asset.asset_api001)
 		.put(asset.asset_api003);
 
-	app.route('/supply-chain')
-		.get(function(req,res){
-			res.render('template/api/supplychain',{data:'',message:"",status:0});
-		});
+	app.route('/supply-chain/')
+		.get(schain.schain_api001);
+		// .post(schain.schain_api001)
+		// .put(schain.schain_api003);
 
-	app.route('/supply-chain/action')
-		.get(schain.schain_api002)
-		.post(schain.schain_api001)
-		.put(schain.schain_api003);
-
-	app.route('/supply-chain/:schainid/logs')
+	app.route('/supply-chain/action/:schainid/logs')
 		.get(schain.schain_api004);
 
 	app.route('/log')
