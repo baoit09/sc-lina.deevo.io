@@ -50,6 +50,11 @@ module.exports = function(app) {
 		.put(asset.asset_api003);
 
 	app.route('/supply-chain')
+		.get(function(req,res){
+			res.render('template/api/supplychain',{data:'',message:"",status:0});
+		});
+
+	app.route('/supply-chain/action')
 		.get(schain.schain_api002)
 		.post(schain.schain_api001)
 		.put(schain.schain_api003);
