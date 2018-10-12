@@ -11,50 +11,88 @@ module.exports.schain_api001 = function(req, res) {
 		  method: 'GET',
 	};
 	
-	request(options, function (error, response, body) {
-
+	request(options, function (error, response, body) 
+	{
+		var scms = [];
 		if(!error && response.statusCode == 200){
-
-			var objects = [];
-
-			var data = JSON.parse(body);
-			
-			if ( !(data instanceof Array)  )
-			{
-				objects.push(data);
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )			{
+				scms.push(data);
 			}
 			else
 			{
-				objects = data;	
+				scms = data;	
 			}
-
-			res.render('template/api/supplychain', { data:objects, message:"", status:0});
-
+			res.render('template/api/supplychain', { scms:scms, message:"", status:0});
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ data:'', message: "Không tìm thấy yêu cầu !!!", status:2});
+			res.render('template/api/supplychain',{ scms:'', message: "Không tìm thấy yêu cầu !!!", status:2});
 
 		}else {
 
-			res.render('template/api/supplychain',{ data:'',message:error,status:2} );
+			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
 		}
-     });
+	});
 };
-
 
 module.exports.schain_api002 = function(req, res) {
 	
-		var schainid="88888";
-		var options = {
-  			url: 'http://18.136.205.13:3000/api/v1/supply-chains/'+ schainid,
-  			method: 'GET',
-		};
-		
-		request(options, function (error, response, body) {
-			if(!error){
-				res.send(body)
-			}
-     		});
+	var scm = {
+		org: req.body.organization_item,		
+		id: req.body.id_item,
+		name: req.body.name_item,		
+		objectType: "supplychain",
+		content : {
+			version: req.body.version_item,
+			status: req.body.status_item,
+			products: req.body.select_product
+		}
+	}
+
+	var options = {
+		  url: baseURL + '/supply-chains/',
+		  method: 'POST',
+		json: {
+				parent: scm.org,
+				id: scm.id,
+				name: scm.name,
+				objectType: scm.objectType,				
+				content: JSON.stringify(scm.content),
+		}
+	};
+
+	request(options, function (error, response, body) 
+	{
+		if(!error && response.statusCode == 200){
+			
+		  var options = {
+				url: baseURL + '/supply-chains/',
+				method: 'GET',
+		  };		  
+		  request(options, function (error, response, body) 
+		  {
+			  var scms = [];
+			  if(!error && response.statusCode == 200){
+				  var data = JSON.parse(body);			
+				  if ( !(data instanceof Array)  )			{
+					  scms.push(data);
+				  }
+				  else
+				  {
+					  scms = data;	
+				  }
+				  res.render('template/api/supplychain', { scms:scms, message:"Successfuly added a new Supply chain model [ " + scm.name + " ]", status:1});
+			  } 
+		  });			
+
+		} else if(!error && response.statusCode != 200){
+
+			res.render('template/api/supplychain',{ scms:'', message: "Failed to add new Supply chain model", status:2});
+
+		}else {
+			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
+		}
+	});
 };
 
 
@@ -74,7 +112,6 @@ module.exports.schain_api004 = function(req, res) {
 			}
      		});
 };
-
 
 /* ///////////////////////// */
 
@@ -125,3 +162,189 @@ module.exports.schain_api003 = function(req, res) {
 		
 };
 
+module.exports.schain_api010 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/orgs',
+		  method: 'GET',
+	};
+	
+	var orgs = [];
+
+	request(options, function (error, response, body) {
+
+		if(!error && response.statusCode == 200){
+
+			var objects = [];
+
+			var data = JSON.parse(body);
+			
+			if ( !(data instanceof Array)  )
+			{
+				orgs.push(data);
+			}
+			else
+			{
+				orgs = data;	
+			}
+
+			res.json(orgs);
+
+		} else if(!error && response.statusCode != 200){
+
+			res.json(orgs);
+
+		}else {
+
+			res.json(orgs);
+		}
+     });
+};
+
+module.exports.schain_api010 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/orgs',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200){
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);
+		}else {
+
+			res.json(orgs);
+		}
+     });
+};
+
+
+module.exports.schain_api011 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/parties',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api012 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/locations',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api013 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/assets',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api014 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/products',
+		  method: 'GET',
+	};
+	
+	var items = [];
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};

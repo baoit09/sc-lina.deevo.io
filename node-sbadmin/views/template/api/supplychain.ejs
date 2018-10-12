@@ -112,31 +112,35 @@ th{
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/organization/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/supply-chain">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">ORGANIZATION</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">Supply Chain Model</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
                                                         <div class="group-1">
                                                             <div class="form-group col-3">
-                                                                <label>ID</label>
+                                                                <label>UUID</label>
                                                                 <input class="form-control box-co" name="id_item" value="">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Name</label>
-                                                                <input class="form-control box-co" name="name_item" value="">
+                                                                <label>Version</label>
+                                                                <input class="form-control box-co" name="version_item" value="">
+															</div>    
+															<div class="form-group">
+                                                                <label>Status</label>
+                                                                <input class="form-control box-co" name="status_item" value="">
                                                             </div>    
                                                             <div class="form-group col-3">  
-                                                                <label>Object Type</label>
-                                                                <input class="form-control box-co" name="type_item" value="">
+                                                                <label>Name</label>
+                                                                <input class="form-control box-co" name="name_item" value="">
                                                             </div>
                                                             <div class="form-group col-3">
-                                                                <label>Parent</label>
-                                                                <input class="form-control box-co" name="parent_item" value="">
+                                                                <label>Organization</label>
+                                                                <select class="form-control box-co" name="organization_item" value=""></select>
                                                             </div>    
                                                         </div>  
                                                   <div class="group-2">
@@ -145,99 +149,36 @@ th{
 														<div class="panel-body">
 															<!-- Nav tabs -->
 															<ul class="nav nav-tabs">
-																<li class="active"><a href="#general" data-toggle="tab" style="font-weight: bold;">General</a>
+																<li class="active"><a href="#productStructure" data-toggle="tab" style="font-weight: bold;">Product Structure</a>
 																</li>
-																 <li><a href="#address" data-toggle="tab"  style="font-weight: bold;">Address</a>
-																</li>
-																<li><a href="#contact" data-toggle="tab"  style="font-weight: bold;">Contact</a>
-																</li>
-																<li><a href="#location" data-toggle="tab"  style="font-weight: bold;">GPS Location</a>
-																</li>
+																 <li><a href="#supplyChainStructure" data-toggle="tab"  style="font-weight: bold;">Supply Chain Structure</a>
+																</li>																
 															 </ul>
 
 															<!-- Tab panes -->
 															<div class="tab-content">
-																<div class="tab-pane fade in active" id="general">
+																<div class="tab-pane fade in active" id="productStructure">
 																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-general">
+																		<table class="table table-content" id="tbl-productStructure">
 																			<tbody>
-																					<tr class="general-rows general-1">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GLN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-2">
+																					<tr class="end_general" style="display:none;">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-3">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 SSCC" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_SSCC" value=""></th>																					
 																					</tr>
-																					<tr class="general-rows general-4">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GTIN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GTIN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-5">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GINC" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-6">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GRAI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GRAI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-7">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GIAI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GIAI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-8">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSRN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSRN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-9">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GDTI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GDTI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-10">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GCN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GCN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-11">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-12">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Country" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Country" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-13">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 Prefix" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Prefix" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-14">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Phone" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Phone" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-15">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Fax" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Fax" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-16">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Email" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Email" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-17">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Website" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Website" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-18">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Business Country" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_BSCountry" value=""></th>																					
-																					</tr>																						
+																					<tr>
+																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->
+																						<th width="100%" class="co-th ">
+																							<select onchange="" class="form-control box-co" id="select_productToAdd">
+																							</select>
+																						</th>																						
+																						<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_general()" class="btn btn-success mybutton del_general"><i class="fa fa-plus"></i></button></th>
+																					</tr>																																												
 																			</tbody>
 																		</table>
 																	</div>
 																</div>
-																<div class="tab-pane fade" id="address">
+
+																<div class="tab-pane fade" id="supplyChainStructure">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-address">
 																			<tbody>
@@ -269,50 +210,6 @@ th{
 																		</table>
 																	</div>
 																</div>
-																<div class="tab-pane fade" id="contact">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-contact">
-																			<tbody>
-																				<tr class="contact-rows contact-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Full-Name" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_name" id="contact_name" name="contact_val" value="" ></th>
-																				</tr>
-																				<tr class="contact-rows contact-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Email" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_email" id="contact_email" name="contact_val" value=""></th>
-																				</tr>
-																				<tr class="contact-rows contact-3">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Phone" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_phone" id="contact_phone"  name="contact_val" value=""></th>
-																				</tr>
-																				<tr class="contact-rows contact-4">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Role" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_role" id="contact_role" name="contact_val" value=""></th>
-																				</tr>		
-																				<tr class="contact-rows contact-5">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="DEEVO-Account" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_account" id="contact_account" name="contact_val" value=""></th>
-																				</tr>																			
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-																<div class="tab-pane fade" id="location">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-location">
-																			<tbody>
-																				<tr class="location-rows location-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Longitude" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co location_longitude" id="location_longitude" name="location_val" value=""></th>
-																				</tr>		
-																				<tr class="location-rows location-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Latitude" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co location_latitude" id="location_latitude" name="location_val" value=""></th>
-																				</tr>	
-																			</tbody>
-																		</table>
-																	</div>
-																</div>																
 															</div>
 														</div>
 													</div>
@@ -330,7 +227,8 @@ th{
                                             </div>
                                             <!-- /.modal-dialog -->
                                     </form>
-                                    </div>                
+									</div>   
+									             
                     <div class="table-responsive">
                         <table class="table mytable">                            
                             <thead>
@@ -347,16 +245,15 @@ th{
                             <tbody>
                                     <% 
                                         var rowid=1 
-                                        for(var k in data ) {											
-									 %>
-									 
+                                        for(var k in scms ) {												
+									 %>									 
                                         <tr class="row-<%=rowid%>">
-                                            <th class="id"><%=data[k]['id']%></th>
-                                            <th class="obj"><%=data[k]['objectType']%></th>
-                                            <th class="name"><%=data[k]['name']%></th>                                            
-                                            <th class="name"><%=data[k]['version']%></th>                                                                                        
-                                            <th class="name"><%=data[k]['products']%></th>                                            
-                                            <th class="name"><%=data[k]['structure']%></th>                                                                                        
+                                            <th class="id"><%=scms[k]['id']%></th>
+                                            <th class="obj"><%=scms[k]['objectType']%></th>
+                                            <th class="name"><%=scms[k]['name']%></th>                                            
+                                            <th class="name"><%=scms[k]['version']%></th>                                                                                        
+                                            <th class="name"><%=scms[k]['products']%></th>                                            
+                                            <th class="name"><%=scms[k]['structure']%></th>                                                                                        
                                             <th><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
                                         </tr>
                                     <% rowid++}; 
@@ -372,7 +269,228 @@ th{
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>    
 
+	var _scmStatusSet = ["Draft", "Activated", "Suppended"]
+	var _orgs = [];
+	var _parties = [];
+	var _locations = [];
+	var _assets = [];
+	var _products = [];
+
+	$( document ).ready(function() {
+		get_orgs();		
+		get_parties();
+		get_locations();
+		get_assets();
+		get_products();
+	});
+
+	function get_orgs()
+	{
+		get_objects("/supply-chain/orgs", (items) => 
+		{
+			_orgs = items;
+		})
+	}
+
+	function get_parties()
+	{
+		get_objects("/supply-chain/parties", (items) => 
+		{
+			_parties = items;
+		})
+	}
+
+	function get_locations()
+	{
+		get_objects("/supply-chain/locations", (items) => 
+		{
+			_locations = items;
+		})
+	}
+
+	function get_assets()
+	{
+		get_objects("/supply-chain/assets", (items) => 
+		{
+			_assets = items;
+		})
+	}
+
+	function get_products()
+	{
+		get_objects("/supply-chain/products", (items) => 
+		{
+			products_add_items(items);
+		})
+	}
+
+	function get_objects(url, callback)
+	{
+		$.getJSON( url, function( items ) {
+			items.forEach(function( item ) {
+				if(item.content)
+				{
+					try {
+						item.content = JSON.parse(item.content);
+					} catch(e) {}					
+				}
+			});
+			callback(items)
+		});
+	}
+
+	function products_add_items(products)
+	{
+		_products.push({id : "", name : " <- please select a product ! ->", isAdded : false});    		
+		if(products && products.length > 0)
+		{
+			for (i = 0; i < products.length; i++) {
+				products[i].isAdded = false;
+				_products.push(products[i]);    		
+			}
+		}
+
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function products_remove_items(products)
+	{
+		if(products && products.length > 0)
+		{
+			for (i = 0; i < products.length; i++) {
+				var index = products_find_item(products[i]);
+				if(index > -1)
+				{
+					_products.splice(index, 1);
+				}
+			}
+		}
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function products_markAsAdded_items(product)
+	{
+		var index = products_find_item(product);				
+		if(index > -1)
+		{
+			_products[index].isAdded = true;				
+		}
+		
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function products_markAsUnAdded_items(product)
+	{
+		var index = products_find_item(product);				
+		if(index > 0)
+		{
+			_products[index].isAdded = false;				
+		}
+		
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function products_find_item(product)
+	{
+		if(product)
+		{
+			for (i = 0; i < _products.length; i++) {
+				if(_products[i].id === product)
+				{
+					return i;
+				}
+			}
+		}
+
+		return -1;
+	}
+
+	function show_items(items, select, isShowAll){
+		select.empty();
+		for (i = 0; i < items.length; i++) {
+			if(isShowAll || items[i].isAdded === undefined || items[i].isAdded === false)
+			{
+				select.append('<option value=\"' + items[i].id + '\">' + items[i].name + '</option>')
+			}
+  		}
+	}
+
+
+	function remote_product(product)
+	{
+		var index = products.indexOf(product);
+		if (index !== -1) products.splice(index, 1);
+	}
+
+	function insert_general(){
+	
+		var selecteProductToAddEle = $('#select_productToAdd');
+		var selectedProduct = selecteProductToAddEle.val();	
+
+		if(selectedProduct === "")
+			return;
+
+		var row_id=$('#tbl-productStructure>tbody>tr.productStructure-rows').length+1;
+		var selectProductId = "selectProducts_" + row_id;
+		var html='<tr class="productStructure-rows general-'+row_id+'">';
+			html+='<th width="200px" class="co-th "> <select name="select_product" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
+			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-danger mybutton del_general"><i class="fa fa-trash"></i></button></th>';
+			html+='</tr>';
+
+	  $(html).insertBefore( ".end_general" );
+	  show_items(_products, $('#'+ selectProductId), true);
+	  $('#'+ selectProductId).val(selectedProduct);
+
+	  products_markAsAdded_items(selectedProduct);	  
+	};
+	
+	function del_general(id){
+		
+	  var i=1;
+
+	  var removedProduct = $('#selectProducts_'+ id).val();
+
+	  $('.general-'+id).remove();
+
+	  $('#tbl-general>tbody>tr.general-rows').each(function(){
+		var z=i++;
+		$(this).attr('class','general-rows general-'+z);
+		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
+	  });
+	  
+	  products_markAsUnAdded_items(removedProduct);	  
+	};
+
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
+
+	function init_scm(isNew)
+	{	
+		if(isNew === true)
+		{
+			var scm = {
+				id : uuidv4(),
+				version : "0.1",
+				status : "Draft",
+				name : "supply chain model 1",
+				products : [],
+				supplychain : [],
+				_status : "Actived"
+			};
+			return scm;
+		}
+		else
+		{
+
+		}
+	}
+
 	$('.btn-edit').click(function(){
+		
         var id=$('.row-'+$(this).attr('id')).find('.id').text();
         var name=$('.row-'+$(this).attr('id')).find('.name').text();
         var obj=$('.row-'+$(this).attr('id')).find('.obj').text();
@@ -431,44 +549,21 @@ th{
     });
 
     $('#btn-addnew').click(function(){
-        $('#form-post').attr('action','/organization/action');
-        $( "input[name='id_item']" ).val('');
-        $( "input[name='name_item']" ).val('');
-        $( "input[name='type_item']" ).val('');
-        $( "input[name='parent_item']" ).val('');
-		$("input[name='address_val']").val('');
-		$("input[name='contact_val']").val('');
-		$("input[name='general_val']").val('');
-	
+
+		var scm = init_scm(true);
+		reset_ui(scm);
 	});
 
-	function insert_general(key,val){
-	
-		var row_id=$('#tbl-general>tbody>tr.general-rows').length+1;
+	function reset_ui(scm)
+	{
+		$('#form-post').attr('action','/supply-chain');
+		$( "input[name='id_item']" ).val(scm.id);
+		$( "input[name='version_item']" ).val(scm.version);
+		$( "input[name='status_item']" ).val(scm.status);
+		$( "input[name='name_item']" ).val(scm.name);
 
-		var html='<tr class="general-rows general-'+row_id+'">';
-			html+='<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="'+key+'"></th>';
-			html+='<th class="co-th"> <input class="form-control box-co" name="general_val" value="'+val+'"></th>';
-			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-warning mybutton del_general"><i class="fa fa-minus"></i></button></th>';
-			html+='</tr>';
-
-	  $(html).insertBefore( ".end_general" );
-	
-	};
-	
-	function del_general(id){
-		
-	  var i=1;
-
-	  $('.general-'+id).remove();
-
-	  $('#tbl-general>tbody>tr.general-rows').each(function(){
-		var z=i++;
-		$(this).attr('class','general-rows general-'+z);
-		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
-	  });
-
-	};
+		show_items(_orgs,$( "select[name='organization_item']" ));
+	}
 
 	$('.add_general').on('click',function() {
 		var key='';
@@ -477,7 +572,6 @@ th{
 
 	});
 	
-
 	function getLocation() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition);
