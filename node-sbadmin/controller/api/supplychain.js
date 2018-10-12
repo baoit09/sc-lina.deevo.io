@@ -23,6 +23,14 @@ module.exports.schain_api001 = function(req, res) {
 			{
 				scms = data;	
 			}
+			scms.forEach(function(item){
+				if(item.content)
+				{
+					try {
+						item.content = JSON.parse(item.content);
+					} catch(e) {}					
+				}
+			})
 			res.render('template/api/supplychain', { scms:scms, message:"", status:0});
 		} else if(!error && response.statusCode != 200){
 
@@ -45,7 +53,8 @@ module.exports.schain_api002 = function(req, res) {
 		content : {
 			version: req.body.version_item,
 			status: req.body.status_item,
-			products: req.body.select_product
+			products: req.body.select_product,
+			scstructure: req.body.select_participants
 		}
 	}
 
@@ -81,6 +90,14 @@ module.exports.schain_api002 = function(req, res) {
 				  {
 					  scms = data;	
 				  }
+				  scms.forEach(function(item){
+						if(item.content)
+						{
+							try {
+								item.content = JSON.parse(item.content);
+							} catch(e) {}					
+						}
+				  })
 				  res.render('template/api/supplychain', { scms:scms, message:"Successfuly added a new Supply chain model [ " + scm.name + " ]", status:1});
 			  } 
 		  });			
