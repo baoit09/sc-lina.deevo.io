@@ -76,6 +76,11 @@ th{
 .col-action{
     width: 20px;
 }
+
+.btn-edit .btn-delete .btn-duplicate 
+{
+	float: left;
+}
 </style>
 
 <div id="page-wrapper">
@@ -108,7 +113,24 @@ th{
                                         </span>
                                     </div>
                                 </form>
-                            </div>
+							</div>
+							
+
+							<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" id="modal-btn-no">Cancel</button>
+										<button type="button" class="btn btn-danger" id="modal-btn-yes">Delete</button>										
+									</div>
+									</div>
+								</div>
+							</div>
+
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -224,7 +246,9 @@ th{
                                     <th class="row-title">Version</th>
                                     <th class="row-title">Products</th>
                                     <th class="row-title">SC-Structure</th>
-                                    <th class= "col-action row-title">Action</th>
+									<th class= "col-action row-title">Actions</th>
+									<th class= "col-action row-title"></th>
+									<th class= "col-action row-title"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,11 +264,11 @@ th{
 											<% 
 												if(scms[k]['content'].version != null) {													
 											%>
-												<th class="name"><%= scms[k]['content'].version %></th>
+												<th><%= scms[k]['content'].version %></th>
 											<% 
 												} else { 												
 											%>
-												<th class="name"></th>
+												<th></th>
 											<% 
 												} 
 											%>
@@ -252,11 +276,11 @@ th{
 											<% 
 												if(scms[k]['content'].products != null) {													
 											%>
-												<th class="name"><%= scms[k]['content'].products.length %> product(s)</th>
+												<th><%= scms[k]['content'].products.length %> product(s)</th>
 											<% 
 												} else { 												
 											%>
-												<th class="name">0 product</th>
+												<th>0 product</th>
 											<% 
 												} 
 											%>
@@ -264,16 +288,24 @@ th{
 											<% 
 												if(scms[k]['content'].scstructure != null) {													
 											%>
-												<th class="name"><%= scms[k]['content'].scstructure.length %> participant(s)</th>
+												<th><%= scms[k]['content'].scstructure.length %> participant(s)</th>
 											<% 
 												} else { 												
 											%>
-												<th class="name">0 participant</th>
+												<th>0 participant</th>
 											<% 
 												} 
 											%>
 
-                                            <th><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+											<th>												
+												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>												
+											</th> 
+											<th>											
+												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i> Delete</button>												
+											</th> 
+											<th>												
+												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"><i class="fa "></i> Duplicate</button>												
+											</th> 
                                         </tr>
                                     <% rowid++}; 
                                     %> 
@@ -676,4 +708,50 @@ th{
 		show_items(_products,$( "select[name='select_productToAdd']" ));
 		show_items(_participants,$( "select[name='select_participantsToAdd']" ));		
 	}
+
+	$('.btn-delete').click(function(){
+		id_to_del=$('.row-'+$(this).attr('id')).find('.id').text();
+		var name=$('.row-'+$(this).attr('id')).find('.name').text();
+		
+		var confirm = "Are you sure you want to delete Supply Chain Mode [ " + id_to_del + " - " + name + "]?"; 
+		$("#myModalLabel").html(confirm);
+		$("#mi-modal").modal('show');
+	});
+
+	$("#modal-btn-yes").on("click", function(){
+		callbackConfirm(true);
+		$("#mi-modal").modal('hide');
+	  });
+	  
+	$("#modal-btn-no").on("click", function(){
+		callbackConfirm(false);
+		$("#mi-modal").modal('hide');
+	});
+
+	var id_to_del;
+	function callbackConfirm(confirmed)
+	{
+		var id=$('.row-'+$(this).attr('id')).find('.id').text();
+
+		if(confirmed){
+			$.ajax({
+				url: '/supply-chain/',
+				type: 'PUT',
+				data : {
+					id: id_to_del,
+					_status: "Deleted"
+				},
+				success: function(result) {
+					// Do something with the result\
+					if(result === 200)
+					{
+						$("#btn-search").click();
+					}
+				}
+			});			
+		}
+		else{						
+		}
+	};
+
 </script>

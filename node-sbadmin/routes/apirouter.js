@@ -51,8 +51,8 @@ module.exports = function(app) {
 
 	app.route('/supply-chain')
 		.get(schain.schain_api001)
-		.post(schain.schain_api002);
-		// .put(schain.schain_api003);
+		.post(schain.schain_api002)
+		.put(schain.schain_api003);
 
 	app.route('/supply-chain/orgs')
 		.get(schain.schain_api010);
