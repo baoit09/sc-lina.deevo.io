@@ -2,9 +2,7 @@
   "name": "node-sbadmin",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "postinstall": "bower install",
-    "test": "nodemon ./bin/www",
+  "scripts": {    
     "start": "node ./bin/www"
   },
   "dependencies": {

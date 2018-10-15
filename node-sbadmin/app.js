@@ -20,8 +20,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(expressSession({secret: 'mySecretKey'}));
-
+//app.use(expressSession({secret: 'mySecretKey'}));
 
 
 app.use(logger('dev'));
@@ -60,15 +59,15 @@ if (app.get('env') === 'development') {
   });
 }
 
-Database.config(
-  config && config.mongodb && config.mongodb.address ? config.mongodb.address : '', 'sbadmin',
+// Database.config(
+//   config && config.mongodb && config.mongodb.address ? config.mongodb.address : '', 'sbadmin',
   
-  config.mongodb && config.mongodb.options ? config.mongodb.options : undefined,
-  function(err, message) {
-    if (!err) console.info('  - Mongodb is connected');
+//   config.mongodb && config.mongodb.options ? config.mongodb.options : undefined,
+//   function(err, message) {
+//     if (!err) console.info('  - Mongodb is connected');
     
-  }
-);
+//   }
+// );
 
 // production error handler
 // no stacktraces leaked to user
@@ -79,5 +78,11 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+// var hostname = 'localhost';
+// var port = 3000;
+// app.listen(port, hostname, function(){
+//   console.log(`Server running at http://${hostname}:${port}/`);
+// });
 
 module.exports = app;

@@ -61,7 +61,7 @@ th.co-th {
 }
 .btn-edit{
         padding: 6px 1px;
-        width: 60px;
+        width: 50px;
 }
 textarea {
     resize: none;
@@ -131,7 +131,7 @@ th{
 								</div>
 							</div>
 
-                            <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
+                            <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal" title="Add new Supply Chain Model"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <form role = 'form' id="form-post" method="POST" action="/supply-chain">
@@ -150,7 +150,7 @@ th{
 															</div>
 															<div class="form-group col-3" style="display: none;">
                                                                 <label>UUID</label>
-                                                                <input class="form-control box-co" name="isUpdating" value="">
+                                                                <input class="form-control box-co" name="mode" value="">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Version</label>
@@ -158,7 +158,7 @@ th{
 															</div>    
 															<div class="form-group">
                                                                 <label>Status</label>
-                                                                <input class="form-control box-co" name="status_item" value="">
+                                                                <select class="form-control box-co" name="status_item" value=""></select>
                                                             </div>    
                                                             <div class="form-group col-3">  
                                                                 <label>Name</label>
@@ -187,12 +187,11 @@ th{
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-productStructure">
 																			<tbody>
-																					<tr class="end_general" style="display:none;">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
+																					<tr class="end_general" style="display:none;">																																												
 																					</tr>
 																					<tr>
 																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->
+																						<th width="5px" class="co-th "></th>																						
 																						<th width="100%" class="co-th ">
 																							<select onchange="" class="form-control box-co" name="select_productToAdd" id="select_productToAdd">
 																							</select>
@@ -208,9 +207,8 @@ th{
 																<div class="row show-grid">
 																<table class="table table-content" id="tbl-supplyChainStructure">
 																	<tbody>
-																			<tr class="end_sc" style="display:none;">																				
-																			</tr>
-																			<tr>																				
+																			<tr class="end_sc" style="display:none;"></tr>																			
+																			<th width="5px" class="co-th "></th>																				
 																				<th width="100%" class="co-th ">
 																					<select onchange="" class="form-control box-co" name="select_participantsToAdd" id="select_participantsToAdd">
 																					</select>
@@ -230,8 +228,8 @@ th{
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                                        <button type="submit" name="send" id="btnclick" class="btn btn-success">Save</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" name="send" id="btnclick" class="btn btn-success">Apply</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -245,9 +243,10 @@ th{
                             <thead>
                                 <tr>
                                     <th class="row-title">ID</th>
-                                    <th class="row-title">Object Type</th>
+                                    <th class="row-title" hidden>Object Type</th>
                                     <th class="row-title">Name</th>                                    
-                                    <th class="row-title">Version</th>
+									<th class="row-title">Status</th>
+									<th class="row-title">Version</th>
                                     <th class="row-title">Products</th>
                                     <th class="row-title">SC-Structure</th>
 									<th class= "col-action row-title">Actions</th>
@@ -262,8 +261,21 @@ th{
 									 %>									 
                                         <tr class="row-<%=rowid%>">
                                             <th class="id"><%=scms[k]['id']%></th>
-                                            <th class="obj"><%=scms[k]['objectType']%></th>
+                                            <th class="obj" hidden><%=scms[k]['objectType']%></th>
                                             <th class="name"><%=scms[k]['name']%></th>                                           											
+
+											<% 
+												if(scms[k]['content'].status != null) {													
+											%>
+												<th><%= scms[k]['content'].status %></th>
+											<% 
+												} else { 												
+											%>
+												<th></th>
+											<% 
+												} 
+											%>
+
 
 											<% 
 												if(scms[k]['content'].version != null) {													
@@ -302,13 +314,13 @@ th{
 											%>
 
 											<th>												
-												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"  data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Edit</button>												
+												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"  data-toggle="modal" data-target="#myModal" title="Edit or View Detail this Supply Chain Model"><i class="fa fa-pencil"></i></button>												
 											</th> 
 											<th>											
-												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i> Delete</button>												
+												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete" title="Delete this Supply Chain Model"><i class="fa fa-trash"></i></button>												
 											</th> 
 											<th>												
-												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal"><i class="fa "></i> Duplicate</button>												
+												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal" title="Duplicate this Supply Chain Model"><i class="fa fa-copy"></i></button>												
 											</th> 
                                         </tr>
                                     <% rowid++}; 
@@ -330,8 +342,12 @@ th{
 	var _locations = [];
 	var _assets = [];
 	var _products = [];
-	var _participants = [];
-	var editingSCM = undefined;
+	var _participants = [];	
+	var _scmStatusSet = [
+		{id: "Draft", name: "Draft"},
+		{id: "Published", name: "Published"},
+		{id: "Suspended", name: "Suspended"}
+	];
 
 	$( document ).ready(function() {
 		get_orgs();		
@@ -341,7 +357,11 @@ th{
 	{
 		get_objects("/supply-chain/orgs", (items) => 
 		{
-			_orgs = items;
+			_orgs.push({id : "", name : " <- please select an org. ! ->"});
+			items.forEach(function(item){
+				_orgs.push(item);
+			});			
+
 			get_parties();
 		})
 	}
@@ -580,8 +600,9 @@ th{
 		var row_id=$('#tbl-productStructure>tbody>tr.productStructure-rows').length+1;
 		var selectProductId = "selectProducts_" + row_id;
 		var html='<tr class="productStructure-rows general-'+row_id+'">';
-			html+='<th width="200px" class="co-th "> <select name="select_product" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
-			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-danger mybutton del_general"><i class="fa fa-trash"></i></button></th>';
+			html+='<th class="co-th ">' + row_id +'.</th>';
+			html+='<th class="co-th "><select name="select_product" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
+			html+='<th class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-danger mybutton del_general"><i class="fa fa-trash"></i></button></th>';
 			html+='</tr>';
 
 		$(html).insertBefore( ".end_general" );
@@ -624,8 +645,9 @@ th{
 		var row_id=$('#tbl-supplyChainStructure>tbody>tr.supplyChainStructure-rows').length+1;
 		var selectProductId = "selectParticipants_" + row_id;
 		var html='<tr class="supplyChainStructure-rows sc-'+row_id+'">';
-			html+='<th width="200px" class="co-th "> <select name="select_participants" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
-			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_sc('+row_id+')" class="btn btn-danger mybutton del_sc"><i class="fa fa-trash"></i></button></th>';
+			html+='<th class="co-th ">' + row_id +'.</th>';
+			html+='<th class="co-th "> <select name="select_participants" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
+			html+='<th class="co-th mybutton"><button type="button" onclick="del_sc('+row_id+')" class="btn btn-danger mybutton del_sc"><i class="fa fa-trash"></i></button></th>';
 			html+='</tr>';
 
 	  $(html).insertBefore( ".end_sc" );
@@ -672,6 +694,7 @@ th{
 				scstructure : [],
 				_status : "Actived"
 			};
+			scm.mode = "add";
 			return scm;
 		}		
 	}
@@ -680,31 +703,51 @@ th{
 		
 		var id=$('.row-'+$(this).attr('id')).find('.id').text();
 		get_scm(id, function(items) {
-			editingSCM = items[0];
-			editingSCM.isUpdating = true;
-			reset_ui(editingSCM);
+			var scm = items[0];
+			scm.mode = "edit";
+			reset_ui(scm);
 		} )
     });
 
+	$('.btn-duplicate').click(function(){
+		
+		var id=$('.row-'+$(this).attr('id')).find('.id').text();
+		get_scm(id, function(items) {
+			var scm = items[0];
+			scm.id = uuidv4();
+			scm.mode = "duplicate";
+			if(scm.name)
+				scm.name = "copy of " + scm.name;				
+			reset_ui(scm);
+		} )
+	});
+	
     $('#btn-addnew').click(function(){
 
 		var scm = init_scm(true);		
 		reset_ui(scm);
 	});
 
-	function reset_ui(scm)
+	function reset_ui(scm)	
 	{
+		var titleMode = (scm.mode === "edit"? " Editing " : (scm.mode === "duplicate" ? " Duplicating " : " Adding ") )
+		$( ".modal-title" ).text(titleMode + " Supply Chain Model");		
 		$('#form-post').attr('action','/supply-chain');
+
 		$( "input[name='id_item']" ).val(scm.id);
-		if(scm.isUpdating)
+
+		if(scm.mode === "edit")
 		{
 			$( "input[name='id_item']" ).prop('readonly', true);
 		}
-		$( "input[name='isUpdating']" ).val(scm.isUpdating);
+
+		$( "input[name='mode']" ).val(scm.mode);
+
+		show_items(_scmStatusSet,$( "select[name='status_item']" ));
 		if(scm.content)
 		{
 			$( "input[name='version_item']" ).val(scm.content.version);
-			$( "input[name='status_item']" ).val(scm.content.status);			
+			$( "select[name='status_item']" ).val(scm.content.status);			
 		}
 		$( "input[name='name_item']" ).val(scm.name);
 
