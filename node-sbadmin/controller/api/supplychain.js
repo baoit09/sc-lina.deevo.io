@@ -1,20 +1,60 @@
 var request = require('request');
 
+let baseURL = 'http://18.136.205.13:3000/api/v1';
+
+module.exports.schain_api001 = function(req, res) {
+
+	var id = req.param('id');
+
+	var options = {
+		  url: baseURL + '/supply-chains/' + (id === undefined ? '' : id ),
+		  method: 'GET',
+	};
+	
+	request(options, function (error, response, body) 
+	{
+		var scms = [];
+		var noneDeletedSCMS = [];
+
+		if(!error && response.statusCode == 200){
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )			{
+				scms.push(data);
+			}
+			else
+			{
+				scms = data;	
+			}			
+			scms.forEach(function(item){
+				if(item.content)
+				{
+					try {
+						item.content = JSON.parse(item.content);
+						if(item.content._status != "Deleted")
+						{
+							noneDeletedSCMS.push(item)
+						}
+					} catch(e) {}					
+				}
+				else
+				{
+					noneDeletedSCMS.push(item)
+				}
+		  	})
+			res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:"", status:0});
+		} else if(!error && response.statusCode != 200){
+
+			res.render('template/api/supplychain',{ scms:'', message: "No data found", status:2});
+
+		}else {
+
+			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
+		}
+	});
+};
+
 module.exports.schain_api002 = function(req, res) {
 	
-<<<<<<< HEAD
-		var schainid="88888";
-		var options = {
-  			url: 'http://18.136.205.13:3000/api/v1/supply-chains/'+ schainid,
-  			method: 'GET',
-		};
-		
-		request(options, function (error, response, body) {
-			if(!error){
-				res.send(body)
-			}
-     		});
-=======
 	var scm = {		
 		id: req.body.id_item,
 		name: req.body.name_item,		
@@ -140,74 +180,253 @@ module.exports.schain_api002 = function(req, res) {
 			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
 		}
 	});
->>>>>>> 9235a5fc180f20f7aada66af7a50a72db0d9c855
 };
 
-
-/* ///////////////////////// */
-
-module.exports.schain_api004 = function(req, res) {
-	
-		var schainid="88888";
-		var options = {
-  			url: 'http://18.136.205.13:3000/api/v1/supply-chains/'+ schainid +'/logs',
-  			method: 'GET',
-		};
-		
-		request(options, function (error, response, body) {
-			if(!error){
-				res.send(body)
-			}
-     		});
-};
-
-
-/* ///////////////////////// */
-
-module.exports.schain_api001 = function(req, res) {
-	
-		var parent="0692d81c-Zone AAAAA";
-		var schainid="88888";
-		var name="Grower AAAAA";
-		var options = {
-  			url: 'http://18.136.205.13:3000/api/v1/supply-chains',
-  			method: 'POST',
-			json: {
-    				parent: parent,
-    				id: schainid,
-    				name: name,
-			}
-		};
-		
-		request(options, function (error, response, body) {
-			if(!error){
-				res.send(body)
-			}
-     		});
-		
-};
 
 /* ///////////////////////// */
 
 module.exports.schain_api003 = function(req, res) {
 	
-		var name="bac";
-		var parent="0692d81c-Zone AAAAA";
-		var schainid="88888";
-		var options = {
-  			url: 'http://18.136.205.13:3000/api/v1/supply-chains/'+ schainid,
-  			method: 'PUT',
-			json: {
-    				parent: parent,
-    				name: name,
-			}
-		};
-		
-		request(options, function (error, response, body) {
-			if(!error){
-				res.send(body)
-			}
-     		});
-		
+	var scm = {
+		id: req.body.id,		
+		content : {
+			_status: req.body._status			
+		}
+	}
+
+	var options = {
+		  url: baseURL + '/supply-chains/' + scm.id,
+		  method: 'PUT',
+		json: {				
+				content: JSON.stringify(scm.content),
+		}
+	};
+
+	request(options, function (error, response, body) 
+	{
+		if(!error && response.statusCode === 200){				  
+			res.json(response.statusCode)
+		} else if(!error && response.statusCode != 200){
+			res.json()
+		}else {
+			res.json()
+		}
+	});
 };
 
+module.exports.schain_api010 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/orgs',
+		  method: 'GET',
+	};
+	
+	var orgs = [];
+
+	request(options, function (error, response, body) {
+
+		if(!error && response.statusCode == 200){
+
+			var objects = [];
+
+			var data = JSON.parse(body);
+			
+			if ( !(data instanceof Array)  )
+			{
+				orgs.push(data);
+			}
+			else
+			{
+				orgs = data;	
+			}
+
+			res.json(orgs);
+
+		} else if(!error && response.statusCode != 200){
+
+			res.json(orgs);
+
+		}else {
+
+			res.json(orgs);
+		}
+     });
+};
+
+module.exports.schain_api010 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/orgs',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200){
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);
+		}else {
+
+			res.json(orgs);
+		}
+     });
+};
+
+
+module.exports.schain_api011 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/parties',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api012 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/locations',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api013 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/assets',
+		  method: 'GET',
+	};
+	
+	var items = [];
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api014 = function(req, res) {
+
+	var options = {
+		  url: baseURL + '/products',
+		  method: 'GET',
+	};
+	
+	var items = [];
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api015 = function(req, res) {
+
+	scmID = req.query.scmID;
+	var options = {
+		  url: baseURL + '/supply-chains/' + scmID,
+		  method: 'GET',
+	};
+	
+	var items = [];
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
