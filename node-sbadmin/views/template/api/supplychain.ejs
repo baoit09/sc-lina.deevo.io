@@ -1,0 +1,796 @@
+<%layout('/layout')%> 
+
+<style>
+.select-parent{
+    width: 100%;
+}
+
+th.row-parent {
+    border-top: none !important;
+}
+
+th.co-th.mybutton {
+    padding: 0 3px;
+}
+
+.box-co{
+	border-radius: 1px; 
+}
+
+th.co-th {
+    border: none !important;
+}
+.modal-dialog{
+    width: 90%;
+}
+
+.title-group{
+    text-align: center;
+    font-size: 18px;
+}
+.group-1{
+    width: 20%;
+    padding: 5px 5px;
+    float: left;
+}
+
+.group-2 {
+    width: 80%;
+    float: left;
+    padding: 5px 5px;
+}
+
+.modal-body {
+   overflow-y: auto;
+}
+
+#myDIV  {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.table-responsive {
+    width: 100%;
+}
+.search{
+    width: 30%;
+    float: right;
+}
+.btn {
+    padding: 6px 20px;
+}
+.btn-edit{
+        padding: 6px 1px;
+        width: 60px;
+}
+textarea {
+    resize: none;
+}
+th{
+    vertical-align: middle !important;
+    font-weight: normal !important;
+}
+.row-title{
+    font-weight: bold !important;
+}
+.col-action{
+    width: 20px;
+}
+
+.btn-edit .btn-delete .btn-duplicate 
+{
+	float: left;
+}
+</style>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Supply Chain Models</h2>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>  
+    <% if ( message && status== 1 ) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>    
+    <% }%>
+    <% if ( message && status== 2 ) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>   
+    <%} %>
+    <div class="row">
+        <div class="col-lg-12">
+                    <div class="panel-body">
+                        	<div class="search">
+                                <form role="form" id="form-search" method="GET" action="/supply-chain">
+                                    <div class="form-group input-group">
+                                        <input type="text" class="form-control" name="id" value="">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+							</div>
+							
+
+							<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" id="modal-btn-no">Cancel</button>
+										<button type="button" class="btn btn-danger" id="modal-btn-yes">Delete</button>										
+									</div>
+									</div>
+								</div>
+							</div>
+
+                            <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <form role = 'form' id="form-post" method="POST" action="/supply-chain">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">Supply Chain Model</h4>
+                                                    </div>
+												<div id="myDIV">
+                                                    <div class="modal-body">
+                                                        <div class="group-1">
+                                                            <div class="form-group col-3">
+                                                                <label>UUID</label>
+                                                                <input class="form-control box-co" name="id_item" value="">
+															</div>
+															<div class="form-group col-3" style="display: none;">
+                                                                <label>UUID</label>
+                                                                <input class="form-control box-co" name="isUpdating" value="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Version</label>
+                                                                <input class="form-control box-co" name="version_item" value="">
+															</div>    
+															<div class="form-group">
+                                                                <label>Status</label>
+                                                                <input class="form-control box-co" name="status_item" value="">
+                                                            </div>    
+                                                            <div class="form-group col-3">  
+                                                                <label>Name</label>
+                                                                <input class="form-control box-co" name="name_item" value="">
+                                                            </div>
+                                                            <div class="form-group col-3">
+                                                                <label>Organization</label>
+                                                                <select class="form-control box-co" name="organization_item" value=""></select>
+                                                            </div>    
+                                                        </div>  
+                                                  <div class="group-2">
+													<div class="panel">
+															<!-- /.panel-heading -->
+														<div class="panel-body">
+															<!-- Nav tabs -->
+															<ul class="nav nav-tabs">
+																<li class="active"><a href="#productStructure" data-toggle="tab" style="font-weight: bold;">Product Structure</a>
+																</li>
+																 <li><a href="#supplyChainStructure" data-toggle="tab"  style="font-weight: bold;">Supply Chain Structure</a>
+																</li>																
+															 </ul>
+
+															<!-- Tab panes -->
+															<div class="tab-content">
+																<div class="tab-pane fade in active" id="productStructure">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-productStructure">
+																			<tbody>
+																					<tr class="end_general" style="display:none;">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
+																					</tr>
+																					<tr>
+																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->
+																						<th width="100%" class="co-th ">
+																							<select onchange="" class="form-control box-co" name="select_productToAdd" id="select_productToAdd">
+																							</select>
+																						</th>																						
+																						<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_general()" class="btn btn-success mybutton del_general"><i class="fa fa-plus"></i></button></th>
+																					</tr>																																												
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+
+																<div class="tab-pane fade" id="supplyChainStructure">
+																<div class="row show-grid">
+																<table class="table table-content" id="tbl-supplyChainStructure">
+																	<tbody>
+																			<tr class="end_sc" style="display:none;">																				
+																			</tr>
+																			<tr>																				
+																				<th width="100%" class="co-th ">
+																					<select onchange="" class="form-control box-co" name="select_participantsToAdd" id="select_participantsToAdd">
+																					</select>
+																				</th>																						
+																				<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_sc()" class="btn btn-success mybutton del_sc"><i class="fa fa-plus"></i></button></th>
+																			</tr>																																												
+																	</tbody>
+																</table>
+															</div>
+																</div>
+															</div>
+														</div>
+													</div>
+														<!-- /.panel-body -->
+													</div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                        <button type="submit" name="send" id="btnclick" class="btn btn-success">Save</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                    </form>
+									</div>   
+									             
+                    <div class="table-responsive">
+                        <table class="table mytable">                            
+                            <thead>
+                                <tr>
+                                    <th class="row-title">ID</th>
+                                    <th class="row-title">Object Type</th>
+                                    <th class="row-title">Name</th>                                    
+                                    <th class="row-title">Version</th>
+                                    <th class="row-title">Products</th>
+                                    <th class="row-title">SC-Structure</th>
+									<th class= "col-action row-title">Actions</th>
+									<th class= "col-action row-title"></th>
+									<th class= "col-action row-title"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <% 
+                                        var rowid=1 
+                                        for(var k in scms ) {												
+									 %>									 
+                                        <tr class="row-<%=rowid%>">
+                                            <th class="id"><%=scms[k]['id']%></th>
+                                            <th class="obj"><%=scms[k]['objectType']%></th>
+                                            <th class="name"><%=scms[k]['name']%></th>                                           											
+
+											<% 
+												if(scms[k]['content'].version != null) {													
+											%>
+												<th><%= scms[k]['content'].version %></th>
+											<% 
+												} else { 												
+											%>
+												<th></th>
+											<% 
+												} 
+											%>
+
+											<% 
+												if(scms[k]['content'].products != null) {													
+											%>
+												<th><%= scms[k]['content'].products.length %> product(s)</th>
+											<% 
+												} else { 												
+											%>
+												<th>0 product</th>
+											<% 
+												} 
+											%>
+											
+											<% 
+												if(scms[k]['content'].scstructure != null) {													
+											%>
+												<th><%= scms[k]['content'].scstructure.length %> participant(s)</th>
+											<% 
+												} else { 												
+											%>
+												<th>0 participant</th>
+											<% 
+												} 
+											%>
+
+											<th>												
+												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"  data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Edit</button>												
+											</th> 
+											<th>											
+												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i> Delete</button>												
+											</th> 
+											<th>												
+												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal"><i class="fa "></i> Duplicate</button>												
+											</th> 
+                                        </tr>
+                                    <% rowid++}; 
+                                    %> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+ 	</div>
+</div>
+<script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<script>    
+
+	var _scmStatusSet = ["Draft", "Activated", "Suppended"]
+	var _orgs = [];
+	var _parties = [];
+	var _locations = [];
+	var _assets = [];
+	var _products = [];
+	var _participants = [];
+	var editingSCM = undefined;
+
+	$( document ).ready(function() {
+		get_orgs();		
+	});
+
+	function get_orgs()
+	{
+		get_objects("/supply-chain/orgs", (items) => 
+		{
+			_orgs = items;
+			get_parties();
+		})
+	}
+
+	function get_parties()
+	{
+		get_objects("/supply-chain/parties", (items) => 
+		{
+			_parties = items;
+			get_locations();
+		})
+	}
+
+	function get_locations()
+	{
+		get_objects("/supply-chain/locations", (items) => 
+		{
+			_locations = items;
+			get_assets();
+		})
+	}
+
+	function get_assets()
+	{
+		get_objects("/supply-chain/assets", (items) => 
+		{
+			_assets = items;
+			get_products();
+		})
+	}
+
+	function get_products()
+	{
+		get_objects("/supply-chain/products", (items) => 
+		{
+			products_add_items(items);			
+			build_participants();
+		})
+	}
+
+	function get_scm(scmID, callback)
+	{
+		$.getJSON( "/supply-chain/scms",
+			{ scmID : scmID },
+		 	function( items ) {
+				items.forEach(function( item ) {
+					if(item.content)
+					{
+						try {
+							item.content = JSON.parse(item.content);
+						} catch(e) {}					
+					}
+				});
+			callback(items)
+		});
+	}
+
+	function get_objects(url, callback)
+	{
+		$.getJSON( url, function( items ) {
+			items.forEach(function( item ) {
+				if(item.content)
+				{
+					try {
+						item.content = JSON.parse(item.content);
+					} catch(e) {}					
+				}
+			});
+			callback(items)
+		});
+	}
+
+	function build_participants()
+	{
+		_participants = [];
+		_participants.push({id: "", name: "<- please select a participant! ->", isAdded: false});
+		_parties.forEach(function( party ) {
+			_participants.push(party);
+			_locations.forEach(function( loc ) {
+				if(loc.parent === party.id)
+				{
+					loc.name = "&nbsp;&nbsp;&nbsp" + loc.name;
+					_participants.push(loc);					
+					_assets.forEach(function( asset ) {
+						if(asset.parent === loc.id)
+						{
+							asset.name = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + asset.name;
+							_participants.push(asset);
+						}
+					});			
+				}
+				
+			});		
+		});
+
+		_participants.forEach(function(item){
+			item.isAdded = false;
+		});
+	}
+
+	function products_add_items(products)
+	{
+		_products.push({id : "", name : " <- please select a product ! ->", isAdded : false});    		
+		if(products && products.length > 0)
+		{
+			for (i = 0; i < products.length; i++) {
+				products[i].isAdded = false;
+				_products.push(products[i]);    		
+			}
+		}
+
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function products_remove_items(products)
+	{
+		if(products && products.length > 0)
+		{
+			for (i = 0; i < products.length; i++) {
+				var index = products_find_item(products[i]);
+				if(index > -1)
+				{
+					_products.splice(index, 1);
+				}
+			}
+		}
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function products_markAsAdded_items(product)
+	{
+		var index = find_item(product, _products);				
+		if(index > -1)
+		{
+			_products[index].isAdded = true;				
+		}
+		
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function participants_markAsAdded_items(itemID)
+	{
+		var index = find_item(itemID, _participants);				
+		if(index > -1)
+		{
+			_participants[index].isAdded = true;				
+		}
+		
+		show_items(_participants, $("#select_participantsToAdd"));
+	}
+
+	function products_markAsUnAdded_items(product)
+	{
+		if(product)
+		{
+			var index = find_item(product, _products);				
+			if(index > 0)
+			{
+				_products[index].isAdded = false;				
+			}
+		}
+		else
+		{
+			_products.forEach(function(item){
+				item.isAdded = false;
+			});
+		}
+		
+		show_items(_products, $("#select_productToAdd"));
+	}
+
+	function participants_markAsUnAdded_items(itemID)
+	{
+		if(itemID)
+		{
+			var index = find_item(itemID, _participants);				
+			if(index > 0)
+			{
+				_participants[index].isAdded = false;				
+			}
+		}
+		else
+		{
+			_participants.forEach(function(item){
+				item.isAdded = false;
+			});
+		}
+		
+		show_items(_participants, $("#select_participantsToAdd"));
+	}
+
+	function find_item(itemID, items)
+	{
+		if(itemID && items)
+		{
+			for (i = 0; i < items.length; i++) {
+				if(items[i].id === itemID)
+				{
+					return i;
+				}
+			}
+		}
+
+		return -1;
+	}
+
+	function show_items(items, select, isShowAll){
+		select.empty();
+		for (i = 0; i < items.length; i++) {
+			if(isShowAll || items[i].isAdded === undefined || items[i].isAdded === false)
+			{
+				select.append('<option value=\"' + items[i].id + '\">' + items[i].name + '</option>')
+			}
+  		}
+	}
+
+
+	function remote_product(product)
+	{
+		var index = products.indexOf(product);
+		if (index !== -1) products.splice(index, 1);
+	}
+
+	function insert_general(product){
+	
+		var selectedProduct = product;
+		if(!selectedProduct)
+		{ 
+			var selecteProductToAddEle = $('#select_productToAdd');
+			selectedProduct = selecteProductToAddEle.val();				
+		}
+
+		if(selectedProduct === "")
+			return;
+
+		var row_id=$('#tbl-productStructure>tbody>tr.productStructure-rows').length+1;
+		var selectProductId = "selectProducts_" + row_id;
+		var html='<tr class="productStructure-rows general-'+row_id+'">';
+			html+='<th width="200px" class="co-th "> <select name="select_product" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
+			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-danger mybutton del_general"><i class="fa fa-trash"></i></button></th>';
+			html+='</tr>';
+
+		$(html).insertBefore( ".end_general" );
+		show_items(_products, $('#'+ selectProductId), true);
+		$('#'+ selectProductId).val(selectedProduct);
+
+		products_markAsAdded_items(selectedProduct);	  
+	};
+		
+	function del_general(id){
+		
+	  var i=1;
+
+	  var removedProduct = $('#selectProducts_'+ id).val();
+
+	  $('.general-'+id).remove();
+
+	  $('#tbl-general>tbody>tr.general-rows').each(function(){
+		var z=i++;
+		$(this).attr('class','general-rows general-'+z);
+		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
+	  });
+	  
+	  products_markAsUnAdded_items(removedProduct);	  
+	};
+
+	function insert_sc(participantID){
+	
+		var itemID = participantID;
+
+		if(!itemID)
+		{
+			var selecteProductToAddEle = $('#select_participantsToAdd');
+			itemID = selecteProductToAddEle.val();	
+		}
+
+		if(itemID === "")
+			return;
+
+		var row_id=$('#tbl-supplyChainStructure>tbody>tr.supplyChainStructure-rows').length+1;
+		var selectProductId = "selectParticipants_" + row_id;
+		var html='<tr class="supplyChainStructure-rows sc-'+row_id+'">';
+			html+='<th width="200px" class="co-th "> <select name="select_participants" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';			
+			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_sc('+row_id+')" class="btn btn-danger mybutton del_sc"><i class="fa fa-trash"></i></button></th>';
+			html+='</tr>';
+
+	  $(html).insertBefore( ".end_sc" );
+	  show_items(_participants, $('#'+ selectProductId), true);
+	  $('#'+ selectProductId).val(itemID);
+
+	  participants_markAsAdded_items(itemID);	  
+	};
+
+	function del_sc(id){
+		
+	  var i=1;
+
+	  var removedProduct = $('#selectParticipants_'+ id).val();
+
+	  $('.sc-'+id).remove();
+
+	  $('#tbl-supplyChainStructure>tbody>tr.sc-rows').each(function(){
+		var z=i++;
+		$(this).attr('class','sc-rows sc-'+z);
+		$(this).find('.del_sc').attr('onclick','del_sc('+(z)+')');
+	  });
+	  
+	  participants_markAsUnAdded_items(removedProduct);	  
+	};
+
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
+
+	function init_scm(isNew)
+	{	
+		if(isNew === true)
+		{
+			var scm = {
+				id : uuidv4(),
+				version : "0.1",
+				status : "Draft",
+				name : "supply chain model 1",
+				products : [],
+				scstructure : [],
+				_status : "Actived"
+			};
+			return scm;
+		}		
+	}
+
+	$('.btn-edit').click(function(){
+		
+		var id=$('.row-'+$(this).attr('id')).find('.id').text();
+		get_scm(id, function(items) {
+			editingSCM = items[0];
+			editingSCM.isUpdating = true;
+			reset_ui(editingSCM);
+		} )
+    });
+
+    $('#btn-addnew').click(function(){
+
+		var scm = init_scm(true);		
+		reset_ui(scm);
+	});
+
+	function reset_ui(scm)
+	{
+		$('#form-post').attr('action','/supply-chain');
+		$( "input[name='id_item']" ).val(scm.id);
+		if(scm.isUpdating)
+		{
+			$( "input[name='id_item']" ).prop('readonly', true);
+		}
+		$( "input[name='isUpdating']" ).val(scm.isUpdating);
+		if(scm.content)
+		{
+			$( "input[name='version_item']" ).val(scm.content.version);
+			$( "input[name='status_item']" ).val(scm.content.status);			
+		}
+		$( "input[name='name_item']" ).val(scm.name);
+
+		products_markAsUnAdded_items();
+		$(".productStructure-rows").remove();
+		
+		participants_markAsUnAdded_items();
+		$(".supplyChainStructure-rows").remove();
+		
+		show_items(_orgs,$( "select[name='organization_item']" ));
+		if(scm.content)
+		{
+			$( "select[name='organization_item']" ).val(scm.content.parent);
+		}
+
+		generate_products(scm);
+		generate_participants(scm);
+
+		show_items(_products,$( "select[name='select_productToAdd']" ));		
+		show_items(_participants,$( "select[name='select_participantsToAdd']" ));		
+	}
+
+	function generate_products(scm)
+	{
+		
+		if(scm && scm.content && scm.content.products && scm.content.products.length > 0)
+		{
+			scm.content.products.forEach(function(item){
+				insert_general(item);
+			})
+		}
+	}
+
+	function generate_participants(scm)
+	{
+		if(scm && scm.content && scm.content.scstructure && scm.content.scstructure.length > 0)
+		{
+			scm.content.scstructure.forEach(function(item){
+				insert_sc(item);
+			})
+		}
+	}
+
+	$('.btn-delete').click(function(){
+		id_to_del=$('.row-'+$(this).attr('id')).find('.id').text();
+		var name=$('.row-'+$(this).attr('id')).find('.name').text();
+		
+		var confirm = "Are you sure you want to delete Supply Chain Mode [ " + id_to_del + " - " + name + "]?"; 
+		$("#myModalLabel").html(confirm);
+		$("#mi-modal").modal('show');
+	});
+
+	$("#modal-btn-yes").on("click", function(){
+		callbackConfirm(true);
+		$("#mi-modal").modal('hide');
+	  });
+	  
+	$("#modal-btn-no").on("click", function(){
+		callbackConfirm(false);
+		$("#mi-modal").modal('hide');
+	});
+
+	var id_to_del;
+	function callbackConfirm(confirmed)
+	{
+		var id=$('.row-'+$(this).attr('id')).find('.id').text();
+
+		if(confirmed){
+			$.ajax({
+				url: '/supply-chain/',
+				type: 'PUT',
+				data : {
+					id: id_to_del,
+					_status: "Deleted"
+				},
+				success: function(result) {
+					// Do something with the result\
+					if(result === 200)
+					{
+						$("#btn-search").click();
+					}
+				}
+			});			
+		}
+		else{						
+		}
+	};
+
+</script>
