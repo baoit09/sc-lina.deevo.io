@@ -44,7 +44,7 @@ module.exports.schain_api001 = function(req, res) {
 			res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:"", status:0});
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ scms:'', message: "Không tìm thấy yêu cầu !!!", status:2});
+			res.render('template/api/supplychain',{ scms:'', message: "No data found", status:2});
 
 		}else {
 
@@ -55,30 +55,77 @@ module.exports.schain_api001 = function(req, res) {
 
 module.exports.schain_api002 = function(req, res) {
 	
-	var scm = {
-		org: req.body.organization_item,		
+	var scm = {		
 		id: req.body.id_item,
 		name: req.body.name_item,		
 		objectType: "supplychain",
 		content : {
+			parent : req.body.organization_item,
 			version: req.body.version_item,
 			status: req.body.status_item,
-			products: req.body.select_product,
-			scstructure: req.body.select_participants
+			products: [],
+			scstructure: []
 		}
 	}
 
-	var options = {
-		  url: baseURL + '/supply-chains/',
-		  method: 'POST',
-		json: {
-				parent: scm.org,
-				id: scm.id,
-				name: scm.name,
-				objectType: scm.objectType,				
-				content: JSON.stringify(scm.content),
+	// set products list
+	if(req.body.select_product )
+	{
+		if(req.body.select_product instanceof Array)
+		{
+			req.body.select_product.forEach(function(item){
+				scm.content.products.push(item);
+			})			
 		}
-	};
+		else
+		{
+			scm.content.products.push(req.body.select_product);
+		}
+	}
+
+	// set participants list
+	if(req.body.select_participants)
+	{
+		if(req.body.select_participants instanceof Array)
+		{
+			req.body.select_participants.forEach(function(item){
+				scm.content.scstructure.push(item);
+			})			
+		}
+		else
+		{
+			scm.content.scstructure.push(req.body.select_participants)
+		}
+	}			
+
+	let isUpdating = req.body.isUpdating;
+
+	var options = {};
+	if(isUpdating === "true")
+	{
+		options = {
+			url: baseURL + '/supply-chains/' + scm.id,
+			method: 'PUT',
+		  	json: {	
+				  name: scm.name,				  
+				  content: JSON.stringify(scm.content),
+			}
+		};
+	}
+	else	
+	{
+		options = {
+			url: baseURL + '/supply-chains/',
+			method: 'POST',
+			json: {				
+					id: scm.id,
+					name: scm.name,
+					objectType: scm.objectType,				
+					content: JSON.stringify(scm.content),
+			}
+		};	
+	}
+	
 
 	request(options, function (error, response, body) 
 	{
@@ -118,13 +165,15 @@ module.exports.schain_api002 = function(req, res) {
 						noneDeletedSCMS.push(item)
 					}
 				  })
-				  res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:"Successfuly added a new Supply chain model [ " + scm.name + " ]", status:1});
+
+				  var message = "Successfuly" + (isUpdating === true? " added " : " updated ") + "a Supply chain model [ " + scm.name + " ]";
+				  res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:message, status:1});
 			  } 
 		  });			
 
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ scms:'', message: "Failed to add new Supply chain model", status:2});
+			res.render('template/api/supplychain',{ scms:'', message: "Failed to add or update Supply chain model", status:2});
 
 		}else {
 			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
@@ -326,6 +375,36 @@ module.exports.schain_api014 = function(req, res) {
 
 	var options = {
 		  url: baseURL + '/products',
+		  method: 'GET',
+	};
+	
+	var items = [];
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode == 200)
+		{
+			var data = JSON.parse(body);			
+			if ( !(data instanceof Array)  )
+			{
+				items.push(data);
+			}
+			else
+			{
+				items = data;	
+			}
+			res.json(items);		
+		}
+		else
+		{
+			res.json(items);		
+		}
+     });
+};
+
+module.exports.schain_api015 = function(req, res) {
+
+	scmID = req.query.scmID;
+	var options = {
+		  url: baseURL + '/supply-chains/' + scmID,
 		  method: 'GET',
 	};
 	

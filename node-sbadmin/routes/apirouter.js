@@ -64,9 +64,11 @@ module.exports = function(app) {
 		.get(schain.schain_api013);
 	app.route('/supply-chain/products')
 		.get(schain.schain_api014);
+	app.route('/supply-chain/scms')
+		.get(schain.schain_api015);
 
-	app.route('/supply-chain/action/:schainid/logs')
-		.get(schain.schain_api004);
+	// app.route('/supply-chain/action/:schainid/logs')
+	// 	.get(schain.schain_api004);
 
 	app.route('/log')
 		.get(log.log_api002)

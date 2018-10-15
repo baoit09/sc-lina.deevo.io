@@ -147,6 +147,10 @@ th{
                                                             <div class="form-group col-3">
                                                                 <label>UUID</label>
                                                                 <input class="form-control box-co" name="id_item" value="">
+															</div>
+															<div class="form-group col-3" style="display: none;">
+                                                                <label>UUID</label>
+                                                                <input class="form-control box-co" name="isUpdating" value="">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Version</label>
@@ -298,13 +302,13 @@ th{
 											%>
 
 											<th>												
-												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>												
+												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"  data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Edit</button>												
 											</th> 
 											<th>											
 												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete"><i class="fa fa-trash"></i> Delete</button>												
 											</th> 
 											<th>												
-												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"><i class="fa "></i> Duplicate</button>												
+												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal"><i class="fa "></i> Duplicate</button>												
 											</th> 
                                         </tr>
                                     <% rowid++}; 
@@ -327,13 +331,10 @@ th{
 	var _assets = [];
 	var _products = [];
 	var _participants = [];
+	var editingSCM = undefined;
 
 	$( document ).ready(function() {
 		get_orgs();		
-		get_parties();
-		get_locations();
-		get_assets();
-		get_products();
 	});
 
 	function get_orgs()
@@ -341,6 +342,7 @@ th{
 		get_objects("/supply-chain/orgs", (items) => 
 		{
 			_orgs = items;
+			get_parties();
 		})
 	}
 
@@ -349,6 +351,7 @@ th{
 		get_objects("/supply-chain/parties", (items) => 
 		{
 			_parties = items;
+			get_locations();
 		})
 	}
 
@@ -357,6 +360,7 @@ th{
 		get_objects("/supply-chain/locations", (items) => 
 		{
 			_locations = items;
+			get_assets();
 		})
 	}
 
@@ -365,6 +369,7 @@ th{
 		get_objects("/supply-chain/assets", (items) => 
 		{
 			_assets = items;
+			get_products();
 		})
 	}
 
@@ -372,8 +377,26 @@ th{
 	{
 		get_objects("/supply-chain/products", (items) => 
 		{
-			products_add_items(items);
+			products_add_items(items);			
+			build_participants();
 		})
+	}
+
+	function get_scm(scmID, callback)
+	{
+		$.getJSON( "/supply-chain/scms",
+			{ scmID : scmID },
+		 	function( items ) {
+				items.forEach(function( item ) {
+					if(item.content)
+					{
+						try {
+							item.content = JSON.parse(item.content);
+						} catch(e) {}					
+					}
+				});
+			callback(items)
+		});
 	}
 
 	function get_objects(url, callback)
@@ -400,12 +423,12 @@ th{
 			_locations.forEach(function( loc ) {
 				if(loc.parent === party.id)
 				{
-					loc.name = "&nbsp;&nbsp;&nbsp;&nbsp;" + loc.name;
+					loc.name = "&nbsp;&nbsp;&nbsp" + loc.name;
 					_participants.push(loc);					
 					_assets.forEach(function( asset ) {
 						if(asset.parent === loc.id)
 						{
-							asset.name = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + asset.name;
+							asset.name = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + asset.name;
 							_participants.push(asset);
 						}
 					});			
@@ -472,10 +495,19 @@ th{
 
 	function products_markAsUnAdded_items(product)
 	{
-		var index = find_item(product, _products);				
-		if(index > 0)
+		if(product)
 		{
-			_products[index].isAdded = false;				
+			var index = find_item(product, _products);				
+			if(index > 0)
+			{
+				_products[index].isAdded = false;				
+			}
+		}
+		else
+		{
+			_products.forEach(function(item){
+				item.isAdded = false;
+			});
 		}
 		
 		show_items(_products, $("#select_productToAdd"));
@@ -483,10 +515,19 @@ th{
 
 	function participants_markAsUnAdded_items(itemID)
 	{
-		var index = find_item(itemID, _participants);				
-		if(index > 0)
+		if(itemID)
 		{
-			_participants[index].isAdded = false;				
+			var index = find_item(itemID, _participants);				
+			if(index > 0)
+			{
+				_participants[index].isAdded = false;				
+			}
+		}
+		else
+		{
+			_participants.forEach(function(item){
+				item.isAdded = false;
+			});
 		}
 		
 		show_items(_participants, $("#select_participantsToAdd"));
@@ -524,10 +565,14 @@ th{
 		if (index !== -1) products.splice(index, 1);
 	}
 
-	function insert_general(){
+	function insert_general(product){
 	
-		var selecteProductToAddEle = $('#select_productToAdd');
-		var selectedProduct = selecteProductToAddEle.val();	
+		var selectedProduct = product;
+		if(!selectedProduct)
+		{ 
+			var selecteProductToAddEle = $('#select_productToAdd');
+			selectedProduct = selecteProductToAddEle.val();				
+		}
 
 		if(selectedProduct === "")
 			return;
@@ -539,11 +584,11 @@ th{
 			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-danger mybutton del_general"><i class="fa fa-trash"></i></button></th>';
 			html+='</tr>';
 
-	  $(html).insertBefore( ".end_general" );
-	  show_items(_products, $('#'+ selectProductId), true);
-	  $('#'+ selectProductId).val(selectedProduct);
+		$(html).insertBefore( ".end_general" );
+		show_items(_products, $('#'+ selectProductId), true);
+		$('#'+ selectProductId).val(selectedProduct);
 
-	  products_markAsAdded_items(selectedProduct);	  
+		products_markAsAdded_items(selectedProduct);	  
 	};
 		
 	function del_general(id){
@@ -563,10 +608,15 @@ th{
 	  products_markAsUnAdded_items(removedProduct);	  
 	};
 
-	function insert_sc(){
+	function insert_sc(participantID){
 	
-		var selecteProductToAddEle = $('#select_participantsToAdd');
-		var itemID = selecteProductToAddEle.val();	
+		var itemID = participantID;
+
+		if(!itemID)
+		{
+			var selecteProductToAddEle = $('#select_participantsToAdd');
+			itemID = selecteProductToAddEle.val();	
+		}
 
 		if(itemID === "")
 			return;
@@ -623,76 +673,22 @@ th{
 				_status : "Actived"
 			};
 			return scm;
-		}
-		else
-		{
-
-		}
+		}		
 	}
 
 	$('.btn-edit').click(function(){
 		
-        var id=$('.row-'+$(this).attr('id')).find('.id').text();
-        var name=$('.row-'+$(this).attr('id')).find('.name').text();
-        var obj=$('.row-'+$(this).attr('id')).find('.obj').text();
-        var parent=$('.row-'+$(this).attr('id')).find('.parent').text();
-		var content=$('.row-'+$(this).attr('id')).find('.content').text();
-		var parseJS=JSON.parse(content);
-		var objcontent=JSON.parse(parseJS);
-		
-		$("#myModal").modal();
-        $('#form-post').attr('action','/organization/action?_method=put');
-		
-        $( "input[name='id_item']" ).val(id);
-        $( "input[name='name_item']" ).val(name);
-        $( "input[name='type_item']" ).val(obj);
-        $( "input[name='parent_item']" ).val(parent);
-
-		var cont=objcontent['Contact'];
-			$('#contact_name').val(cont['Full-Name']);
-			$('#contact_email').val(cont['Email']);
-			$('#contact_phone').val(cont['Phone']);
-			$('#contact_role').val(cont['Role']);
-			$('#contact_account').val(cont['DEEVO-Account']);
-	
-	
-		var add=objcontent['Address'];
-			$('#address_house').val(add['House']);
-			$('#address_street').val(add['Street']);
-			$('#address_ward').val(add['Ward']);
-			$('#address_district').val(add['District']);
-			$('#address_city').val(add['City']);
-			$('#address_country').val(add['Country-Code']);
-
-		var locat=objcontent['Location'];
-			$('#location_longitude').val(locat['Longitude']);
-			$('#location_latitude').val(locat['Latitude']);
-			
-			$('#general_GLN').val(objcontent['GS1 GLN']);
-			$('#general_GSIN').val(objcontent['GS1 GSIN']);
-			$('#general_SSCC').val(objcontent['GS1 SSCC']);
-			$('#general_GTIN').val(objcontent['GS1 GTIN']);
-			$('#general_GINC').val(objcontent['GS1 GINC']);
-			$('#general_GRAI').val(objcontent['GS1 GRAI']);
-			$('#general_GIAI').val(objcontent['GS1 GIAI']);
-			$('#general_GSRN').val(objcontent['GS1 GSRN']);
-			$('#general_GDTI').val(objcontent['GS1 GDTI']);
-			$('#general_GCN').val(objcontent['GS1 GCN']);
-			$('#general_CPID').val(objcontent['GS1 CPID']);
-			$('#general_Country').val(objcontent['Country']);
-			$('#general_Prefix').val(objcontent['GS1 Prefix']);
-			$('#general_Phone').val(objcontent['Phone']);
-			$('#general_Fax').val(objcontent['Fax']);
-			$('#general_Email').val(objcontent['Email']);
-			$('#general_Website').val(objcontent['Website']);
-			$('#general_BSCountry').val(objcontent['Business Country']);
-
+		var id=$('.row-'+$(this).attr('id')).find('.id').text();
+		get_scm(id, function(items) {
+			editingSCM = items[0];
+			editingSCM.isUpdating = true;
+			reset_ui(editingSCM);
+		} )
     });
 
     $('#btn-addnew').click(function(){
 
-		var scm = init_scm(true);
-		build_participants();
+		var scm = init_scm(true);		
 		reset_ui(scm);
 	});
 
@@ -700,13 +696,56 @@ th{
 	{
 		$('#form-post').attr('action','/supply-chain');
 		$( "input[name='id_item']" ).val(scm.id);
-		$( "input[name='version_item']" ).val(scm.version);
-		$( "input[name='status_item']" ).val(scm.status);
+		if(scm.isUpdating)
+		{
+			$( "input[name='id_item']" ).prop('readonly', true);
+		}
+		$( "input[name='isUpdating']" ).val(scm.isUpdating);
+		if(scm.content)
+		{
+			$( "input[name='version_item']" ).val(scm.content.version);
+			$( "input[name='status_item']" ).val(scm.content.status);			
+		}
 		$( "input[name='name_item']" ).val(scm.name);
 
+		products_markAsUnAdded_items();
+		$(".productStructure-rows").remove();
+		
+		participants_markAsUnAdded_items();
+		$(".supplyChainStructure-rows").remove();
+		
 		show_items(_orgs,$( "select[name='organization_item']" ));
-		show_items(_products,$( "select[name='select_productToAdd']" ));
+		if(scm.content)
+		{
+			$( "select[name='organization_item']" ).val(scm.content.parent);
+		}
+
+		generate_products(scm);
+		generate_participants(scm);
+
+		show_items(_products,$( "select[name='select_productToAdd']" ));		
 		show_items(_participants,$( "select[name='select_participantsToAdd']" ));		
+	}
+
+	function generate_products(scm)
+	{
+		
+		if(scm && scm.content && scm.content.products && scm.content.products.length > 0)
+		{
+			scm.content.products.forEach(function(item){
+				insert_general(item);
+			})
+		}
+	}
+
+	function generate_participants(scm)
+	{
+		if(scm && scm.content && scm.content.scstructure && scm.content.scstructure.length > 0)
+		{
+			scm.content.scstructure.forEach(function(item){
+				insert_sc(item);
+			})
+		}
 	}
 
 	$('.btn-delete').click(function(){
