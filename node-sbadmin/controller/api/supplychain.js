@@ -98,10 +98,10 @@ module.exports.schain_api002 = function(req, res) {
 		}
 	}			
 
-	let isUpdating = req.body.isUpdating;
+	let mode = req.body.mode;
 
 	var options = {};
-	if(isUpdating === "true")
+	if(mode === "edit")
 	{
 		options = {
 			url: baseURL + '/supply-chains/' + scm.id,
@@ -112,7 +112,7 @@ module.exports.schain_api002 = function(req, res) {
 			}
 		};
 	}
-	else	
+	else // mode = ["new", "duplicate"]	
 	{
 		options = {
 			url: baseURL + '/supply-chains/',
@@ -166,7 +166,8 @@ module.exports.schain_api002 = function(req, res) {
 					}
 				  })
 
-				  var message = "Successfuly" + (isUpdating === true? " added " : " updated ") + "a Supply chain model [ " + scm.name + " ]";
+				  var message = "Successfuly" + (mode === "edit"? " updated " : (mode === "duplicate" ? " duplicated " : " added ") ) 
+				  				+ "a Supply chain model [ " + scm.name + " ]";
 				  res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:message, status:1});
 			  } 
 		  });			

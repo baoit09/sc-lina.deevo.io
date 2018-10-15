@@ -150,7 +150,7 @@ th{
 															</div>
 															<div class="form-group col-3" style="display: none;">
                                                                 <label>UUID</label>
-                                                                <input class="form-control box-co" name="isUpdating" value="">
+                                                                <input class="form-control box-co" name="mode" value="">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Version</label>
@@ -330,8 +330,7 @@ th{
 	var _locations = [];
 	var _assets = [];
 	var _products = [];
-	var _participants = [];
-	var editingSCM = undefined;
+	var _participants = [];	
 
 	$( document ).ready(function() {
 		get_orgs();		
@@ -672,6 +671,7 @@ th{
 				scstructure : [],
 				_status : "Actived"
 			};
+			scm.mode = "add";
 			return scm;
 		}		
 	}
@@ -680,27 +680,43 @@ th{
 		
 		var id=$('.row-'+$(this).attr('id')).find('.id').text();
 		get_scm(id, function(items) {
-			editingSCM = items[0];
-			editingSCM.isUpdating = true;
-			reset_ui(editingSCM);
+			var scm = items[0];
+			scm.mode = "edit";
+			reset_ui(scm);
 		} )
     });
 
+	$('.btn-duplicate').click(function(){
+		
+		var id=$('.row-'+$(this).attr('id')).find('.id').text();
+		get_scm(id, function(items) {
+			var scm = items[0];
+			scm.id = uuidv4();
+			scm.mode = "duplicate";
+			if(scm.name)
+				scm.name = "copy of " + scm.name;				
+			reset_ui(scm);
+		} )
+	});
+	
     $('#btn-addnew').click(function(){
 
 		var scm = init_scm(true);		
 		reset_ui(scm);
 	});
 
-	function reset_ui(scm)
+	function reset_ui(scm)	
 	{
+		var titleMode = (scm.mode === "edit"? " Editing " : (scm.mode === "duplicate" ? " Duplicating " : " Adding ") )
+		$( ".modal-title" ).text(titleMode + " Supply Chain Model");
+		
 		$('#form-post').attr('action','/supply-chain');
 		$( "input[name='id_item']" ).val(scm.id);
-		if(scm.isUpdating)
+		if(scm.mode === "edit")
 		{
 			$( "input[name='id_item']" ).prop('readonly', true);
 		}
-		$( "input[name='isUpdating']" ).val(scm.isUpdating);
+		$( "input[name='mode']" ).val(scm.mode);
 		if(scm.content)
 		{
 			$( "input[name='version_item']" ).val(scm.content.version);
