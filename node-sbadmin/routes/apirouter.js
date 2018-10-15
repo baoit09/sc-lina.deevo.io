@@ -67,12 +67,22 @@ module.exports = function(app) {
 
 
 	app.route('/supply-chain')
-		.get(schain.schain_api002)
-		.post(schain.schain_api001)
+		.get(schain.schain_api001)
+		.post(schain.schain_api002)
 		.put(schain.schain_api003);
 
-	app.route('/supply-chain/:schainid/logs')
-		.get(schain.schain_api004);
+	app.route('/supply-chain/orgs')
+		.get(schain.schain_api010);
+	app.route('/supply-chain/parties')
+		.get(schain.schain_api011);
+	app.route('/supply-chain/locations')
+		.get(schain.schain_api012);
+	app.route('/supply-chain/assets')
+		.get(schain.schain_api013);
+	app.route('/supply-chain/products')
+		.get(schain.schain_api014);
+	app.route('/supply-chain/scms')
+		.get(schain.schain_api015);
 
 	app.route('/log/action')
 		.get(log.log_api002)
