@@ -86,7 +86,7 @@ module.exports.schain_api002 = function(req, res) {
 	// set participants list
 	if(req.body.select_participants)
 	{
-		if(req.body.select_participants instanceof Array)
+		if(req.cvody.select_participants instanceof Array)
 		{
 			req.body.select_participants.forEach(function(item){
 				scm.content.scstructure.push(item);
@@ -107,7 +107,7 @@ module.exports.schain_api002 = function(req, res) {
 			url: baseURL + '/supply-chains/' + scm.id,
 			method: 'PUT',
 		  	json: {	
-				  name: scm.name,				  
+				  name: scm.name,
 				  content: JSON.stringify(scm.content),
 			}
 		};
