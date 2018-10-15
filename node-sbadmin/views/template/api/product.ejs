@@ -1,0 +1,395 @@
+<%layout('/layout')%> 
+
+<style>
+
+.mytable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+/* Column widths are based on these cells */
+.td-id {
+  width: 10%;
+}
+.td-name {
+  width: 15%;
+}
+.td-obj {
+  width: 10%;
+}
+.td-parent {
+  width: 10%;
+}
+.td-content {
+  width: 48%;
+}
+.td-action {
+  width: 7%;
+}
+.mytable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mytable td,
+.mytable th {
+  text-align: left;
+  padding: 5px 10px;
+  white-space: initial;
+  word-wrap:break-word;
+}
+
+
+.select-parent{
+    width: 100%;
+}
+.orgid_key{
+    float: right;
+    width: 60%;
+	padding-left: 3px;
+}
+
+th.co-th.mybutton {
+    padding: 0 3px;
+}
+
+.box-co{
+	border-radius: 1px; 
+}
+
+th.co-th {
+    border: none !important;
+}
+.modal-dialog{
+    width: 90%;
+}
+
+.title-group{
+    text-align: center;
+    font-size: 18px;
+}
+.group-1{
+    width: 20%;
+    padding: 5px 5px;
+    float: left;
+}
+
+.group-2 {
+    width: 80%;
+    float: left;
+    padding: 5px 5px;
+}
+
+.modal-body {
+   overflow-y: auto;
+}
+
+#myDIV  {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.table-responsive {
+    width: 100%;
+}
+select.form-control.type_search{
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+.type_search {
+    display: block;
+    width: 40%;    
+
+}
+.search{
+    width: 50%;
+    float: right;
+}
+.btn {
+    padding: 6px 20px;
+}
+.btn-edit{
+        padding: 6px 1px;
+        width: 60px;
+}
+textarea {
+    resize: none;
+}
+th{
+    vertical-align: middle !important;
+    font-weight: normal !important;
+}
+.row-title{
+    font-weight: bold !important;
+}
+.col-action{
+    width: 20px;
+}
+</style>
+
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">PRODUCT</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>  
+    <% if ( message && status== 1 ) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>    
+    <% }%>
+    <% if ( message && status== 2 ) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>   
+    <%} %>
+    <div class="row">
+        <div class="col-lg-12">
+                    <div class="panel-body">
+                        	<div class="search">
+                                <form role="form" id="form-search" method="GET" action="/product/action">
+                                    <div class="form-group input-group">
+										<div class="group-search">
+											<div class="input-group-btn type_search">
+												<select  class="form-control type_search" id="type_search" name="type_search">
+												  <option value="0">Product</option>
+												  <option value="1">Logs</option>
+												</select>
+											</div>
+											<div class="input-group-btn orgid_key">
+												<input type="text" class="form-control orgid_key" name="orgid_key" value="">
+											</div>
+										</div>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" id="btn-search" type="button" name="search_id"><i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">                                   
+										<div class="modal-dialog">
+										
+										</div>
+                                    </div>                
+                    <div class="table-responsive">
+                        <table class="table mytable">
+                            
+                            <thead>
+								<tr>
+									<th class="row-title td-id" >ID</th>
+									<th class="row-title td-name" >Name</th>
+									<th class="row-title td-obj" >Object Type</th>
+									<th class="row-title td-parent">Parent</th>
+									<th class="row-title td-content">Content</th>
+									<th class= "td-action row-title">Action</th>
+								</tr>
+                            </thead>
+                            <tbody>
+
+									<% 
+									var rowid=1 
+									for(var k in data ) {
+								 %>
+									<tr class="row-<%=rowid%>">
+										<th class= "row-id"><%=data[k]['id']%></th>
+										<th class= "row-name"><%=data[k]['name']%></th>
+										<th class= "row-obj"><%=data[k]['objectType']%></th>
+										<th class= "row-parent"><%=data[k]['parent']%></th>
+										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
+										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Edit</button></th> 
+									</tr>
+								<% rowid++}; 
+								%> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+ 	</div>
+</div>
+<script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<script>    
+
+	$('#btn-search').click(function(){
+		var keyseach=  $( "input[name='orgid_key']" ).val();
+		var valueseach=  $( "select[name='type_search']" ).val();
+		if(valueseach==1){
+			$.ajax({
+				url:'/products/ajaxlogs',
+				type: "POST",
+				data:{
+					keyseach:keyseach
+				},
+				success:function(response){
+					$("#myModal").modal()
+					$('.modal-dialog').html(response);
+				},
+				error:function(error){
+					console.log(error);
+				}
+			});
+		}else{
+			$('#form-search').submit()
+		}
+	});
+	
+	$('.btn-edit').click(function(){
+		
+		var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
+        var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
+        var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
+		var content=$('.row-'+$(this).attr('id')).find('.row-content').text();
+		var parseJS=JSON.parse(content);
+		var objcontent=JSON.parse(parseJS);
+		
+		$.ajax({
+			url:"/product/ajaxproduct",
+			type: "POST",
+			data:{
+				action:"/product/action?_method=put",
+				id:id,
+				name:name,
+				parent:parent,
+				content:JSON.stringify(objcontent)
+			},
+			success:function(response){
+				$('.modal-dialog').html(response);
+			},
+			error:function(error){
+				console.log(error)
+			}
+		})
+
+    });
+
+    $('#btn-addnew').click(function(){
+		
+				var data={
+					"GS1 GLN":"",
+					"GS1 GSIN":"",
+					"GS1 SSCC":"",
+					"GS1 GTIN":"",
+					"GS1 GINC":"",
+					"GS1 GRAI":"",
+					"GS1 GIAI":"",
+					"GS1 GSRN":"",
+					"GS1 GDTI":"",
+					"GS1 GCN":"",
+					"GS1 CPID":"",
+					"Scientific Name":"",
+					"Quantity":"",
+					"Weight":"",
+					"Price":"",
+					"Destination":"",
+					"Reference Size":"",
+					"Source Zone":"",
+					"Source Date":"",
+					"Fresh Flag":"",
+					"Freezing Flag":"",
+					"Receiving Date":"",
+					"Storage Condition":"",
+					"Invoice No":"",
+					"Ordered Receipt No":"",
+					"Specifications":"",
+					"Code":"",
+					"Stored Location":"",
+					"Structure":""
+				}
+
+		
+		$.ajax({
+			url:"/product/ajaxproduct",
+			type: "POST",
+			data:{
+				action:"/product/action",
+				id:"",
+				name:"",
+				parent:"",
+				content:JSON.stringify(data)
+			},
+			success:function(response){
+				$('.modal-dialog').html(response);
+			},
+			error:function(error){
+				console.log(error);
+			}
+		})
+	});
+
+	function insert_general(key,val){
+	
+		var row_id=$('#tbl-general>tbody>tr.general-rows').length+1;
+
+		var html='<tr class="general-rows general-'+row_id+'">';
+			html+='<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="'+key+'"></th>';
+			html+='<th class="co-th"> <input class="form-control box-co" name="general_val" value="'+val+'"></th>';
+			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-warning mybutton del_general"><i class="fa fa-minus"></i></button></th>';
+			html+='</tr>';
+
+	  $(html).insertBefore( ".end_general" );
+	
+	};
+	
+	function del_general(id){
+		
+	  var i=1;
+
+	  $('.general-'+id).remove();
+
+	  $('#tbl-general>tbody>tr.general-rows').each(function(){
+		var z=i++;
+		$(this).attr('class','general-rows general-'+z);
+		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
+	  });
+
+	};
+
+	$('.add_general').on('click',function() {
+		var key='';
+		var val='';
+		insert_general(key,val);
+
+	});
+	
+
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		} else { 
+			alert("Geolocation is not supported by this browser.");
+		}
+	}
+
+	function showPosition(position) {
+		alert("Geolocation is not supported by this browser.");
+		$('#location_longitude').val(position.coords.longitude);
+		$('#location_latitude').val(position.coords.latitude);
+	}
+		
+	function xoa_dau(str) {
+		str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+		str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+		str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+		str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+		str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+		str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+		str = str.replace(/đ/g, "d");
+		str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+		str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+		str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+		str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+		str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+		str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+		str = str.replace(/Đ/g, "D");
+		return str;
+	}
+
+</script>
