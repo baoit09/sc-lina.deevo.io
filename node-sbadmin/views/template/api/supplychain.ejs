@@ -190,8 +190,7 @@ th{
 																					<tr class="end_general" style="display:none;">
 																					</tr>
 																					<tr>
-																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->
-																						<th width="5px" class="co-th "></th>
+																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->																						
 																						<th width="100%" class="co-th ">
 																							<select onchange="" class="form-control box-co" name="select_productToAdd" id="select_productToAdd">
 																							</select>
@@ -207,8 +206,7 @@ th{
 																<div class="row show-grid">
 																<table class="table table-content" id="tbl-supplyChainStructure">
 																	<tbody>
-																			<tr class="end_sc" style="display:none;"></tr>
-																			<th width="5px" class="co-th "></th>
+																			<tr class="end_sc" style="display:none;"></tr>																			
 																				<th width="100%" class="co-th ">
 																					<select onchange="" class="form-control box-co" name="select_participantsToAdd" id="select_participantsToAdd">
 																					</select>
@@ -600,8 +598,7 @@ th{
 
 		var row_id=$('#tbl-productStructure>tbody>tr.productStructure-rows').length+1;
 		var selectProductId = "selectProducts_" + row_id;
-		var html='<tr class="productStructure-rows general-'+row_id+'">';
-			html+='<th class="co-th th-index"></th>';
+		var html='<tr class="productStructure-rows general-'+row_id+'">';			
 			html+='<th class="co-th "><select name="select_product" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';
 			html+='<th class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-danger mybutton del_general"><i class="fa fa-trash"></i></button></th>';
 			html+='</tr>';
@@ -648,8 +645,7 @@ th{
 
 		var row_id=$('#tbl-supplyChainStructure>tbody>tr.supplyChainStructure-rows').length+1;
 		var selectProductId = "selectParticipants_" + row_id;
-		var html='<tr class="supplyChainStructure-rows sc-'+row_id+'">';
-			html+='<th class="co-th ></th>';
+		var html='<tr class="supplyChainStructure-rows sc-'+row_id+'">';			
 			html+='<th class="co-th "> <select name="select_participants" onchange="" class="form-control box-co" id=\''+ selectProductId  +'\'/></th>';
 			html+='<th class="co-th mybutton"><button type="button" onclick="del_sc('+row_id+')" class="btn btn-danger mybutton del_sc"><i class="fa fa-trash"></i></button></th>';
 			html+='</tr>';
