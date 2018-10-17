@@ -1,4 +1,4 @@
-<%layout('/layout')%> 
+<%layout('../layout')%> 
 
 <style>
 
@@ -294,7 +294,7 @@ th{
 								<tr>
 									<th class="row-title td-id" >ID</th>
 									<th class="row-title td-name" >Name</th>
-									<th class="row-title td-obj" >Object Type</th>
+									<th class="row-title td-obj" hidden>Object Type</th>
 									<th class="row-title td-parent">Parent</th>
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
@@ -308,7 +308,6 @@ th{
 									<tr class="row-<%=rowid%>">
 										<th class= "row-id"><%=data[k]['id']%></th>
 										<th class= "row-name"><%=data[k]['name']%></th>
-										<th class= "row-obj"><%=data[k]['objectType']%></th>
 										<th class= "row-parent"><%=data[k]['parent']%></th>
 										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
 										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button></th> 

@@ -1,4 +1,4 @@
-<%layout('/layout')%> 
+<%layout('../layout')%> 
 
 <style>
 
@@ -170,7 +170,9 @@ th{
                                                             </div>    
                                                             <div class="form-group col-3">
                                                                 <label>Parent</label>
-                                                                <input class="form-control box-co" name="parent_item" value="">
+                                                                <select class="form-control box-co gr-1" id="parent_item" name="parent_item"> 
+																	<option value="0">---select---</option>
+																</select>
                                                             </div>    															
                                                         </div>  
                                                   <div class="group-2">
@@ -417,7 +419,7 @@ th{
                                 <tr>
                                     <th class="row-title td-id" >ID</th>
                                     <th class="row-title td-name" >Name</th>
-                                    <th class="row-title td-obj" >Object Type</th>
+                                    <th class="row-title td-obj" hidden>Object Type</th>
                                     <th class="row-title td-parent">Parent</th>
                                     <th class="row-title td-content">Content</th>
                                     <th class= "td-action row-title">Action</th>
@@ -432,7 +434,6 @@ th{
 									<tr class="row-<%=rowid%>">
 										<th class= "row-id"><%=data[k]['id']%></th>
 										<th class= "row-name"><%=data[k]['name']%></th>
-										<th class= "row-obj"><%=data[k]['objectType']%></th>
 										<th class= "row-parent"><%=data[k]['parent']%></th>
 										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
 										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> </button></th> 
@@ -449,7 +450,18 @@ th{
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>    
+	$(document).ready(function(){
 
+
+	var url_parent="/loaddata/parent";
+
+
+	loadauditor(function(html){
+	$('#parent_item').html(html);
+	},url_parent);
+
+
+	});
 	$('.btn-edit').click(function(){
         var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();

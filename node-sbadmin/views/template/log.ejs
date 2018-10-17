@@ -1,4 +1,4 @@
-<%layout('/layout')%> 
+<%layout('../layout')%> 
 
 <style>
 	
@@ -125,11 +125,7 @@ th{
                         	<div class="search">
                                 <form role="form" id="form-search" method="GET" action="/log/action">
                                     <div class="form-group input-group">
-                                        <input type="text" class="form-control" name="orgid_key" value="">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
+                                        <input id="myInput" type="text" class="form-control" name="orgid_key" value="" placeholder="Search something...">
                                     </div>
                                 </form>
                             </div>
@@ -149,11 +145,7 @@ th{
                                                             <div class="form-group">
                                                                 <label>ID</label>
                                                                 <input class="form-control box-co gr-1" name="id_item" value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Object Type</label>
-                                                                <input class="form-control box-co gr-1" name="objectType_item" value="">
-                                                            </div>    
+                                                            </div>   
                                                             <div class="form-group">
                                                                 <label>Time</label>
                                                                 <input class="form-control box-co gr-1" name="time_item" value="">
@@ -383,7 +375,6 @@ th{
                             <thead>
                                 <tr>
 									<th class="row-title" width="20%">ID</th>
-									<th class="row-title" width="10%">Object Type</th>
 									<th class="row-title" width="10%">Time</th>
 									<th class="row-title" width="10%">CTE</th>
 									<th class="row-title" width="10%">Remove ID</th>
@@ -393,13 +384,12 @@ th{
 									<th class="row-title" width="10%">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable">
 								<%  var rowid=1 
 									for(var c in data){ 
 								%>
 									<tr class="row-<%=rowid%>"</tr>
 										<th class="id"><%=data[c]['id']%></th>
-										<th class="obj"><%=data[c]['objectType']%></th>
 										<th class="time"><%=data[c]['time']%></th>
 										<th class="cte"><%=data[c]['cte']%></th>
 										<th class="supplychain_id"><%=data[c]['supplychain_id']%></th>
@@ -423,7 +413,14 @@ th{
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>    
-
+	$(document).ready(function(){
+  		$("#myInput").on("keyup", function() {
+    		var value = $(this).val().toLowerCase();
+    		$("#myTable tr").filter(function() {
+      			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    		});
+  		});
+	});
 	$('.btn-edit').click(function(){
 		var obj_input={
 			id: $('.row-'+$(this).attr('id')).find('.id').text(),
