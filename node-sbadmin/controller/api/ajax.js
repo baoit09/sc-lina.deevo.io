@@ -12,15 +12,15 @@ module.exports.modal_product = function(req, res) {
 					"<div class='modal-body'>"+
 						"<div class='group-1'>"+
 							"<div class='form-group col-3'>"+
-								"<label>ID</label>"+
+								"<label>ID (*)</label>"+
 								"<input class='form-control box-co' name='id_item' value='"+req.body.id+"'>"+
 							"</div>"+
 							"<div class='form-group'>"+
-								"<label>Name</label>"+
+								"<label>Name (*)</label>"+
 								"<input class='form-control box-co' name='name_item' value='"+req.body.name+"'>"+
 							"</div>"+
 							"<div class='form-group col-3'>"+
-								"<label>Parent</label>"+
+								"<label>Location (*)</label>"+
 								"<input class='form-control box-co' name='parent_item' value='"+req.body.parent+"'>"+
 							"</div>"+    															
 						"</div>"+  
@@ -28,7 +28,7 @@ module.exports.modal_product = function(req, res) {
 							"<div class='panel'>"+
 								"<div class='panel-body'>"+
 									"<ul class='nav nav-tabs'>"+
-										"<li class='active'><a href='#general' data-toggle='tab' style='font-weight: bold;'>General</a>"+
+										"<li class='active'><a href='#general' data-toggle='tab' style='font-weight: bold;'>GS1</a>"+
 										"</li>"+
 									 "</ul>"+
 									"<div class='tab-content'>"+

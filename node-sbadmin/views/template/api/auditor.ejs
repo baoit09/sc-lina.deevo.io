@@ -162,11 +162,11 @@ th{
                                                     <div class="modal-body">
                                                         <div class="group-1">
                                                             <div class="form-group col-3">
-                                                                <label>ID</label>
+                                                                <label>ID (*)</label>
                                                                 <input class="form-control box-co" name="id_item" value="">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Name</label>
+                                                                <label>Name (*)</label>
                                                                 <input class="form-control box-co" name="name_item" value="">
                                                             </div>      															
                                                         </div>  
@@ -260,7 +260,7 @@ th{
 								<tr>
 									<th class="row-title td-id" >ID</th>
 									<th class="row-title td-name" >Name</th>
-									<th class="row-title td-obj" >Object Type</th>
+									<!-- <th class="row-title td-obj" >Object Type</th> -->
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
 								</tr>
@@ -273,7 +273,7 @@ th{
 									<tr class="row-<%=rowid%>">
 										<th class= "row-id"><%=data[k]['id']%></th>
 										<th class= "row-name"><%=data[k]['name']%></th>
-										<th class= "row-obj"><%=data[k]['objectType']%></th>
+										<!-- <th class= "row-obj"><%=data[k]['objectType']%></th> -->
 										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
 										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
 									</tr>

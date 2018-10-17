@@ -171,27 +171,27 @@ th{
                                                     <div class="modal-body">
                                                         <div class="group-1"> 
 															<div class="form-group">
-																<label>Action ID</label>
+																<label>Action ID (*)</label>
 																<input class="form-control box-co gr-1" id="id_item" name="id_item" value="" readonly>
 															</div>
 															<div class="form-group">
-                                                                <label>Time</label>
+                                                                <label>Time (*)</label>
                                                                 <input class="form-control box-co gr-1" id="time_item" name="time_item" value="">
 															</div>  
 															<div class="form-group">
-																<label>Auditor</label>
+																<label>Auditor (*)</label>
 																<select class="form-control box-co gr-1" id="auditor_item" name="auditor_item"> 
 																		<option value="0">---select---</option>
 																</select>
 															</div>  
 															<div class="form-group">
-																<label>Location</label>
+																<label>Location (*)</label>
 																<select class="form-control box-co gr-1" id="location_item" name="location_item"> 
 																	<option value="0">---select---</option>
 																</select>
 															</div>  
 															<div class="form-group">
-																<label>Object ID</label>
+																<label>Object ID (*)</label>
 																<select class="form-control box-co gr-1" id="object_item" name="object_item"> 
 																	<option value="0">---select---</option>
 																</select>
@@ -284,7 +284,7 @@ th{
                             <thead>
                                 <tr>
 									<th class="row-title" width="25%">ID</th>
-									<th class="row-title" width="10%">Object Type</th>
+									<!-- <th class="row-title" width="10%">Object Type</th> -->
 									<th class="row-title" width="10%">Time</th>
 									<th class="row-title" width="10%">Location</th>
 									<th class="row-title" width="10%">Auditor</th>
@@ -298,7 +298,7 @@ th{
 								%>
 									<tr class="row-<%=rowid%>"</tr>
 										<th class="id"><%=data[c]['id']%></th>
-										<th class="objecttype"><%=data[c]['objectType']%></th>
+										<!-- <th class="objecttype"><%=data[c]['objectType']%></th> -->
 										<th class="time"><%=data[c]['time']%></th>
 										<th class="location"><%=data[c]['location']%></th>
 										<th class="auditor"><%=data[c]['auditor']%></th>
