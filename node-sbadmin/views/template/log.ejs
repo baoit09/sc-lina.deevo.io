@@ -189,6 +189,8 @@ th{
 																</li>
 																<li><a href="#lable" data-toggle="tab"  style="font-weight: bold;">Lable</a>
 																</li>
+																<li><a href="#gs1" data-toggle="tab" style="font-weight: bold;">GS1</a>
+																</li>
 															 </ul>
 
 															<!-- Tab panes -->
@@ -197,50 +199,6 @@ th{
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-general">
 																			<tbody>
-																					<tr class="general-rows general-1">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GLN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-2">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-3">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 SSCC" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_SSCC" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-4">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GTIN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GTIN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-5">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GINC" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-6">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GRAI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GRAI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-7">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GIAI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GIAI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-8">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSRN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSRN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-9">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GDTI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GDTI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-10">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GCN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GCN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-11">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
-																					</tr>
 																					<tr class="general-rows general-12">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Scientific Name" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Scientific_Name" value=""></th>																					
@@ -349,7 +307,59 @@ th{
 																		</table>
 																	</div>
 																</div>
-																		
+																<div class="tab-pane fade in active" id="gs1">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-gs1">
+																			<tbody>
+																				<tr class="general-rows general-1">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GLN" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-2">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
+																						</tr>		
+																						<tr class="general-rows general-3">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 SSCC" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_SSCC" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-4">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GTIN" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GTIN" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-5">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GINC" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-6">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GRAI" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GRAI" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-7">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GIAI" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GIAI" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-8">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSRN" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSRN" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-9">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GDTI" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GDTI" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-10">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GCN" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GCN" value=""></th>																					
+																						</tr>
+																						<tr class="general-rows general-11">
+																							<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
+																							<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
+																						</tr>
+																						
+																			</tbody>
+																		</table>
+																	</div>
+																</div>			
 															</div>
 														</div>
 													</div>
@@ -376,7 +386,7 @@ th{
 									<th class="row-title" width="10%">Object Type</th>
 									<th class="row-title" width="10%">Time</th>
 									<th class="row-title" width="10%">CTE</th>
-									<th class="row-title" width="10%">Supplychain ID</th>
+									<th class="row-title" width="10%">Remove ID</th>
 									<th class="row-title" width="10%">Asset</th>
 									<th class="row-title" width="10%">Product</th>
 									<th class="row-title" width="10%">Location</th>
@@ -398,7 +408,7 @@ th{
 										<th class="location"><%=data[c]['location']%></th>
 										<th class="action">
 											<input id="content-<%=rowid%>" type="hidden" name="content" value="<%=data[c]['content']%>">
-											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
+											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
 										</th>
 									</tr>
                                 <% rowid++}; 

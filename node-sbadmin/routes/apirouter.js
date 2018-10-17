@@ -12,10 +12,12 @@ var modal=require('../controller/api/ajax');
 
 module.exports = function(app) {  
 
-	app.get('/demo',function(req,res){
-		res.render('abc',{data:'',message:'',status:0});
-	});
-
+	app.get('/', function(req, res) {
+		res.redirect('/readme');
+	 });
+	 app.get('/dashboard', function(req, res) {
+		res.render('template/index', {});
+	 });
 	app.route('/organization/action')
 		.get(organization.org_api003)
 		.post(organization.org_api002)

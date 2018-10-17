@@ -820,7 +820,7 @@ module.exports = function(app, passport){
 					var data=JSON.parse(body);
 					res.render('template/getone',{data:data});
 				}else{
-					res.send("Không tìm thay theo yêu c?u!")
+					res.send("Khï¿½ng tï¿½m thay theo yï¿½u c?u!")
 				}
 				
 	     		});

@@ -1,6 +1,46 @@
 <%layout('/layout')%> 
 
 <style>
+
+select.form-control.type_search{
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+.type_search {
+    display: block;
+    width: 40%;    
+
+}
+.search{
+    width: 50%;
+    float: right;
+}
+.orgid_key{
+    float: right;
+    width: 60%;
+	padding-left: 3px;
+}
+.mytable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.mytable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mytable td,
+.mytable th {
+  text-align: left;
+  padding: 5px 10px;
+  white-space: initial;
+  word-wrap:break-word;
+}
+
+
 .select-parent{
     width: 100%;
 }
@@ -52,10 +92,7 @@ th.co-th {
 .table-responsive {
     width: 100%;
 }
-.search{
-    width: 30%;
-    float: right;
-}
+
 .btn {
     padding: 6px 20px;
 }
@@ -83,7 +120,7 @@ th{
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">CTE LOG</h1>
+            <h1 class="page-header">AUDIT ACTION</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -101,41 +138,64 @@ th{
         <div class="col-lg-12">
                     <div class="panel-body">
                         	<div class="search">
-                                <form role="form" id="form-search" method="GET" action="/log/action">
-                                    <div class="form-group input-group">
-                                        <input type="text" class="form-control" name="orgid_key" value="">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
+									<form role="form" id="form-search" method="GET" action="/audit-action/action">
+										<div class="form-group input-group">
+											<div class="group-search">
+												<div class="input-group-btn type_search">
+													<select  class="form-control type_search" id="type_search" name="type_search">
+													  <option value="0">---select---</option>
+													</select>
+												</div>
+												<div class="input-group-btn orgid_key">
+													<input type="text" class="form-control orgid_key" name="orgid_key" value="">
+												</div>
+											</div>
+											<div class="input-group-btn">
+												<button class="btn btn-default" id="btn-search" type="submit"><i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+									</form>
+							</div>
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/asset/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/audit-action/action">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">ASSET</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">AUDIT ACTION</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
-                                                        <div class="group-1">
-                                                            <div class="form-group col-3">
-                                                                <label>ID</label>
-                                                                <input class="form-control box-co" name="id_item" value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Name</label>
-                                                                <input class="form-control box-co" name="name_item" value="">
-                                                            </div>    
-                                                            <div class="form-group col-3">
-                                                                <label>Parent</label>
-                                                                <input class="form-control box-co" name="parent_item" value="">
-                                                            </div>    															
+                                                        <div class="group-1"> 
+															<div class="form-group">
+																<label>Action ID</label>
+																<input class="form-control box-co gr-1" id="id_item" name="id_item" value="" readonly>
+															</div>
+															<div class="form-group">
+                                                                <label>Time</label>
+                                                                <input class="form-control box-co gr-1" id="time_item" name="time_item" value="">
+															</div>  
+															<div class="form-group">
+																<label>Auditor</label>
+																<select class="form-control box-co gr-1" id="auditor_item" name="auditor_item"> 
+																		<option value="0">---select---</option>
+																</select>
+															</div>  
+															<div class="form-group">
+																<label>Location</label>
+																<select class="form-control box-co gr-1" id="location_item" name="location_item"> 
+																	<option value="0">---select---</option>
+																</select>
+															</div>  
+															<div class="form-group">
+																<label>Object ID</label>
+																<select class="form-control box-co gr-1" id="object_item" name="object_item"> 
+																	<option value="0">---select---</option>
+																</select>
+															</div>  													
                                                         </div>  
                                                   <div class="group-2">
 													<div class="panel">
@@ -197,30 +257,10 @@ th{
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
 																					</tr>
-																					<tr class="general-rows general-12">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Serial" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Serial" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-13">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Valid Datetime" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Valid_Datetime" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-14">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Data Device" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Data_Device" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-15">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Price" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Price" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-16">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Trusted Device" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Trusted_Device" value=""></th>																					
-																					</tr>		
 																			</tbody>
 																		</table>
 																	</div>
-																</div>																			
+																</div>			
 															</div>
 														</div>
 													</div>
@@ -240,34 +280,36 @@ th{
                                     </form>
                                     </div>                
                     <div class="table-responsive">
-                        <table class="table mytable">
-                            
+                        <table class="table mytable">                         
                             <thead>
                                 <tr>
-                                    <th class="row-title">ID</th>
-                                    <th class="row-title">Name</th>
-                                    <th class="row-title">Object Type</th>
-                                    <th class="row-title">Parent</th>
-                                    <th class="row-title">Content</th>
-                                    <th class= "col-action row-title">Action</th>
+									<th class="row-title" width="25%">ID</th>
+									<th class="row-title" width="10%">Remove</th>
+									<th class="row-title" width="10%">Time</th>
+									<th class="row-title" width="10%">Location</th>
+									<th class="row-title" width="10%">Auditor</th>
+									<th class="row-title" width="25%">Product</th>
+									<th class="row-title" width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                    <% 
-                                        var rowid=1 
-                                        for(var k in data ) {
-                                     %>
-                                        <tr class="row-<%=rowid%>">
-                                            <th class="id"><%=data[k]['id']%></th>
-                                            <th class="name"><%=data[k]['name']%></th>
-                                            <th class="obj"><%=data[k]['objectType']%></th>
-                                            <th class="parent"><%=data[k]['parent']%></th>
-                                            <th class="content"><%=JSON.stringify(data[k]['content'])%></th>
-                                            <th><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
-                                        </tr>
-                                    <% rowid++}; 
-                                    %> 
+								<%  var rowid=1 
+									for(var c in data){ 
+								%>
+									<tr class="row-<%=rowid%>"</tr>
+										<th class="id"><%=data[c]['id']%></th>
+										<th class="objecttype"><%=data[c]['objectType']%></th>
+										<th class="time"><%=data[c]['time']%></th>
+										<th class="location"><%=data[c]['location']%></th>
+										<th class="auditor"><%=data[c]['auditor']%></th>
+										<th class="objectID"><%=data[c]['objectId']%></th>
+										<th class="action">
+											<input id="content-<%=rowid%>" type="hidden" name="content" value="<%=data[c]['content']%>">
+											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+										</th>
+									</tr>
+                                <% rowid++}; 
+                                %> 
                             </tbody>
                         </table>
                     </div>
@@ -278,33 +320,83 @@ th{
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>    
+	$(document).ready(function(){
+
+		var url="/loaddata/auditor";
+		var url_location="/loaddata/location";
+		var url_obj="/loaddata/obj";
+
+		loadauditor(function(html){
+			$('#type_search').html(html);
+			$('#auditor_item').html(html);
+		},url);
+
+		loadauditor(function(html){
+			$('#location_item').html(html);
+		},url_location);
+
+		loadauditor(function(html){
+			$('#object_item').html(html);
+		},url_obj);
+
+	});
+
+	function loadauditor(callback,url){
+		
+		$.ajax({
+			url:url,
+			type: "POST",
+			data:{
+			},
+			success:function(response){
+				console.log(response);
+			var res = JSON.parse(response);
+			var html='';
+					for(var c in res ) {
+						html+='<option value="'+res[c]['id']+'">';
+						html+= res[c]['name'];
+						html+='</option>';
+					}
+				callback(html);
+			},
+			error:function(error){
+				console.log(error);
+			}
+		})
+	}
 
 	$('.btn-edit').click(function(){
-        var id=$('.row-'+$(this).attr('id')).find('.id').text();
-        var name=$('.row-'+$(this).attr('id')).find('.name').text();
-        var parent=$('.row-'+$(this).attr('id')).find('.parent').text();
-		var content=$('.row-'+$(this).attr('id')).find('.content').text();
-		var parseJS=JSON.parse(content);
-		var objcontent=JSON.parse(parseJS);
-		
+
+		var obj_input={
+			id: $('.row-'+$(this).attr('id')).find('.id').text(),
+			time: $('.row-'+$(this).attr('id')).find('.time').text(),
+			auditor: $('.row-'+$(this).attr('id')).find('.auditor').text(),
+			location: $('.row-'+$(this).attr('id')).find('.location').text(),
+			obj: $('.row-'+$(this).attr('id')).find('.objectID').text(),
+		}
+
+		var content= JSON.parse($('#content-'+$(this).attr('id')).val());
+
 		$("#myModal").modal();
-        $('#form-post').attr('action','/asset/action?_method=put');
-		
-        $( "input[name='id_item']" ).val(id);
-        $( "input[name='name_item']" ).val(name);
-        $( "input[name='parent_item']" ).val(parent);
+		$('#form-post').attr('action','/audit-action/action?_method=put');
+
+        $( ".gr-1" ).each(function(index){
+			$(this).val(Object.values(obj_input)[index]);
+		});
 		
 		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(objcontent)[index]);
+			$(this).val(Object.values(content)[index]);
 		});
 
     });
 
+
     $('#btn-addnew').click(function(){
-        $('#form-post').attr('action','/asset/action');
-        $( "input[name='id_item']" ).val('');
-        $( "input[name='name_item']" ).val('');
-        $( "input[name='parent_item']" ).val('');
+	
+        $( ".gr-1" ).each(function(index){
+			$(this).val('');
+		});
+        $('#form-post').attr('action','/audit-action/action');
 		$("input[name='general_val']").val('');
 	
 	});

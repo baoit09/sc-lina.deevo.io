@@ -12,11 +12,11 @@ module.exports.org_api005 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=JSON.parse(body);
-			res.render('template/api/organization',{data:data,message:'',status:0});
+			res.render('template/organization',{data:data,message:'',status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+			res.render('template/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
 		}else{
-			res.render('template/api/organization',{data:'',message:error,status:2});
+			res.render('template/organization',{data:'',message:error,status:2});
 		}
      });
 };
@@ -33,11 +33,11 @@ module.exports.org_api003 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=[JSON.parse(body)];
-			res.render('template/api/organization',{data:data,message:"",status:0});
+			res.render('template/organization',{data:data,message:"",status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+			res.render('template/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
 		}else{
-			res.render('template/api/organization',{data:'',message:error,status:2});
+			res.render('template/organization',{data:'',message:error,status:2});
 		}
      });
 };
@@ -100,11 +100,11 @@ module.exports.org_api002 = function(req,res) {
 
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
-			res.render('template/api/organization',{data:'',message:"Thực hiện thành công !!!",status:1});
+			res.render('template/organization',{data:'',message:"Thực hiện thành công !!!",status:1});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message: JSON.stringify(response),status:2});
+			res.render('template/organization',{data:'',message: JSON.stringify(response),status:2});
 		}else{
-			res.render('template/api/organization',{data:'',message:error,status:2});
+			res.render('template/organization',{data:'',message:error,status:2});
 		}
      });
 		
@@ -164,11 +164,11 @@ module.exports.org_api004 = function(req, res) {
 
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
-			res.render('template/api/organization',{data:'',message:"Thực hiện thành công !!!",status:1});
+			res.render('template/organization',{data:'',message:"Thực hiện thành công !!!",status:1});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:JSON.stringify(response),status:2});
+			res.render('template/organization',{data:'',message:JSON.stringify(response),status:2});
 		}else{
-			res.render('template/api/organization',{data:'',message:error,status:2});
+			res.render('template/organization',{data:'',message:error,status:2});
 		}
      });
 		
@@ -182,7 +182,7 @@ module.exports.org_api004 = function(req, res) {
 module.exports.org_api001_a = function(req, res) {
 	
 	var data =  JSON.parse(fs.readFileSync('./routes' +'/json.txt'));
-	res.render('template/api/organization',{data:data,message:'',status:0});
+	res.render('template/organization',{data:data,message:'',status:0});
 		
 };
 
@@ -199,11 +199,11 @@ module.exports.org_api001_b = function(req, res) {
 		
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
-			res.render('template/api/organization',{data:'',message:"Thực hiện thành công !!!",status:1});
+			res.render('template/organization',{data:'',message:"Thực hiện thành công !!!",status:1});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+			res.render('template/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
 		}else{
-			res.render('template/api/organization',{data:'',message:error,status:2});
+			res.render('template/organization',{data:'',message:error,status:2});
 		}
      });
 		

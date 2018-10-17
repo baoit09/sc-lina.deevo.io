@@ -2,6 +2,7 @@
 
 <style>
 
+
 .mytable {
   table-layout: fixed;
   width: 100%;
@@ -44,6 +45,7 @@
 .select-parent{
     width: 100%;
 }
+
 
 th.co-th.mybutton {
     padding: 0 3px;
@@ -119,7 +121,7 @@ th{
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">PARTY</h1>
+            <h1 class="page-header">ASSET</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -137,7 +139,7 @@ th{
         <div class="col-lg-12">
                     <div class="panel-body">
                         	<div class="search">
-                                <form role="form" id="form-search" method="GET" action="/party/action">
+                                <form role="form" id="form-search" method="GET" action="/asset/action">
                                     <div class="form-group input-group">
                                         <input type="text" class="form-control" name="orgid_key" value="">
                                         <span class="input-group-btn">
@@ -150,12 +152,12 @@ th{
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/party/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/asset/action">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">PARTY</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">ASSET</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
@@ -181,13 +183,7 @@ th{
 															<ul class="nav nav-tabs">
 																<li class="active"><a href="#general" data-toggle="tab" style="font-weight: bold;">General</a>
 																</li>
-																 <li><a href="#address" data-toggle="tab"  style="font-weight: bold;">Address</a>
-																</li>
-																<li><a href="#contact" data-toggle="tab"  style="font-weight: bold;">Contact</a>
-																</li>
-																<li><a href="#location" data-toggle="tab"  style="font-weight: bold;">GPS Location</a>
-																</li>
-																<li><a href="#sns" data-toggle="tab"  style="font-weight: bold;">Social</a>
+																<li><a href="#GS1" data-toggle="tab" style="font-weight: bold;">GS1</a>
 																</li>
 															 </ul>
 
@@ -196,6 +192,34 @@ th{
 																<div class="tab-pane fade in active" id="general">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-general">
+																			<tbody>
+																					<tr class="general-rows general-12">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Serial" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Serial" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-13">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Valid Datetime" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Valid_Datetime" value=""></th>																					
+																					</tr>		
+																					<tr class="general-rows general-14">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Data Device" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Data_Device" value=""></th>																					
+																					</tr>	
+																					<tr class="general-rows general-15">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Price" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Price" value=""></th>																					
+																					</tr>	
+																					<tr class="general-rows general-16">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Trusted Device" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Trusted_Device" value=""></th>																					
+																					</tr>		
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+																<div class="tab-pane fade in active" id="GS1">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-gs1">
 																			<tbody>
 																					<tr class="general-rows general-1">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GLN" readonly></th>
@@ -241,148 +265,10 @@ th{
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
 																					</tr>
-																					<tr class="general-rows general-12">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Country" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Country" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-13">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 Prefix" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Prefix" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-14">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Phone" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Phone" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-15">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Fax" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Fax" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-16">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Email" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Email" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-17">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Website" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Website" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-18">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Business Country" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_BSCountry" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-19">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Role" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Role" value=""></th>																					
-																					</tr>	
 																			</tbody>
 																		</table>
 																	</div>
-																</div>
-																<div class="tab-pane fade" id="address">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-address">
-																			<tbody>
-																				<tr class="address-rows address-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="address_key" value="House" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co address_house" id="address_house" name="address_val" value=""></th>
-																				</tr>
-																				<tr class="address-rows address-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="address_key" value="Street" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co address_street" id="address_street" name="address_val" value=""></th>
-																				</tr>
-																				<tr class="address-rows address-3">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="address_key" value="Ward" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co address_ward" id="address_ward" name="address_val" value=""></th>
-																				</tr>
-																				<tr class="address-rows address-4">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="address_key" value="District" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co address_district" id="address_district" name="address_val" value=""></th>
-																				</tr>		
-																				<tr class="address-rows address-5">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="address_key" value="City" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co address_city" id="address_city" name="address_val" value=""></th>
-																				</tr>
-																				<tr class="address-rows address-6">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="address_key" value="Country-Code" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co address_country" id="address_country" name="address_val" value=""></th>
-																				</tr>																				
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-																<div class="tab-pane fade" id="contact">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-contact">
-																			<tbody>
-																				<tr class="contact-rows contact-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Full-Name" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_name" id="contact_name" name="contact_val" value="" ></th>
-																				</tr>
-																				<tr class="contact-rows contact-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Email" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_email" id="contact_email" name="contact_val" value=""></th>
-																				</tr>
-																				<tr class="contact-rows contact-3">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Phone" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_phone" id="contact_phone"  name="contact_val" value=""></th>
-																				</tr>
-																				<tr class="contact-rows contact-4">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="Role" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_role" id="contact_role" name="contact_val" value=""></th>
-																				</tr>		
-																				<tr class="contact-rows contact-5">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="contact_key" value="DEEVO-Account" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co contact_account" id="contact_account" name="contact_val" value=""></th>
-																				</tr>																			
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-																<div class="tab-pane fade" id="location">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-location">
-																				<tbody>
-																					<tr class="location-rows location-1">
-																						<th width="150px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Longitude" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co location_longitude" id="us2-lon" name="location_val" value=""></th>
-																						<th width="150px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Latitude" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co location_latitude" id="us2-lat" name="location_val" value=""></th>
-																						
-																					</tr>		
-																					<tr class="location-rows location-2">
-																						<th class="map" colspan="4" class="co-th"><div id="us2" style="width: 100%; height: 300px;"></div></th>
-																					</tr>
-																					<script>
-																						$('#us2').locationpicker({
-																							location: {latitude: 46.15242437752303, longitude: 2.7470703125},
-																							radius: 300,
-																							inputBinding: {
-																								latitudeInput: $('#us2-lat'),
-																								longitudeInput: $('#us2-lon'),
-																								radiusInput: $('#us2-radius'),
-																								locationNameInput: $('#us2-address')
-																							}
-																						});
-																					</script>
-																				</tbody>
-																		</table>
-																	</div>
-																</div>	
-																<div class="tab-pane fade" id="sns">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-sns">
-																			<tbody>
-																				<tr class="sns-rows sns-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="sns_key" value="Facebook" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co sns_facebook" id="sns_facebook" name="sns_val" value=""></th>
-																				</tr>		
-																				<tr class="sns-rows sns-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="sns_key" value="Twitter" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co sns_twitter" id="sns_twitter" name="sns_val" value=""></th>
-																				</tr>	
-																			</tbody>
-																		</table>
-																	</div>
-																</div>																				
+																</div>																			
 															</div>
 														</div>
 													</div>
@@ -403,19 +289,19 @@ th{
                                     </div>                
                     <div class="table-responsive">
                         <table class="table mytable">
-							<thead>
-                                <tr>
-                                    <th class="row-title td-id" >ID</th>
-                                    <th class="row-title td-name" >Name</th>
-                                    <th class="row-title td-obj" >Object Type</th>
-                                    <th class="row-title td-parent">Parent</th>
-                                    <th class="row-title td-content">Content</th>
-                                    <th class= "td-action row-title">Action</th>
-                                </tr>
-							</thead>
-							<tbody>
-
-								<% 
+                            
+                            <thead>
+								<tr>
+									<th class="row-title td-id" >ID</th>
+									<th class="row-title td-name" >Name</th>
+									<th class="row-title td-obj" >Object Type</th>
+									<th class="row-title td-parent">Parent</th>
+									<th class="row-title td-content">Content</th>
+									<th class= "td-action row-title">Action</th>
+								</tr>
+                            </thead>
+                            <tbody>
+									<% 
 									var rowid=1 
 									for(var k in data ) {
 								 %>
@@ -425,11 +311,12 @@ th{
 										<th class= "row-obj"><%=data[k]['objectType']%></th>
 										<th class= "row-parent"><%=data[k]['parent']%></th>
 										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
-										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button></th> 
 									</tr>
 								<% rowid++}; 
 								%> 
-						</tbody>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -441,7 +328,8 @@ th{
 <script>    
 
 	$('.btn-edit').click(function(){
-        var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
+
+		var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
         var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
 		var content=$('.row-'+$(this).attr('id')).find('.row-content').text();
@@ -449,51 +337,24 @@ th{
 		var objcontent=JSON.parse(parseJS);
 		
 		$("#myModal").modal();
-        $('#form-post').attr('action','/party/action?_method=put');
-
+        $('#form-post').attr('action','/asset/action?_method=put');
+		
 		$( "input[name='id_item']" ).val(id);
         $( "input[name='name_item']" ).val(name);
         $( "input[name='parent_item']" ).val(parent);
-
-		var cont=objcontent['Contact'];
-			$('#contact_name').val(cont['Full-Name']);
-			$('#contact_email').val(cont['Email']);
-			$('#contact_phone').val(cont['Phone']);
-			$('#contact_role').val(cont['Role']);
-			$('#contact_account').val(cont['DEEVO-Account']);
-	
-	
-		var add=objcontent['Address'];
-			$('#address_house').val(add['House']);
-			$('#address_street').val(add['Street']);
-			$('#address_ward').val(add['Ward']);
-			$('#address_district').val(add['District']);
-			$('#address_city').val(add['City']);
-			$('#address_country').val(add['Country-Code']);
-			
-		var objsns=objcontent['SNS'];
-			$('#sns_facebook').val(objsns['Facebook']);
-			$('#sns_twitter').val(objsns['Twitter']);
-			
+		
 		$("input[name='general_val']").each(function(index){
 			$(this).val(Object.values(objcontent)[index]);
 		});
 
-		var locat=objcontent['Location'];
-			$('#location_longitude').val(locat['Longitude']);
-			$('#location_latitude').val(locat['Latitude']);
-
     });
 
     $('#btn-addnew').click(function(){
-        $('#form-post').attr('action','/party/action');
+        $('#form-post').attr('action','/asset/action');
         $( "input[name='id_item']" ).val('');
         $( "input[name='name_item']" ).val('');
         $( "input[name='parent_item']" ).val('');
-		$("input[name='address_val']").val('');
-		$("input[name='contact_val']").val('');
 		$("input[name='general_val']").val('');
-		$("input[name='sns_val']").val('');
 	
 	});
 

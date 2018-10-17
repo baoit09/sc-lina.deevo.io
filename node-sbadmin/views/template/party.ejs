@@ -45,7 +45,6 @@
     width: 100%;
 }
 
-
 th.co-th.mybutton {
     padding: 0 3px;
 }
@@ -120,7 +119,7 @@ th{
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">ORGANIZATION</h1>
+            <h1 class="page-header">PARTY</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -138,7 +137,7 @@ th{
         <div class="col-lg-12">
                     <div class="panel-body">
                         	<div class="search">
-                                <form role="form" id="form-search" method="GET" action="/organization/action">
+                                <form role="form" id="form-search" method="GET" action="/party/action">
                                     <div class="form-group input-group">
                                         <input type="text" class="form-control" name="orgid_key" value="">
                                         <span class="input-group-btn">
@@ -151,12 +150,12 @@ th{
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/organization/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/party/action">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">ORGANIZATION</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">PARTY</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
@@ -169,14 +168,10 @@ th{
                                                                 <label>Name</label>
                                                                 <input class="form-control box-co" name="name_item" value="">
                                                             </div>    
-                                                            <div class="form-group col-3">  
-                                                                <label>Object Type</label>
-                                                                <input class="form-control box-co" name="type_item" value="">
-                                                            </div>
                                                             <div class="form-group col-3">
                                                                 <label>Parent</label>
                                                                 <input class="form-control box-co" name="parent_item" value="">
-                                                            </div>    
+                                                            </div>    															
                                                         </div>  
                                                   <div class="group-2">
 													<div class="panel">
@@ -192,6 +187,10 @@ th{
 																</li>
 																<li><a href="#location" data-toggle="tab"  style="font-weight: bold;">GPS Location</a>
 																</li>
+																<li><a href="#sns" data-toggle="tab"  style="font-weight: bold;">Social</a>
+																</li>
+																<li><a href="#GS1" data-toggle="tab"  style="font-weight: bold;">GS1</a>
+																</li>
 															 </ul>
 
 															<!-- Tab panes -->
@@ -200,57 +199,9 @@ th{
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-general">
 																			<tbody>
-																					<tr class="general-rows general-1">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GLN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-2">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-3">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 SSCC" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_SSCC" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-4">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GTIN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GTIN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-5">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GINC" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-6">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GRAI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GRAI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-7">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GIAI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GIAI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-8">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSRN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSRN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-9">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GDTI" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GDTI" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-10">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GCN" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GCN" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-11">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
-																					</tr>
 																					<tr class="general-rows general-12">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Country" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Country" value=""></th>																					
-																					</tr>
-																					<tr class="general-rows general-13">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 Prefix" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Prefix" value=""></th>																					
 																					</tr>		
 																					<tr class="general-rows general-14">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Phone" readonly></th>
@@ -271,7 +222,11 @@ th{
 																					<tr class="general-rows general-18">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Business Country" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_BSCountry" value=""></th>																					
-																					</tr>																						
+																					</tr>	
+																					<tr class="general-rows general-19">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Role" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Role" value=""></th>																					
+																					</tr>	
 																			</tbody>
 																		</table>
 																	</div>
@@ -339,35 +294,105 @@ th{
 																<div class="tab-pane fade" id="location">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-location">
+																				<tbody>
+																					<tr class="location-rows location-1">
+																						<th width="150px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Longitude" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co location_longitude" id="us2-lon" name="location_val" value=""></th>
+																						<th width="150px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Latitude" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co location_latitude" id="us2-lat" name="location_val" value=""></th>
+																						
+																					</tr>		
+																					<tr class="location-rows location-2">
+																						<th class="map" colspan="4" class="co-th"><div id="us2" style="width: 100%; height: 300px;"></div></th>
+																					</tr>
+																					<script>
+																						$('#us2').locationpicker({
+																							location: {latitude: 46.15242437752303, longitude: 2.7470703125},
+																							radius: 300,
+																							inputBinding: {
+																								latitudeInput: $('#us2-lat'),
+																								longitudeInput: $('#us2-lon'),
+																								radiusInput: $('#us2-radius'),
+																								locationNameInput: $('#us2-address')
+																							}
+																						});
+																					</script>
+																				</tbody>
+																		</table>
+																	</div>
+																</div>	
+																<div class="tab-pane fade" id="sns">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-sns">
 																			<tbody>
-																				
-																				<tr class="location-rows location-1">
-																					<th width="150px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Longitude" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co location_longitude" id="us2-lon" name="location_val" value=""></th>
-																					<th width="150px" class="co-th"> <input onchange="" class="form-control box-co" name="location_key" value="Latitude" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co location_latitude" id="us2-lat" name="location_val" value=""></th>
-																					
+																				<tr class="sns-rows sns-1">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="sns_key" value="Facebook" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co sns_facebook" id="sns_facebook" name="sns_val" value=""></th>
 																				</tr>		
-																				
-																				<tr class="location-rows location-2">
-																					<th class="map" colspan="4" class="co-th"><div id="us2" style="width: 100%; height: 300px;"></div></th>
-																				</tr>
-																				<script>
-																					$('#us2').locationpicker({
-																						location: {latitude: 46.15242437752303, longitude: 2.7470703125},
-																						radius: 300,
-																						inputBinding: {
-																							latitudeInput: $('#us2-lat'),
-																							longitudeInput: $('#us2-lon'),
-																							radiusInput: $('#us2-radius'),
-																							locationNameInput: $('#us2-address')
-																						}
-																					});
-																				</script>
+																				<tr class="sns-rows sns-2">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="sns_key" value="Twitter" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co sns_twitter" id="sns_twitter" name="sns_val" value=""></th>
+																				</tr>	
 																			</tbody>
 																		</table>
 																	</div>
-																</div>																
+																</div>	
+																<div class="tab-pane fade in active" id="GS1">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-general">
+																			<tbody>
+																					<tr class="general-rows general-1">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GLN" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-2">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSIN" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
+																					</tr>		
+																					<tr class="general-rows general-3">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 SSCC" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_SSCC" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-4">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GTIN" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GTIN" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-5">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GINC" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-6">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GRAI" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GRAI" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-7">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GIAI" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GIAI" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-8">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GSRN" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSRN" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-9">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GDTI" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GDTI" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-10">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 GCN" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GCN" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-11">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 CPID" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_CPID" value=""></th>																					
+																					</tr>
+																					<tr class="general-rows general-13">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="GS1 Prefix" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Prefix" value=""></th>																					
+																					</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>																			
 															</div>
 														</div>
 													</div>
@@ -388,8 +413,7 @@ th{
                                     </div>                
                     <div class="table-responsive">
                         <table class="table mytable">
-                            
-                            <thead>
+							<thead>
                                 <tr>
                                     <th class="row-title td-id" >ID</th>
                                     <th class="row-title td-name" >Name</th>
@@ -398,24 +422,24 @@ th{
                                     <th class="row-title td-content">Content</th>
                                     <th class= "td-action row-title">Action</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+							</thead>
+							<tbody>
 
-                                    <% 
-                                        var rowid=1 
-                                        for(var k in data ) {
-                                     %>
-                                        <tr class="row-<%=rowid%>">
-                                            <th class= "row-id"><%=data[k]['id']%></th>
-                                            <th class= "row-name"><%=data[k]['name']%></th>
-                                            <th class= "row-obj"><%=data[k]['objectType']%></th>
-                                            <th class= "row-parent"><%=data[k]['parent']%></th>
-                                            <th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
-                                            <th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
-                                        </tr>
-                                    <% rowid++}; 
-                                    %> 
-                            </tbody>
+								<% 
+									var rowid=1 
+									for(var k in data ) {
+								 %>
+									<tr class="row-<%=rowid%>">
+										<th class= "row-id"><%=data[k]['id']%></th>
+										<th class= "row-name"><%=data[k]['name']%></th>
+										<th class= "row-obj"><%=data[k]['objectType']%></th>
+										<th class= "row-parent"><%=data[k]['parent']%></th>
+										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
+										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> </button></th> 
+									</tr>
+								<% rowid++}; 
+								%> 
+						</tbody>
                         </table>
                     </div>
                 </div>
@@ -429,18 +453,16 @@ th{
 	$('.btn-edit').click(function(){
         var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
-        var obj=$('.row-'+$(this).attr('id')).find('.row-obj').text();
         var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
 		var content=$('.row-'+$(this).attr('id')).find('.row-content').text();
 		var parseJS=JSON.parse(content);
 		var objcontent=JSON.parse(parseJS);
 		
 		$("#myModal").modal();
-        $('#form-post').attr('action','/organization/action?_method=put');
-		
-        $( "input[name='id_item']" ).val(id);
+        $('#form-post').attr('action','/party/action?_method=put');
+
+		$( "input[name='id_item']" ).val(id);
         $( "input[name='name_item']" ).val(name);
-        $( "input[name='type_item']" ).val(obj);
         $( "input[name='parent_item']" ).val(parent);
 
 		var cont=objcontent['Contact'];
@@ -458,28 +480,30 @@ th{
 			$('#address_district').val(add['District']);
 			$('#address_city').val(add['City']);
 			$('#address_country').val(add['Country-Code']);
-
-
+			
+		var objsns=objcontent['SNS'];
+			$('#sns_facebook').val(objsns['Facebook']);
+			$('#sns_twitter').val(objsns['Twitter']);
+			
 		$("input[name='general_val']").each(function(index){
 			$(this).val(Object.values(objcontent)[index]);
 		});
 
-
 		var locat=objcontent['Location'];
-			$('#us2-lon').val(locat['Longitude']);
-			$('#us2-lat').val(locat['Latitude']);
+			$('#location_longitude').val(locat['Longitude']);
+			$('#location_latitude').val(locat['Latitude']);
 
     });
 
     $('#btn-addnew').click(function(){
-        $('#form-post').attr('action','/organization/action');
+        $('#form-post').attr('action','/party/action');
         $( "input[name='id_item']" ).val('');
         $( "input[name='name_item']" ).val('');
-        $( "input[name='type_item']" ).val('');
         $( "input[name='parent_item']" ).val('');
 		$("input[name='address_val']").val('');
 		$("input[name='contact_val']").val('');
 		$("input[name='general_val']").val('');
+		$("input[name='sns_val']").val('');
 	
 	});
 

@@ -11,11 +11,11 @@ module.exports.log_api002 = function(req, res) {
 		request(options, function (error, response, body) {
 			if(!error && response.statusCode==200){
 				var data=[JSON.parse(body)];
-				res.render('template/api/log',{data:data,message:'',status:0});
+				res.render('template/log',{data:data,message:'',status:0});
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/log',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+				res.render('template/log',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
 			}else{
-				res.render('template/api/log',{data:'',message:error,status:2});
+				res.render('template/log',{data:'',message:error,status:2});
 			}
 		 });
 	
@@ -35,11 +35,11 @@ module.exports.log_api004 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=JSON.parse(body);
-			res.render('template/api/log',{data:data,message:'',status:0});
+			res.render('template/log',{data:data,message:'',status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/log',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+			res.render('template/log',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
 		}else{
-			res.render('template/api/log',{data:'',message:error,status:2});
+			res.render('template/log',{data:'',message:error,status:2});
 		}
 	 });
 
@@ -97,11 +97,11 @@ module.exports.log_api001 = function(req, res) {
 
 		request(options, function (error, response, body) {
 			if(!error && response.statusCode==200){
-				res.render('template/api/log',{data:'',message:'Thực hiện thành công',status:1});
+				res.render('template/log',{data:'',message:'Thực hiện thành công',status:1});
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/log',{data:'',message:JSON.stringify(response),status:2});
+				res.render('template/log',{data:'',message:JSON.stringify(response),status:2});
 			}else{
-				res.render('template/api/log',{data:'',message:error,status:2});
+				res.render('template/log',{data:'',message:error,status:2});
 			}
 		 });
 		
@@ -156,11 +156,11 @@ module.exports.log_api003 = function(req, res) {
 		
 		request(options, function (error, response, body) {
 			if(!error && response.statusCode==200){
-				res.render('template/api/log',{data:'',message:'Thực hiện thành công',status:1});
+				res.render('template/log',{data:'',message:'Thực hiện thành công',status:1});
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/log',{data:'',message:JSON.stringify(response),status:2});
+				res.render('template/log',{data:'',message:JSON.stringify(response),status:2});
 			}else{
-				res.render('template/api/log',{data:'',message:error,status:2});
+				res.render('template/log',{data:'',message:error,status:2});
 			}
 		 });
 };

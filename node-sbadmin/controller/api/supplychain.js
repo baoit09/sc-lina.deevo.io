@@ -41,14 +41,14 @@ module.exports.schain_api001 = function(req, res) {
 					noneDeletedSCMS.push(item)
 				}
 		  	})
-			res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:"", status:0});
+			res.render('template/supplychain', { scms:noneDeletedSCMS, message:"", status:0});
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ scms:'', message: "No data found", status:2});
+			res.render('template/supplychain',{ scms:'', message: "No data found", status:2});
 
 		}else {
 
-			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
+			res.render('template/supplychain',{ scms:'',message:error,status:2} );
 		}
 	});
 };
@@ -168,16 +168,16 @@ module.exports.schain_api002 = function(req, res) {
 
 				  var message = "Successfuly" + (mode === "edit"? " updated " : (mode === "duplicate" ? " duplicated " : " added ") ) 
 				  				+ "a Supply chain model [ " + scm.name + " ]";
-				  res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:message, status:1});
+				  res.render('template/supplychain', { scms:noneDeletedSCMS, message:message, status:1});
 			  } 
 		  });			
 
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ scms:'', message: "Failed to add or update Supply chain model", status:2});
+			res.render('template/supplychain',{ scms:'', message: "Failed to add or update Supply chain model", status:2});
 
 		}else {
-			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
+			res.render('template/supplychain',{ scms:'',message:error,status:2} );
 		}
 	});
 };
