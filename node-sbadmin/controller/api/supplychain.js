@@ -54,22 +54,22 @@ module.exports.schain_api001 = function(req, res) {
 };
 
 module.exports.schain_api002 = function(req, res) {
-	
+		
 	var scm = {		
-		id: req.body.id_item,
-		name: req.body.name_item,		
+		id: req.body.id_item || req.body.id_to_delete,
+		name: req.body.name_item || req.body.name_to_delete,		
 		objectType: "supplychain",
 		content : {
 			parent : req.body.organization_item,
 			version: req.body.version_item,
-			status: req.body.status_item,
+			status: req.body.status_item,			
 			products: [],
 			scstructure: []
 		}
 	}
 
 	// set products list
-	if(req.body.select_product )
+	if(req.body.select_product)
 	{
 		if(req.body.select_product instanceof Array)
 		{
@@ -111,6 +111,20 @@ module.exports.schain_api002 = function(req, res) {
 				  content: JSON.stringify(scm.content),
 			}
 		};
+	}
+	else if(mode === "delete")
+	{
+		scm.content = {
+			_status: "Deleted"			
+		}
+		
+		var options = {
+			url: baseURL + '/supply-chains/' + scm.id,
+			method: 'PUT',
+		  json: {				
+				content: JSON.stringify(scm.content),
+		  }
+	  };
 	}
 	else // mode = ["new", "duplicate"]	
 	{
@@ -165,9 +179,26 @@ module.exports.schain_api002 = function(req, res) {
 						noneDeletedSCMS.push(item)
 					}
 				  })
+					  
+				  var action = "";
+				  switch(mode) {
+					case "new":
+						action = "added";
+					break;
+					case "edit":
+						action = "updated";
+						break;
+					case "duplicate":
+						action = "duplicated";
+						break;					
+					case "delete":
+						action = "deleted";
+						break;					
+					default:
+						action = "unknown";
+				}
 
-				  var message = "Successfuly" + (mode === "edit"? " updated " : (mode === "duplicate" ? " duplicated " : " added ") ) 
-				  				+ "a Supply chain model [ " + scm.name + " ]";
+				  var message = "Successfuly " + action + " a Supply chain model [ " + (scm.id ? scm.id: "") + " - " + (scm.name ? scm.name : "")  + " ]";
 				  res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:message, status:1});
 			  } 
 		  });			
@@ -185,34 +216,34 @@ module.exports.schain_api002 = function(req, res) {
 
 /* ///////////////////////// */
 
-module.exports.schain_api003 = function(req, res) {
+// module.exports.schain_api003 = function(req, res) {
 	
-	var scm = {
-		id: req.body.id,		
-		content : {
-			_status: req.body._status			
-		}
-	}
+// 	var scm = {
+// 		id: req.body.id,		
+// 		content : {
+// 			_status: req.body._status			
+// 		}
+// 	}
 
-	var options = {
-		  url: baseURL + '/supply-chains/' + scm.id,
-		  method: 'PUT',
-		json: {				
-				content: JSON.stringify(scm.content),
-		}
-	};
+// 	var options = {
+// 		  url: baseURL + '/supply-chains/' + scm.id,
+// 		  method: 'PUT',
+// 		json: {				
+// 				content: JSON.stringify(scm.content),
+// 		}
+// 	};
 
-	request(options, function (error, response, body) 
-	{
-		if(!error && response.statusCode === 200){				  
-			res.json(response.statusCode)
-		} else if(!error && response.statusCode != 200){
-			res.json()
-		}else {
-			res.json()
-		}
-	});
-};
+// 	request(options, function (error, response, body) 
+// 	{
+// 		if(!error && response.statusCode === 200){				  
+// 			res.json(response.statusCode)
+// 		} else if(!error && response.statusCode != 200){
+// 			res.json()
+// 		}else {
+// 			res.json()
+// 		}
+// 	});
+// };
 
 module.exports.schain_api010 = function(req, res) {
 

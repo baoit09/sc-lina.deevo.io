@@ -113,128 +113,134 @@ th{
                                         </span>
                                     </div>
                                 </form>
-							</div>
-
-
-							<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
-								<div class="modal-dialog modal-sm">
-									<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">Confirmar</h4>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" id="modal-btn-no">Cancel</button>
-										<button type="button" class="btn btn-danger" id="modal-btn-yes">Delete</button>
-									</div>
-									</div>
-								</div>
-							</div>
+							</div>				
 
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal" title="Add new Supply Chain Model"><i class="fa fa-plus"></i> Add new</button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/supply-chain">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">Supply Chain Model</h4>
-                                                    </div>
-												<div id="myDIV">
-                                                    <div class="modal-body">
-                                                        <div class="group-1">
-                                                            <div class="form-group col-3">
-                                                                <label>UUID</label>
-                                                                <input class="form-control box-co" name="id_item" value="">
-															</div>
-															<div class="form-group col-3" style="display: none;">
-                                                                <label>UUID</label>
-                                                                <input class="form-control box-co" name="mode" value="" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Version</label>
-                                                                <input class="form-control box-co" name="version_item" value="" required />
-															</div>
-															<div class="form-group">
-                                                                <label>Status</label>
-                                                                <select class="form-control box-co" name="status_item" value="" required></select>
-                                                            </div>
-                                                            <div class="form-group col-3">
-                                                                <label>Name</label>
-                                                                <input class="form-control box-co" name="name_item" value="" required>
-                                                            </div>
-                                                            <div class="form-group col-3">
-                                                                <label>Organization</label>
-                                                                <select class="form-control box-co" name="organization_item" value="" required></select>
-                                                            </div>
-                                                        </div>
-                                                  <div class="group-2">
-													<div class="panel">
-															<!-- /.panel-heading -->
-														<div class="panel-body">
-															<!-- Nav tabs -->
-															<ul class="nav nav-tabs">
-																<li class="active"><a href="#productStructure" data-toggle="tab" style="font-weight: bold;">Product Structure</a>
-																</li>
-																 <li><a href="#supplyChainStructure" data-toggle="tab"  style="font-weight: bold;">Supply Chain Structure</a>
-																</li>
-															 </ul>
+									<!-- Modal -->
+							<div class="modal fade" id="myDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<form role = 'form' id="form-delete" method="POST" action="/supply-chain">
+										<div id="deleteConfirm" name="deleteConfirm" class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+												</div>
+												<div class="modal-body" hidden>
+													<input class="form-control box-co" name="id_to_delete" id="id_to_delete" value="">
+													<input class="form-control box-co" name="name_to_delete" id="name_to_delete" value="">
+													<input class="form-control box-co" name="mode" value="delete">
+												</div>
+												<div class="modal-footer">												
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+													<button type="submit" name="send" id="btnclick" class="btn btn-danger">Delete</button>
+												</div>
+											</div>
+										</div>
+								</form>
+							</div>
 
-															<!-- Tab panes -->
-															<div class="tab-content">
-																<div class="tab-pane fade in active" id="productStructure">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-productStructure">
-																			<tbody>
-																					<tr class="end_general" style="display:none;">
-																					</tr>
-																					<tr>
-																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->																						
-																						<th width="100%" class="co-th ">
-																							<select onchange="" class="form-control box-co" name="select_productToAdd" id="select_productToAdd">
-																							</select>
-																						</th>
-																						<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_general()" class="btn btn-success mybutton del_general"><i class="fa fa-plus"></i></button></th>
-																					</tr>
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<form role = 'form' id="form-post" method="POST" action="/supply-chain">									
+									<div class="modal-dialog" name="normalDialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title" id="myModalLabel">Supply Chain Model</h4>
+											</div>
+										<div id="myDIV">
+											<div class="modal-body">
+												<div class="group-1">
+													<div class="form-group col-3">
+														<label>UUID</label>
+														<input class="form-control box-co" name="id_item" value="">
+													</div>
+													<div class="form-group col-3" style="display: none;">
+														<label>UUID</label>
+														<input class="form-control box-co" name="mode" value="" required>
+													</div>
+													<div class="form-group">
+														<label>Version</label>
+														<input class="form-control box-co" name="version_item" value="" required />
+													</div>
+													<div class="form-group">
+														<label>Status</label>
+														<select class="form-control box-co" name="status_item" value="" required></select>
+													</div>
+													<div class="form-group col-3">
+														<label>Name</label>
+														<input class="form-control box-co" name="name_item" value="" required>
+													</div>
+													<div class="form-group col-3">
+														<label>Organization</label>
+														<select class="form-control box-co" name="organization_item" value="" required></select>
+													</div>
+												</div>
+											<div class="group-2">
+											<div class="panel">
+													<!-- /.panel-heading -->
+												<div class="panel-body">
+													<!-- Nav tabs -->
+													<ul class="nav nav-tabs">
+														<li class="active"><a href="#productStructure" data-toggle="tab" style="font-weight: bold;">Product Structure</a>
+														</li>
+															<li><a href="#supplyChainStructure" data-toggle="tab"  style="font-weight: bold;">Supply Chain Structure</a>
+														</li>
+														</ul>
 
-																<div class="tab-pane fade" id="supplyChainStructure">
-																<div class="row show-grid">
-																<table class="table table-content" id="tbl-supplyChainStructure">
+													<!-- Tab panes -->
+													<div class="tab-content">
+														<div class="tab-pane fade in active" id="productStructure">
+															<div class="row show-grid">
+																<table class="table table-content" id="tbl-productStructure">
 																	<tbody>
-																			<tr class="end_sc" style="display:none;"></tr>																			
+																			<tr class="end_general" style="display:none;">
+																			</tr>
+																			<tr>
+																				<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->																						
 																				<th width="100%" class="co-th ">
-																					<select onchange="" class="form-control box-co" name="select_participantsToAdd" id="select_participantsToAdd">
+																					<select onchange="" class="form-control box-co" name="select_productToAdd" id="select_productToAdd">
 																					</select>
 																				</th>
-																				<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_sc()" class="btn btn-success mybutton del_sc"><i class="fa fa-plus"></i></button></th>
+																				<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_general()" class="btn btn-success mybutton del_general"><i class="fa fa-plus"></i></button></th>
 																			</tr>
 																	</tbody>
 																</table>
 															</div>
-																</div>
-															</div>
+														</div>
+
+														<div class="tab-pane fade" id="supplyChainStructure">
+														<div class="row show-grid">
+														<table class="table table-content" id="tbl-supplyChainStructure">
+															<tbody>
+																	<tr class="end_sc" style="display:none;"></tr>																			
+																		<th width="100%" class="co-th ">
+																			<select onchange="" class="form-control box-co" name="select_participantsToAdd" id="select_participantsToAdd">
+																			</select>
+																		</th>
+																		<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_sc()" class="btn btn-success mybutton del_sc"><i class="fa fa-plus"></i></button></th>
+																	</tr>
+															</tbody>
+														</table>
+													</div>
 														</div>
 													</div>
-														<!-- /.panel-body -->
-													</div>
+												</div>
+											</div>
+												<!-- /.panel-body -->
+											</div>
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                        <button type="submit" name="send" id="btnclick" class="btn btn-success">Apply</button>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                    </form>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+												<button type="submit" name="send" id="btnclick" class="btn btn-success">Apply</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
 									</div>
+									<!-- /.modal-dialog -->
+								</form>
+							</div>
 
                     <div class="table-responsive">
                         <table class="table mytable">
@@ -315,7 +321,7 @@ th{
 												<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"  data-toggle="modal" data-target="#myModal" title="Edit or View Detail this Supply Chain Model"><i class="fa fa-pencil"></i></button>
 											</th>
 											<th>
-												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete" title="Delete this Supply Chain Model"><i class="fa fa-trash"></i></button>
+												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#myDeleteModal" title="Delete this Supply Chain Model"><i class="fa fa-trash"></i></button>
 											</th>
 											<th>
 												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal" title="Duplicate this Supply Chain Model"><i class="fa fa-copy"></i></button>
@@ -697,19 +703,22 @@ th{
 			return scm;
 		}
 	}
+	
+    $('#btn-addnew').click(function(){
+		var scm = init_scm(true);
+		reset_ui(scm);
+	});
 
 	$('.btn-edit').click(function(){
-
 		var id=$('.row-'+$(this).attr('id')).find('.id').text();
 		get_scm(id, function(items) {
 			var scm = items[0];
 			scm.mode = "edit";
 			reset_ui(scm);
 		} )
-    });
+	});
 
 	$('.btn-duplicate').click(function(){
-
 		var id=$('.row-'+$(this).attr('id')).find('.id').text();
 		get_scm(id, function(items) {
 			var scm = items[0];
@@ -720,15 +729,25 @@ th{
 			reset_ui(scm);
 		} )
 	});
+	
+	$('.btn-delete').click(function(){	
+		$( "div[name='deleteConfirm']" ).prop('hidden', false);
+		$( "div[name='normalDialog']" ).prop('hidden', true);
 
-    $('#btn-addnew').click(function(){
-
-		var scm = init_scm(true);
-		reset_ui(scm);
+		 var id_to_del=$('.row-'+$(this).attr('id')).find('.id').text();
+		 var name=$('.row-'+$(this).attr('id')).find('.name').text();
+		 var confirm = "Are you sure you want to delete Supply Chain Mode [ " + id_to_del + " - " + name + "]?";
+		 $("#myModalLabel").html(confirm);				 
+		 $( "input[name='id_to_delete']" ).val(id_to_del);
+		 $( "input[name='name_to_delete']" ).val(name);
+		 $( "input[name='mode']" ).val("delete");
 	});
 
 	function reset_ui(scm)
 	{
+		$( "div[name='deleteConfirm']" ).prop('hidden', true);
+		$( "div[name='normalDialog']" ).prop('hidden', false);
+
 		var titleMode = (scm.mode === "edit"? " Editing " : (scm.mode === "duplicate" ? " Duplicating " : " Adding ") )
 		$( ".modal-title" ).text(titleMode + " Supply Chain Model");
 		$('#form-post').attr('action','/supply-chain');
@@ -736,6 +755,7 @@ th{
 		$( "input[name='id_item']" ).val(scm.id);
 
 		$( "input[name='id_item']" ).prop('readonly', scm.mode === "edit");
+		$( "input[name='id_item']" ).prop('hidden', scm.mode === "add");
 
 		$( "input[name='mode']" ).val(scm.mode);
 
@@ -786,50 +806,41 @@ th{
 			})
 		}
 	}
+	
+	// $("#modal-btn-yes").on("click", function(){
+	// 	callbackConfirm(true);
+	// 	$("#mi-modal").modal('hide');
+	//   });
 
-	$('.btn-delete').click(function(){
-		id_to_del=$('.row-'+$(this).attr('id')).find('.id').text();
-		var name=$('.row-'+$(this).attr('id')).find('.name').text();
+	// $("#modal-btn-no").on("click", function(){
+	// 	callbackConfirm(false);
+	// 	$("#mi-modal").modal('hide');
+	// });
 
-		var confirm = "Are you sure you want to delete Supply Chain Mode [ " + id_to_del + " - " + name + "]?";
-		$("#myModalLabel").html(confirm);
-		$("#mi-modal").modal('show');
-	});
+	// var id_to_del;
+	// function callbackConfirm(confirmed)
+	// {
+	// 	var id=$('.row-'+$(this).attr('id')).find('.id').text();
 
-	$("#modal-btn-yes").on("click", function(){
-		callbackConfirm(true);
-		$("#mi-modal").modal('hide');
-	  });
-
-	$("#modal-btn-no").on("click", function(){
-		callbackConfirm(false);
-		$("#mi-modal").modal('hide');
-	});
-
-	var id_to_del;
-	function callbackConfirm(confirmed)
-	{
-		var id=$('.row-'+$(this).attr('id')).find('.id').text();
-
-		if(confirmed){
-			$.ajax({
-				url: '/supply-chain/',
-				type: 'PUT',
-				data : {
-					id: id_to_del,
-					_status: "Deleted"
-				},
-				success: function(result) {
-					// Do something with the result\
-					if(result === 200)
-					{
-						$("#btn-search").click();
-					}
-				}
-			});
-		}
-		else{
-		}
-	};
+	// 	if(confirmed){
+	// 		$.ajax({
+	// 			url: '/supply-chain/',
+	// 			type: 'PUT',
+	// 			data : {
+	// 				id: id_to_del,
+	// 				_status: "Deleted"
+	// 			},
+	// 			success: function(result) {
+	// 				// Do something with the result\
+	// 				if(result === 200)
+	// 				{
+	// 					$("#btn-search").click();
+	// 				}
+	// 			}
+	// 		});
+	// 	}
+	// 	else{
+	// 	}
+	// };
 
 </script>
