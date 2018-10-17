@@ -147,35 +147,35 @@ th{
                                                     <div class="modal-body">
                                                         <div class="group-1">
                                                             <div class="form-group">
-                                                                <label>ID</label>
+                                                                <label>ID (*)</label>
                                                                 <input class="form-control box-co gr-1" name="id_item" value="">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Object Type</label>
+                                                                <label>Object Type (*)</label>
                                                                 <input class="form-control box-co gr-1" name="objectType_item" value="">
                                                             </div>    
                                                             <div class="form-group">
-                                                                <label>Time</label>
+                                                                <label>Time (*)</label>
                                                                 <input class="form-control box-co gr-1" name="time_item" value="">
 															</div>  
 															<div class="form-group">
-																<label>CTE</label>
+																<label>CTE (*)</label>
 																<input class="form-control box-co gr-1" name="cte_item" value="">
 															</div>
 															<div class="form-group">
-																<label>Asset</label>
+																<label>Asset (*)</label>
 																<input class="form-control box-co gr-1" name="asset_item" value="">
 															</div>    
 															<div class="form-group">
-																<label>Supplychain ID</label>
+																<label>Supplychain ID (*)</label>
 																<input class="form-control box-co gr-1" name="supplychain_item" value="">
 															</div>    		
 															<div class="form-group">
-																<label>Location</label>
+																<label>Location (*)</label>
 																<input class="form-control box-co gr-1" name="location_item" value="">
 															</div>    
 															<div class="form-group">
-																<label>Product</label>
+																<label>Product (*)</label>
 																<input class="form-control box-co gr-1" name="product_item" value="">
 															</div>  													
                                                         </div>  
@@ -185,15 +185,59 @@ th{
 														<div class="panel-body">
 															<!-- Nav tabs -->
 															<ul class="nav nav-tabs">
-																<li class="active"><a href="#general" data-toggle="tab" style="font-weight: bold;">General</a>
+																<li class="active"><a href="#lable" data-toggle="tab"  style="font-weight: bold;">Lable</a>
 																</li>
-																<li><a href="#lable" data-toggle="tab"  style="font-weight: bold;">Lable</a>
+																<li><a href="#general" data-toggle="tab" style="font-weight: bold;">GS1</a>
 																</li>
 															 </ul>
 
 															<!-- Tab panes -->
 															<div class="tab-content">
-																<div class="tab-pane fade in active" id="general">
+																<div class="tab-pane fade  in active" id="lable">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-lable">
+																			<tbody>
+																				<tr class="lable-rows lable-1">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Datetime" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Datetime" id="lable_Datetime" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-2">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Valid Datetime" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Valid_Datetime" id="lable_Valid_Datetime" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-3">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="GPS" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_GPS" id="lable_GPS" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-4">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="GTIN" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_GTIN" id="lable_GTIN" name="lable_val" value=""></th>
+																				</tr>		
+																				<tr class="lable-rows lable-5">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Lot Batch" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Lot_Batch" id="lable_Lot_Batch" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-6">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Logistic Unit" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Logistic_Unit" id="lable_Logistic_Unit" name="lable_val" value=""></th>
+																				</tr>	
+																				<tr class="lable-rows lable-7">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Country" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Country" id="lable_Country" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-8">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Agency Name" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Agency_Name" id="lable_Agency_Name" name="lable_val" value=""></th>
+																				</tr>		
+																				<tr class="lable-rows lable-9">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Label Type" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Label_Type" id="lable_Label_Type" name="lable_val" value=""></th>
+																				</tr>																					
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+																<div class="tab-pane fade" id="general">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-general">
 																			<tbody>
@@ -304,52 +348,7 @@ th{
 																			</tbody>
 																		</table>
 																	</div>
-																</div>	
-																<div class="tab-pane fade" id="lable">
-																	<div class="row show-grid">
-																		<table class="table table-content" id="tbl-lable">
-																			<tbody>
-																				<tr class="lable-rows lable-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Datetime" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Datetime" id="lable_Datetime" name="lable_val" value=""></th>
-																				</tr>
-																				<tr class="lable-rows lable-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Valid Datetime" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Valid_Datetime" id="lable_Valid_Datetime" name="lable_val" value=""></th>
-																				</tr>
-																				<tr class="lable-rows lable-3">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="GPS" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_GPS" id="lable_GPS" name="lable_val" value=""></th>
-																				</tr>
-																				<tr class="lable-rows lable-4">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="GTIN" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_GTIN" id="lable_GTIN" name="lable_val" value=""></th>
-																				</tr>		
-																				<tr class="lable-rows lable-5">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Lot Batch" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Lot_Batch" id="lable_Lot_Batch" name="lable_val" value=""></th>
-																				</tr>
-																				<tr class="lable-rows lable-6">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Logistic Unit" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Logistic_Unit" id="lable_Logistic_Unit" name="lable_val" value=""></th>
-																				</tr>	
-																				<tr class="lable-rows lable-7">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Country" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Country" id="lable_Country" name="lable_val" value=""></th>
-																				</tr>
-																				<tr class="lable-rows lable-8">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Agency Name" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Agency_Name" id="lable_Agency_Name" name="lable_val" value=""></th>
-																				</tr>		
-																				<tr class="lable-rows lable-9">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Label Type" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co lable_Label_Type" id="lable_Label_Type" name="lable_val" value=""></th>
-																				</tr>																					
-																			</tbody>
-																		</table>
-																	</div>
 																</div>
-																		
 															</div>
 														</div>
 													</div>
@@ -373,7 +372,7 @@ th{
                             <thead>
                                 <tr>
 									<th class="row-title" width="20%">ID</th>
-									<th class="row-title" width="10%">Object Type</th>
+									<!-- <th class="row-title" width="10%">Object Type</th> -->
 									<th class="row-title" width="10%">Time</th>
 									<th class="row-title" width="10%">CTE</th>
 									<th class="row-title" width="10%">Supplychain ID</th>
@@ -389,7 +388,7 @@ th{
 								%>
 									<tr class="row-<%=rowid%>"</tr>
 										<th class="id"><%=data[c]['id']%></th>
-										<th class="obj"><%=data[c]['objectType']%></th>
+										<!-- <th class="obj"><%=data[c]['objectType']%></th> -->
 										<th class="time"><%=data[c]['time']%></th>
 										<th class="cte"><%=data[c]['cte']%></th>
 										<th class="supplychain_id"><%=data[c]['supplychain_id']%></th>

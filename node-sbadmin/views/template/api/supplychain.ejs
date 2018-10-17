@@ -139,6 +139,7 @@ th{
 								</form>
 							</div>
 
+<<<<<<< HEAD
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<form role = 'form' id="form-post" method="POST" action="/supply-chain">									
 									<div class="modal-dialog" name="normalDialog">
@@ -192,6 +193,82 @@ th{
 														<div class="tab-pane fade in active" id="productStructure">
 															<div class="row show-grid">
 																<table class="table table-content" id="tbl-productStructure">
+=======
+                            <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal" title="Add new Supply Chain Model"><i class="fa fa-plus"></i> Add new</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <form role = 'form' id="form-post" method="POST" action="/supply-chain">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">Supply Chain Model</h4>
+                                                    </div>
+												<div id="myDIV">
+                                                    <div class="modal-body">
+                                                        <div class="group-1">
+                                                            <div class="form-group col-3">
+                                                                <label>UUID (*)</label>
+                                                                <input class="form-control box-co" name="id_item" value="">
+															</div>
+															<div class="form-group col-3" style="display: none;">
+                                                                <label>UUID (*)</label>
+                                                                <input class="form-control box-co" name="mode" value="" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Version (*)</label>
+                                                                <input class="form-control box-co" name="version_item" value="" required />
+															</div>
+															<div class="form-group">
+                                                                <label>Status (*)</label>
+                                                                <select class="form-control box-co" name="status_item" value="" required></select>
+                                                            </div>
+                                                            <div class="form-group col-3">
+                                                                <label>Name (*)</label>
+                                                                <input class="form-control box-co" name="name_item" value="" required>
+                                                            </div>
+                                                            <div class="form-group col-3">
+                                                                <label>Organization (*)</label>
+                                                                <select class="form-control box-co" name="organization_item" value="" required></select>
+                                                            </div>
+                                                        </div>
+                                                  <div class="group-2">
+													<div class="panel">
+															<!-- /.panel-heading -->
+														<div class="panel-body">
+															<!-- Nav tabs -->
+															<ul class="nav nav-tabs">
+																<li class="active"><a href="#productStructure" data-toggle="tab" style="font-weight: bold;">Product Structure</a>
+																</li>
+																 <li><a href="#supplyChainStructure" data-toggle="tab"  style="font-weight: bold;">Supply Chain Structure</a>
+																</li>
+															 </ul>
+
+															<!-- Tab panes -->
+															<div class="tab-content">
+																<div class="tab-pane fade in active" id="productStructure">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-productStructure">
+																			<tbody>
+																					<tr class="end_general" style="display:none;">
+																					</tr>
+																					<tr>
+																						<!--<th width="100%" class="co-th "><input onchange="" class="form-control box-co" id="productToAdd" value="<select a product>"></th>-->																						
+																						<th width="100%" class="co-th ">
+																							<select onchange="" class="form-control box-co" name="select_productToAdd" id="select_productToAdd">
+																							</select>
+																						</th>
+																						<th width="7px" class="co-th mybutton"><button type="button" onclick="insert_general()" class="btn btn-success mybutton del_general"><i class="fa fa-plus"></i></button></th>
+																					</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+
+																<div class="tab-pane fade" id="supplyChainStructure">
+																<div class="row show-grid">
+																<table class="table table-content" id="tbl-supplyChainStructure">
+>>>>>>> 083f364dad88612e124bd716bfe250b70ef407a0
 																	<tbody>
 																			<tr class="end_general" style="display:none;">
 																			</tr>
