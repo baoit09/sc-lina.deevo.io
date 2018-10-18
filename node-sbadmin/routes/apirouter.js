@@ -9,6 +9,7 @@ var auditor=require('../controller/api/auditor');
 var action=require('../controller/api/audit-action');
 var request = require('request');
 var modal=require('../controller/api/ajax');
+var loadajax=require('../controller/api/loaddata');
 
 module.exports = function(app) {  
 
@@ -109,7 +110,7 @@ module.exports = function(app) {
 	app.route('/audit-action')
 		.get(action.action_api004);
 
-	app.route('/loaddata/:action')
-		.post(action.load_data);
+	app.route('/loadajax/:action')
+		.post(loadajax.get_ajax);
 	
 }

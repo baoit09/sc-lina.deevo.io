@@ -78,7 +78,21 @@ module.exports.asset_api001 = function(req, res) {
 		
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
-			res.render('template/api/asset',{data:'',message:"Thực hiện thành công !!!",status:1});
+			var options = {
+				url: 'http://18.136.205.13:3000/api/v1/assets/',
+				method: 'GET',
+		  	};
+		  
+			request(options, function (error, response, body) {
+				if(!error && response.statusCode==200){
+					var data=JSON.parse(body);
+					res.render('template/api/asset',{data:data,message:"Thực hiện thành công !!!",status:1});
+				}else if(!error && response.statusCode!=200){
+					res.render('template/api/asset',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+				}else{
+					res.render('template/api/asset',{data:'',message:error,status:2});
+				}
+			});
 		}else if(!error && response.statusCode!=200){
 			res.render('template/api/asset',{data:'',message: JSON.stringify(response),status:2});
 		}else{
@@ -117,7 +131,21 @@ module.exports.asset_api003 = function(req, res) {
 		
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
-			res.render('template/api/asset',{data:'',message:"Thực hiện thành công !!!",status:1});
+			var options = {
+				url: 'http://18.136.205.13:3000/api/v1/assets/',
+				method: 'GET',
+		  	};
+		  
+			request(options, function (error, response, body) {
+				if(!error && response.statusCode==200){
+					var data=JSON.parse(body);
+					res.render('template/api/asset',{data:data,message:"Thực hiện thành công !!!",status:1});
+				}else if(!error && response.statusCode!=200){
+					res.render('template/api/asset',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+				}else{
+					res.render('template/api/asset',{data:'',message:error,status:2});
+				}
+			});
 		}else if(!error && response.statusCode!=200){
 			res.render('template/api/asset',{data:'',message: JSON.stringify(response),status:2});
 		}else{

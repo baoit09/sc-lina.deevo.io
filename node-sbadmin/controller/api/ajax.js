@@ -11,18 +11,20 @@ module.exports.modal_product = function(req, res) {
 				"<div id='myDIV'>"+
 					"<div class='modal-body'>"+
 						"<div class='group-1'>"+
-							"<div class='form-group col-3'>"+
-								"<label>ID (*)</label>"+
+							"<div class='form-group col-3' id='iditem'>"+
+								"<label>ID</label>"+
 								"<input class='form-control box-co' name='id_item' value='"+req.body.id+"'>"+
 							"</div>"+
 							"<div class='form-group'>"+
 								"<label>Name (*)</label>"+
 								"<input class='form-control box-co' name='name_item' value='"+req.body.name+"'>"+
-							"</div>"+
+							"</div>"+ 
 							"<div class='form-group col-3'>"+
 								"<label>Location (*)</label>"+
-								"<input class='form-control box-co' name='parent_item' value='"+req.body.parent+"'>"+
-							"</div>"+    															
+								"<select class='form-control box-co' id='parent_item' name='parent_item' >"+
+									"<option value='0'>--- select ---</option>"+
+								"</select>"+
+							"</div>"+									
 						"</div>"+  
 						"<div class='group-2'>"+
 							"<div class='panel'>"+
