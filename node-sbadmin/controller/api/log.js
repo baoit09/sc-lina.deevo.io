@@ -3,15 +3,34 @@ var request = require('request');
 module.exports.log_api002 = function(req, res) {
 	
 		var logid=req.param('orgid_key');
+		var logtype=req.param('type_search');
+		var url;
+
+		if(logtype==0){
+			url= 'http://18.136.205.13:3000/api/v1/logs/'+ logid;
+		}else{
+			url= 'http://18.136.205.13:3000/api/v1/logs?product='+logtype;
+		}
+
 		var options = {
-  			url: 'http://18.136.205.13:3000/api/v1/logs/'+ logid,
-  			method: 'GET',
+			url: url,
+			method: 'GET',
 		};
 		
 		request(options, function (error, response, body) {
 			if(!error && response.statusCode==200){
-				var data=[JSON.parse(body)];
-				res.render('template/api/log',{data:data,message:'',status:0});
+				if(logtype==0){
+					var data=[JSON.parse(body)];
+					res.render('template/api/log',{data:data,message:'',status:0});
+				}else{
+					var data=JSON.parse(body);
+					if(Object.keys(data).length>0){
+						res.render('template/api/log',{data:data,message:'',status:0});
+					}else{
+						res.render('template/api/log',{data:data,message:'Không tìm thấy yêu cầu !!!',status:2});
+					}
+				}
+				
 			}else if(!error && response.statusCode!=200){
 				res.render('template/api/log',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
 			}else{
@@ -193,3 +212,21 @@ module.exports.log_api003 = function(req, res) {
 		 });
 };
 
+module.exports.getbyproduct = function(req, res) {
+
+	var str=req.params.action;
+    var baseurll= 'http://18.136.205.13:3000/api/v1/logs';
+
+    
+    var options = {
+        url: baseurl,
+        method: 'GET',
+    };
+
+	request(options, function (error, response, body) {
+		if(!error && response.statusCode==200){
+			  res.send(body);
+		}
+	 });
+
+};
