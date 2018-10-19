@@ -15,6 +15,10 @@ module.exports.get_ajax = function(req, res) {
 		baseurl= 'http://18.136.205.13:3000/api/v1/orgs/';
 	}else if(str === 'party'){
 		baseurl= 'http://18.136.205.13:3000/api/v1/parties/';
+	}else if(str === 'asset'){
+		baseurl= 'http://18.136.205.13:3000/api/v1/assets/';
+	}else if(str === 'supplychain'){
+		baseurl= 'http://18.136.205.13:3000/api/v1/supply-chains/';
 	}else{
         baseurl= 'http://18.136.205.13:3000/api/v1/products/';
 	}
