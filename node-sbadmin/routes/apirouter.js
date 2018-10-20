@@ -7,14 +7,14 @@ var schain=require('../controller/api/supplychain');
 var log=require('../controller/api/log');
 var auditor=require('../controller/api/auditor');
 var action=require('../controller/api/audit-action');
-var request = require('request');
+var logistic=require('../controller/api/logistic');
 var modal=require('../controller/api/ajax');
 var loadajax=require('../controller/api/loaddata');
 
 module.exports = function(app) {  
 
-	app.get('/demo',function(req,res){
-		res.render('abc',{data:'',message:'',status:0});
+	app.get('/permission',function(req,res){
+		res.render('template/api/permission',{data:'',message:'',status:0});
 	});
 
 	app.route('/organization/action')
@@ -101,6 +101,13 @@ module.exports = function(app) {
 	app.route('/auditor')
 		.get(auditor.auditor_api004);
 
+	app.route('/logistic/action')
+		.get(logistic.logistic_api002)
+		.post(logistic.logistic_api001)
+		.put(logistic.logistic_api003);
+
+	app.route('/logistic')
+		.get(logistic.logistic_api004);
 
 	app.route('/audit-action/action')
 		.get(action.action_api002)
@@ -114,3 +121,9 @@ module.exports = function(app) {
 		.post(loadajax.get_ajax);
 	
 }
+
+// var isAuthenticated = function (req, res, next) {
+// 	if (req.isAuthenticated())
+// 	  return next();
+// 	res.redirect('/login');
+//   }

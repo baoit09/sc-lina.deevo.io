@@ -110,7 +110,7 @@ select.form-control.type_search{
 
 }
 .search{
-    width: 50%;
+    width: 30%;
     float: right;
 }
 .orgid_key{
@@ -145,7 +145,7 @@ th{
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">LOG</h1>
+            <h1 class="page-header">LOGISTIC</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -163,34 +163,25 @@ th{
         <div class="col-lg-12">
                     <div class="panel-body">
 							<div class="search">
-								<form role="form" id="form-search" method="GET" action="/log/action">
+								<form role="form" id="form-search" method="GET" action="/logistic/action">
 									<div class="form-group input-group">
-										<div class="group-search">
-											<div class="input-group-btn type_search">
-												<select  class="form-control type_search" id="type_search" name="type_search">
-													<option value="0">---select---</option>
-												</select>
-											</div>
-											<div class="input-group-btn orgid_key">
-												<input type="text" class="form-control orgid_key" name="orgid_key" value="">
-											</div>
-										</div>
-										<div class="input-group-btn">
-											<button class="btn btn-default" id="btn-search" type="submit"><i class="fa fa-search"></i>
+										<input type="text" class="form-control" name="orgid_key" value="">
+										<span class="input-group-btn">
+											<button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
 											</button>
-										</div>
+										</span>
 									</div>
 								</form>
 							</div>
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/log/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/logistic/action">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">LOG</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">LOGISTIC</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
@@ -200,39 +191,15 @@ th{
                                                                 <input class="form-control box-co" id="id_item" name="id_item" value="" readonly>
                                                             </div>  
                                                             <div class="form-group">
-                                                                <label>Time (*)</label>
-                                                                <input class="form-control box-co gr-1" id="time_item" name="time_item" value="">
+                                                                <label>Name (*)</label>
+                                                                <input class="form-control box-co gr-1" id="name_item" name="name_item" value="">
 															</div>  
-															<div class="form-group">
-																<label>CTE (*)</label>
-																<select class="form-control box-co gr-1" id="cte_item" name="cte_item" >
-																		<option value="0">--- select ---</option>
-																  </select>
-															</div>  
-															<div class="form-group">
-																<label>Asset (*)</label>
-																<select class="form-control box-co gr-1" id="asset_item" name="asset_item" >
-																		<option value="0">--- select ---</option>
-																  </select>
-															</div>  
-															<div class="form-group col-3">
-																<label>Supplychain (*)</label>
-																<select class="form-control box-co gr-1" id="supplychain_item" name="supplychain_item" >
-																		<option value="0">--- select ---</option>
-																  </select>
-                                                            </div>  
 															<div class="form-group col-3">
 																<label>Location (*)</label>
 																<select class="form-control box-co gr-1" id="location_item" name="location_item" >
 																		<option value="0">--- select ---</option>
 																  </select>
-															</div>  
-															<div class="form-group col-3">
-																<label>Product (*)</label>
-																<select class="form-control box-co gr-1" id="product_item" name="product_item" >
-																		<option value="0">--- select ---</option>
-																  </select>
-                                                            </div>  													
+															</div>  													
                                                         </div>  
                                                   <div class="group-2">
 													<div class="panel">
@@ -426,15 +393,11 @@ th{
                         <table class="table mytable">                         
                             <thead>
                                 <tr>
-									<th class="row-title" width="10%">ID</th>
+									<th class="row-title" width="20%">ID</th>
 									<!-- <th class="row-title" width="10%">Object Type</th> -->
-									<th class="row-title" width="10%">Time</th>
-									<th class="row-title" width="10%">CTE</th>
-									<th class="row-title" width="10%">Supplychain</th>
-									<th class="row-title" width="10%">Asset</th>
-									<th class="row-title" width="10%">Product</th>
-									<th class="row-title" width="10%">Location</th>
-									<th class="row-title" width="20%">Content</th>
+									<th class="row-title" width="20%">Name</th>
+									<th class="row-title" width="20%">Location</th>
+									<th class="row-title" width="30%">Content</th>
 									<th class="row-title" width="10%">Action</th>
                                 </tr>
                             </thead>
@@ -445,34 +408,37 @@ th{
 									<tr class="row-<%=rowid%>"</tr>
 										<th class="id"><%=data[c]['id']%></th>
 										<!-- <th class="obj"><%=data[c]['objectType']%></th> -->
-										<th class="time"><%=data[c]['time']%></th>
-										<th class="cte"><%=data[c]['cte']%></th>
-										<th class="supplychain"><%=data[c]['supplychain_id']%></th>
-										<th class="asset"><%=data[c]['asset']%></th>
-										<th class="product"><%=data[c]['product']%></th>
-										<th class="location"><%=data[c]['location']%></th>
+										<th class="name"><%=data[c]['name']%></th>
+										<th class="location"><%=data[c]['parent']%></th>
 										<th class= "row-content">
-											<ul class="menu-json">
-
-												<li class="json-op">{</li>
-												<%												
-												var objj=JSON.parse(JSON.parse(data[c]['content']))
-												for(var o in objj) {
-													if(typeof objj[o]!='object'){
-												%>
-												<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-													<%}else{%>
-														<li class="json-cap1"><%= o %>: {</li>
-														<%for(var k in objj[o]) {%>
-															<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
-
-														<%}%>
-														<li class="json-cap1">}</li>
-													<%}%>
-												<%}%>
-												<li class="json-cl">}</li>
-											</ul>
-											<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%if(typeof data[c]['content'] == "undefined"){%>
+												<ul class="menu-json">
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
+												</ul>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(data[c]['content'])%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
 										</th>
 										<th class="action">
 											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
@@ -491,55 +457,46 @@ th{
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>   
 
-	$('#type_search').change(function(){
-		var str=$(this).val();
-		if(str==0){
-			$('.orgid_key').prop('disabled', false);
-		}else{
-			$('.orgid_key').prop('disabled', true);
-		};
-	});
-
 	$('.btn-edit').click(function(){
 
-		var time= $('.row-'+$(this).attr('id')).find('.time').text();
-		var cte= $('.row-'+$(this).attr('id')).find('.cte').text();
-		var supplychain= $('.row-'+$(this).attr('id')).find('.supplychain').text();
-		var asset= $('.row-'+$(this).attr('id')).find('.asset').text();
-		var product= $('.row-'+$(this).attr('id')).find('.product').text();
-		var location= $('.row-'+$(this).attr('id')).find('.location').text();
+		var name= $('.row-'+$(this).attr('id')).find('.name').text();
+		var locaton= $('.row-'+$(this).attr('id')).find('.location').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
-		var objcontent=JSON.parse(JSON.parse(content));
 		var id= $('.row-'+$(this).attr('id')).find('.id').text();
-
+;
 		$("#myModal").modal();
-		$('#form-post').attr('action','/log/action?_method=put');
+		$('#form-post').attr('action','/logistic/action?_method=put');
 
-		$( "#iditem" ).css("display", "block");
+		$("#iditem").css("display", "block");
+
 		$("#id_item").val(id);
-       
-		$("#asset_item").val(asset);
-		$("#time_item").val(time);
-		$("#cte_item").val(cte);
-		$('#supplychain_item').val(supplychain);
-		$('#location_item').val(location);
-		$('#product_item').val(product);
-		
-		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(objcontent)[index]);
-		});
+		$("#name_item").val(name);
+		$("#location_item").val(locaton);
 
-		$("input[name='lable_val']").each(function(index){
-			$(this).val(Object.values(objcontent['Lable'])[index]);
-		});
+		try{
+			var objcontent=JSON.parse(content);
 
+			$("input[name='general_val']").each(function(index){
+				$(this).val(Object.values(objcontent)[index]);
+			});
+
+			$("input[name='lable_val']").each(function(index){
+				$(this).val(Object.values(objcontent['Lable'])[index]);
+			});
+		}catch(error){
+			$("input[name='general_val']").val('');
+			$("input[name='lable_val']").val('');
+		}
     });
 
     $('#btn-addnew').click(function(){
-		$( "#iditem" ).css("display", "none");
+
+		$("#iditem").css("display", "none");
+
 		$("input[name='id_item']").val(uuidv4());
-		$("input[name='time_item']").val('');
-        $('#form-post').attr('action','/log/action');
+		$("input[name='name_item']").val('');
+		$('#form-post').attr('action','/logistic/action');
+		
 		$("input[name='general_val']").val('');
 		$("input[name='lable_val']").val('');
 	
@@ -554,90 +511,36 @@ th{
 
 $(document).ready(function(){
 
-var asset="/loadajax/asset";
-var supply="/loadajax/supplychain";
-var loca="/loadajax/location";
-var product="/loadajax/product";
-var cte=["Grow", "Harvest", "Aggregate", "Store", "Pack", "Unpack", "Adjust", "Sell", 
-		"Ship", "Produce", "Convert", "Prepare", "Transport", "Consume", "Destroy", "Provide", "Inspect", "Certify", "Approve"];
-var str;
+	var loca="/loadajax/location";
 
-for(var c in cte ) {
-	str+='<option value="'+cte[c]+'">';
-	str+= cte[c];
-	str+='</option>';
-}
-
-$('#cte_item').html(str);
-
-loadauditor(function(html){
-	$('#asset_item').html(html);
-},asset);
-
-loadauditor(function(html){
-	$('#supplychain_item').html(html);
-},supply);
-
-loadauditor(function(html){
-	$('#location_item').html(html);
-},loca);
-
-loadauditor(function(html){
-	$('#product_item').html(html);
-},product);
-
-search(function(html){
-	$('#type_search').html(html);
-},product);
-
+	loadauditor(function(html){
+		$('#location_item').html(html);
+	},loca);
 });
 
 function loadauditor(callback,url){
 
-$.ajax({
-	url:url,
-	type: "POST",
-	data:{
-	},
-	success:function(response){
-		console.log(response);
-	var res = JSON.parse(response);
-	var html='';
-			for(var c in res ) {
-				html+='<option value="'+res[c]['name']+'">';
-				html+= res[c]['name'];
-				html+='</option>';
-			}
-		callback(html);
-	},
-	error:function(error){
-		console.log(error);
-	}
-});
+	$.ajax({
+		url:url,
+		type: "POST",
+		data:{
+		},
+		success:function(response){
+			console.log(response);
+		var res = JSON.parse(response);
+		var html='';
+				for(var c in res ) {
+					html+='<option value="'+res[c]['name']+'">';
+					html+= res[c]['name'];
+					html+='</option>';
+				}
+			callback(html);
+		},
+		error:function(error){
+			console.log(error);
+		}
+	});
 }
 
-function search(callback,url){
-
-$.ajax({
-	url:url,
-	type: "POST",
-	data:{
-	},
-	success:function(response){
-		console.log(response);
-	var res = JSON.parse(response);
-	var html='<option value="0">--- search by product ---';
-			for(var c in res ) {
-				html+='<option value="'+res[c]['name']+'">';
-				html+= res[c]['name'];
-				html+='</option>';
-			}
-		callback(html);
-	},
-	error:function(error){
-		console.log(error);
-	}
-});
-}
 
 </script>

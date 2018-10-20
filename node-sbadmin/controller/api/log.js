@@ -80,21 +80,12 @@ module.exports.log_api001 = function(req, res) {
 		var product= req.body.product_item;
 		var general_key=req.body.general_key;
 		var general_val=req.body.general_val;
-		var lable_key=req.body.lable_key;
-		var lable_val=req.body.lable_val;
 	
 		var general = {};
-		var lable= {};
 		
 		for (var i = 0; i <= general_key.length; i++) {
 			general[general_key[i]] = general_val[i];
 		};
-
-		for (var i = 0; i <= lable_key.length; i++) {
-			lable[lable_key[i]] = lable_val[i];
-		};
-
-		general["Lable"]=lable;
 		  
 		var ref= [];
 		var options = {
@@ -154,21 +145,13 @@ module.exports.log_api003 = function(req, res) {
 		var product= req.body.product_item;
 		var general_key=req.body.general_key;
 		var general_val=req.body.general_val;
-		var lable_key=req.body.lable_key;
-		var lable_val=req.body.lable_val;
 
 		var general = {};
-		var lable= {};
 		
 		for (var i = 0; i <= general_key.length; i++) {
 			general[general_key[i]] = general_val[i];
 		};
 
-		for (var i = 0; i <= lable_key.length; i++) {
-			lable[lable_key[i]] = lable_val[i];
-		};
-
-		general["Lable"]=lable;
 		
 		var ref= [];
 
@@ -210,23 +193,4 @@ module.exports.log_api003 = function(req, res) {
 				res.render('template/api/log',{data:'',message:error,status:2});
 			}
 		 });
-};
-
-module.exports.getbyproduct = function(req, res) {
-
-	var str=req.params.action;
-    var baseurll= 'http://18.136.205.13:3000/api/v1/logs';
-
-    
-    var options = {
-        url: baseurl,
-        method: 'GET',
-    };
-
-	request(options, function (error, response, body) {
-		if(!error && response.statusCode==200){
-			  res.send(body);
-		}
-	 });
-
 };

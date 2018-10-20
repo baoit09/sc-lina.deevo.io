@@ -24,7 +24,7 @@ module.exports.get_ajax = function(req, res) {
 	}
     
     var options = {
-        url: baseurl,
+        url:baseurl,
         method: 'GET',
     };
 

@@ -1,22 +1,15 @@
 var Bbs = require('../persister/bbs');
-var request = require('request');
-var fs = require('fs');
-var url = require('url');
-var website = "http://toidicode.com?a=5";
-var parse = url.parse(website,true);
-
 
 module.exports = function(app, passport){
 
 
 	 /* GET home page. */
-
-	app.get('/', function(req, res) {
-		res.redirect('/dashboard');
+	app.get('/',isAuthenticated, function(req, res) {
+	   res.redirect('/readme');
 	});
 
 	app.post('/login', passport.authenticate('login', {
-		successRedirect: '/dashboard',
+		successRedirect: '/readme',
 		failureRedirect: '/login',
 		failureFlash : true 
 	}));
@@ -41,55 +34,47 @@ module.exports = function(app, passport){
 		failureRedirect: '/signup',
 		failureFlash : true 
 	}));
-
 	app.get('/readme',isAuthenticated, function(req, res) {
 	   res.render('template/readme', {});
 	});
-
-	app.get('/dashboard', function(req, res) {
+	app.get('/dashboard',isAuthenticated, function(req, res) {
 	   res.render('template/index', {});
 	});
-
-	app.get('/flot', function(req, res) {
+	app.get('/flot',isAuthenticated, function(req, res) {
 	   res.render('template/flot', {});
 	});
-
-	app.get('/morris', function(req, res) {
+	app.get('/morris',isAuthenticated, function(req, res) {
 	   res.render('template/morris', {});
 	});
-
-	app.get('/tables', function(req, res) {
+	app.get('/tables',isAuthenticated, function(req, res) {
 	   res.render('template/tables', {});
 	});
-
-	app.get('/forms', function(req, res) {
+	app.get('/forms',isAuthenticated, function(req, res) {
 	   res.render('template/forms', {});
 	});
-
-	app.get('/panelswells', function(req, res) {
+	app.get('/panelswells',isAuthenticated, function(req, res) {
 	   res.render('template/panelswells', {});
 	});
-
-	app.get('/buttons', function(req, res) {
+	app.get('/buttons',isAuthenticated, function(req, res) {
 	   res.render('template/buttons', {});
 	});
-	app.get('/notifications', function(req, res) {
+	app.get('/notifications',isAuthenticated, function(req, res) {
 	   res.render('template/notifications', {});
 	});
-	app.get('/typography', function(req, res) {
+	app.get('/typography',isAuthenticated, function(req, res) {
 	   res.render('template/typography', {});
 	});
-	app.get('/icons', function(req, res) {
+	app.get('/icons',isAuthenticated, function(req, res) {
 	   res.render('template/icons', {});
 	});
-	app.get('/grid', function(req, res) {
+	app.get('/grid',isAuthenticated, function(req, res) {
 	   res.render('template/grid', {});
 	});
-	app.get('/blank', function(req, res) {
+	app.get('/blank',isAuthenticated, function(req, res) {
 	   res.render('template/blank', {});
 	});
 	
-  	app.get('/bbs', function(req, res) {
+  	app.get('/bbs',isAuthenticated, function(req, res) {
 	   res.render('template/bbs', {});
 	});
 	
@@ -162,6 +147,4 @@ module.exports = function(app, passport){
 	    return next();
 	  res.redirect('/login');
 	}
-
-
 

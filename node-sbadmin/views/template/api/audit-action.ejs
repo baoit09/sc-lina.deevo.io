@@ -169,7 +169,7 @@ th{
 											<div class="group-search">
 												<div class="input-group-btn type_search">
 													<select  class="form-control type_search" id="type_search" name="type_search">
-													  <option value="0">---select---</option>
+														<option value="0">---select---</option>
 													</select>
 												</div>
 												<div class="input-group-btn orgid_key">
@@ -209,6 +209,7 @@ th{
 																<select class="form-control box-co gr-1" id="auditor_item" name="auditor_item"> 
 																		<option value="0">---select---</option>
 																</select>
+																<!-- <input type="hidden" id="auditor_item" name="auditor_item" value=""> -->
 															</div>  
 															<div class="form-group">
 																<label>Locations (*)</label>
@@ -218,10 +219,10 @@ th{
 															</div>  
 															<div class="form-group">
 																<label>Products (*)</label>
-																<select class="form-control box-co gr-1" id="object_item" name="object_item"> 
+																<select class="form-control box-co gr-1" id="product_item" name="product_item"> 
 																	<option value="0">---select---</option>
 																</select>
-															</div>  													
+															</div>  														
                                                         </div>  
                                                   <div class="group-2">
 													<div class="panel">
@@ -368,72 +369,21 @@ th{
 </div>
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-<script>    
-	$(document).ready(function(){
+<script>  
 
-		$.ajax({
-			url:"/loadajax/auditor",
-			type: "POST",
-			data:{
-			},
-			success:function(response){
-				console.log(response);
-			var res = JSON.parse(response);
-			var html='';
-					for(var c in res ) {
-						html+='<option value="'+res[c]['id']+'">';
-						html+= res[c]['name'];
-						html+='</option>';
-					}
-				callback(html);
-			},
-			error:function(error){
-				console.log(error);
-			}
-		})
+	// $('#auditor_id').change(function(){
+	// 	var text=$('#auditor_id option:selected').text();
+	// 	$('#auditor_item').val(text);
+	// })
 
-		var url="/loadajax/auditor";
-		var url_location="/loadajax/location";
-		var url_obj="/loadajax/obj";
-
-		loadauditor(function(html){
-			$('#type_search').html(html);
-			$('#auditor_item').html(html);
-		},url);
-
-		loadauditor(function(html){
-			$('#location_item').html(html);
-		},url_location);
-
-		loadauditor(function(html){
-			$('#object_item').html(html);
-		},url_obj);
-
+	$('#type_search').change(function(){
+		var str=$(this).val();
+		if(str==0){
+			$('.orgid_key').prop('disabled', false);
+		}else{
+			$('.orgid_key').prop('disabled', true);
+		};
 	});
-
-	function loadauditor(callback,url){
-		
-		$.ajax({
-			url:url,
-			type: "POST",
-			data:{
-			},
-			success:function(response){
-				console.log(response);
-			var res = JSON.parse(response);
-			var html='';
-					for(var c in res ) {
-						html+='<option value="'+res[c]['name']+'">';
-						html+= res[c]['name'];
-						html+='</option>';
-					}
-				callback(html);
-			},
-			error:function(error){
-				console.log(error);
-			}
-		})
-	}
 
 	$('.btn-edit').click(function(){
 
@@ -484,5 +434,77 @@ th{
 			return v.toString(16);
 		});
 	}
-	
+
+	$(document).ready(function(){
+
+var loca="/loadajax/location";
+var product="/loadajax/product";
+var audit="/loadajax/auditor";
+
+loadauditor(function(html){
+	$('#location_item').html(html);
+},loca);
+
+loadauditor(function(html){
+	$('#auditor_item').html(html);
+},audit);
+
+search(function(html){
+	$('#type_search').html(html);
+},audit);
+
+loadauditor(function(html){
+	$('#product_item').html(html);
+},product);
+
+});
+
+function loadauditor(callback,url){
+
+$.ajax({
+	url:url,
+	type: "POST",
+	data:{
+	},
+	success:function(response){
+		console.log(response);
+	var res = JSON.parse(response);
+	var html='';
+			for(var c in res ) {
+				html+='<option value="'+res[c]['name']+'">';
+				html+= res[c]['name'];
+				html+='</option>';
+			}
+		callback(html);
+	},
+	error:function(error){
+		console.log(error);
+	}
+});
+}
+
+function search(callback,url){
+
+$.ajax({
+	url:url,
+	type: "POST",
+	data:{
+	},
+	success:function(response){
+		console.log(response);
+	var res = JSON.parse(response);
+	var html='<option value="0">--- search by auditor ---';
+			for(var c in res ) {
+				html+='<option value="'+res[c]['name']+'">';
+				html+= res[c]['name'];
+				html+='</option>';
+			}
+		callback(html);
+	},
+	error:function(error){
+		console.log(error);
+	}
+});
+}
+
 </script>
