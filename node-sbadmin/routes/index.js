@@ -5,11 +5,11 @@ module.exports = function(app, passport){
 
 	 /* GET home page. */
 	app.get('/',isAuthenticated, function(req, res) {
-	   res.redirect('/readme');
+	   res.redirect('/dashboard');
 	});
 
 	app.post('/login', passport.authenticate('login', {
-		successRedirect: '/readme',
+		successRedirect: '/dashboard',
 		failureRedirect: '/login',
 		failureFlash : true 
 	}));

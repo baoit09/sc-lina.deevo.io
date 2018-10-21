@@ -14,7 +14,7 @@ module.exports.org_api005 = function(req, res) {
 			var data=JSON.parse(body);
 			res.render('template/api/organization',{data:data,message:'',status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+			res.render('template/api/organization',{data:'',message:'No data found!',status:2});
 		}else{
 			res.render('template/api/organization',{data:'',message:error,status:2});
 		}
@@ -35,7 +35,7 @@ module.exports.org_api003 = function(req, res) {
 			var data=[JSON.parse(body)];
 			res.render('template/api/organization',{data:data,message:"",status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+			res.render('template/api/organization',{data:'',message:'No data found!',status:2});
 		}else{
 			res.render('template/api/organization',{data:'',message:error,status:2});
 		}
@@ -109,15 +109,13 @@ module.exports.org_api002 = function(req,res) {
 			request(options, function (error, response, body) {
 				if(!error && response.statusCode==200){
 					var data=JSON.parse(body);
-					res.render('template/api/organization',{data:data,message:'Thực hiện thành công !!!',status:1});
-				}else if(!error && response.statusCode!=200){
-					res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+					res.render('template/api/organization',{data:data,message:"Successfully added "+ name +" to system.",status:1});
 				}else{
-					res.render('template/api/organization',{data:'',message:error,status:2});
+					res.render('template/api/organization',{data:'',message:"Failed to add "+ name + " to system.",status:2});
 				}
 			 });
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message: JSON.stringify(response),status:2});
+			res.render('template/api/organization',{data:'',message: "Failed to add "+ name + " to system.",status:2});
 		}else{
 			res.render('template/api/organization',{data:'',message:error,status:2});
 		}
@@ -188,15 +186,13 @@ module.exports.org_api004 = function(req, res) {
 			request(options, function (error, response, body) {
 				if(!error && response.statusCode==200){
 					var data=JSON.parse(body);
-					res.render('template/api/organization',{data:data,message:'Thực hiện thành công !!!',status:1});
-				}else if(!error && response.statusCode!=200){
-					res.render('template/api/organization',{data:'',message:"Không tìm thấy yêu cầu !!!",status:2});
+					res.render('template/api/organization',{data:data,message:"Successfully updated "+ name +" to system.",status:1});
 				}else{
-					res.render('template/api/organization',{data:'',message:error,status:2});
+					res.render('template/api/organization',{data:'',message:"Failed to add "+ name + " to system.",status:2});
 				}
 			 });
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',message:JSON.stringify(response),status:2});
+			res.render('template/api/organization',{data:'',message:"Failed to add "+ name + " to system.",status:2});
 		}else{
 			res.render('template/api/organization',{data:'',message:error,status:2});
 		}

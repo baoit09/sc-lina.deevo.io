@@ -321,7 +321,6 @@ th{
 								<tr>
 									<th class="row-title td-id" >ID</th>
 									<th class="row-title td-name" >Name</th>
-									<!-- <th class="row-title td-obj" >Object Type</th> -->
 									<th class="row-title td-parent">Location</th>
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
@@ -330,36 +329,42 @@ th{
                             <tbody>
 									<% 
 									var rowid=1 
-									for(var k in data ) {
+									for(var c in data ) {
 								 %>
 									<tr class="row-<%=rowid%>">
-										<th class= "row-id"><%=data[k]['id']%></th>
-										<th class= "row-name"><%=data[k]['name']%></th>
-										<!-- <th class= "row-obj"><%=data[k]['objectType']%></th> -->
-										<th class= "row-parent"><%=data[k]['parent']%></th>
+										<th class= "row-id"><%=data[c]['id']%></th>
+										<th class= "row-name"><%=data[c]['name']%></th>
+										<th class= "row-parent"><%=data[c]['parent']%></th>
 										<th class= "row-content">
+											<%if(typeof data[c]['content'] == "undefined"){%>
 												<ul class="menu-json">
-	
-													<li class="json-op">{</li>
-													<%												
-													var objj=JSON.parse(data[k]['content'])
-													for(var o in objj) {
-														if(typeof objj[o]!='object'){
-													%>
-													<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-														<%}else{%>
-															<li class="json-cap1"><%= o %>: {</li>
-															<%for(var c in objj[o]) {%>
-																<li class="json-cap2"><%= c %>: "<%= objj[o][c] %>"</li>
-	
-															<%}%>
-															<li class="json-cap1">}</li>
-														<%}%>
-													<%}%>
-													<li class="json-cl">}</li>
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
 												</ul>
-												<textarea class="input-content" hidden="hidden" ><%= data[k]['content'] %></textarea>       
-											</th>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(data[c]['content'])%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
+										</th>
 										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
 									</tr>
 								<% rowid++}; 
@@ -382,7 +387,6 @@ th{
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
         var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
-		var objcontent=JSON.parse(content);
 		
 		$("#myModal").modal();
         $('#form-post').attr('action','/asset/action?_method=put');
@@ -391,18 +395,27 @@ th{
         $( "input[name='name_item']" ).val(name);
 		$( "#parent_item" ).val(parent);
 		
+		try{
+		
+		var objcontent=JSON.parse(content);
+
 		$("input[name='general_val']").each(function(index){
 			$(this).val(Object.values(objcontent)[index]);
 		});
+
+		}catch(error){
+			$("input[name='general_val']").val('');
+		}
 
     });
 
     $('#btn-addnew').click(function(){
         $('#form-post').attr('action','/asset/action');
+
 		$( "input[name='id_item']" ).val(uuidv4())
 		$( "#iditem" ).css("display", "none");
-        $( "input[name='name_item']" ).val('');
 
+        $( "input[name='name_item']" ).val('');
 		$("input[name='general_val']").val('');
 	
 	});

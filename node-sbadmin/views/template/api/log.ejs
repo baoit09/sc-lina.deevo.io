@@ -301,7 +301,6 @@ th{
                             <thead>
                                 <tr>
 									<th class="row-title" width="10%">ID</th>
-									<!-- <th class="row-title" width="10%">Object Type</th> -->
 									<th class="row-title" width="10%">Time</th>
 									<th class="row-title" width="10%">CTE</th>
 									<th class="row-title" width="10%">Supplychain</th>
@@ -318,7 +317,6 @@ th{
 								%>
 									<tr class="row-<%=rowid%>"</tr>
 										<th class="id"><%=data[c]['id']%></th>
-										<!-- <th class="obj"><%=data[c]['objectType']%></th> -->
 										<th class="time"><%=data[c]['time']%></th>
 										<th class="cte"><%=data[c]['cte']%></th>
 										<th class="supplychain"><%=data[c]['supplychain_id']%></th>
@@ -326,27 +324,34 @@ th{
 										<th class="product"><%=data[c]['product']%></th>
 										<th class="location"><%=data[c]['location']%></th>
 										<th class= "row-content">
-											<ul class="menu-json">
-
-												<li class="json-op">{</li>
-												<%												
-												var objj=JSON.parse(JSON.parse(data[c]['content']))
-												for(var o in objj) {
-													if(typeof objj[o]!='object'){
-												%>
-												<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-													<%}else{%>
-														<li class="json-cap1"><%= o %>: {</li>
-														<%for(var k in objj[o]) {%>
-															<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
-
-														<%}%>
-														<li class="json-cap1">}</li>
-													<%}%>
-												<%}%>
-												<li class="json-cl">}</li>
-											</ul>
-											<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%if(typeof data[c]['content'] == "undefined"){%>
+												<ul class="menu-json">
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
+												</ul>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(JSON.parse(data[c]['content']))%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
 										</th>
 										<th class="action">
 											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
@@ -383,7 +388,7 @@ th{
 		var product= $('.row-'+$(this).attr('id')).find('.product').text();
 		var location= $('.row-'+$(this).attr('id')).find('.location').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
-		var objcontent=JSON.parse(JSON.parse(content));
+
 		var id= $('.row-'+$(this).attr('id')).find('.id').text();
 
 		$("#myModal").modal();
@@ -398,10 +403,18 @@ th{
 		$('#supplychain_item').val(supplychain);
 		$('#location_item').val(location);
 		$('#product_item').val(product);
-		
-		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(objcontent)[index]);
-		});
+
+		try{
+			
+			var objcontent=JSON.parse(JSON.parse(content));
+
+			$("input[name='general_val']").each(function(index){
+				$(this).val(Object.values(objcontent)[index]);
+			});
+
+		}catch(error){
+			$("input[name='general_val']").val('');
+		}
 
     });
 
@@ -411,7 +424,6 @@ th{
 		$("input[name='time_item']").val('');
         $('#form-post').attr('action','/log/action');
 		$("input[name='general_val']").val('');
-	
 	});
 
 	function uuidv4() {

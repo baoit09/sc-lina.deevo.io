@@ -429,35 +429,40 @@ th{
 
                                     <% 
                                         var rowid=1 
-                                        for(var k in data ) {
+                                        for(var c in data ) {
                                      %>
                                         <tr class="row-<%=rowid%>">
-                                            <th class= "row-id"><%=data[k]['id']%></th>
-                                            <th class= "row-name"><%=data[k]['name']%></th>
-                                            <!-- <th class= "row-obj"><%=data[k]['objectType']%></th>
-                                            <th class= "row-parent"><%=data[k]['parent']%></th> -->
-                                            <th class= "row-content">
-												<ul class="menu-json">
-
-													<li class="json-op">{</li>
-													<%												
-													var objj=JSON.parse(data[k]['content'])
-													for(var o in objj) {
-														if(typeof objj[o]!='object'){
-													%>
-													<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-														<%}else{%>
-															<li class="json-cap1"><%= o %>: {</li>
-															<%for(var c in objj[o]) {%>
-																<li class="json-cap2"><%= c %>: "<%= objj[o][c] %>"</li>
-
-															<%}%>
-															<li class="json-cap1">}</li>
-														<%}%>
-													<%}%>
-													<li class="json-cl">}</li>
-												</ul>
-												<textarea class="input-content" hidden="hidden" ><%= data[k]['content'] %></textarea>       
+                                            <th class= "row-id"><%=data[c]['id']%></th>
+                                            <th class= "row-name"><%=data[c]['name']%></th>
+											<th class= "row-content">
+												<%if(typeof data[c]['content'] == "undefined"){%>
+													<ul class="menu-json">
+														<li class="json-op">{...}</li>
+														<textarea class="input-content" hidden="hidden" ></textarea>
+													</ul>
+												<%}else{%>
+													<ul class="menu-json">														
+															<%try {%>
+																<%var objj=JSON.parse(data[c]['content'])%>
+																<li class="json-op">{</li>
+																<%for(var o in objj) {%>
+																	<%if(typeof objj[o]!='object'){%>
+																		<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																	<%}else{%>
+																		<li class="json-cap1"><%= o %>: {</li>
+																		<%for(var k in objj[o]) {%>
+																			<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																		<%}%>
+																		<li class="json-cap1">}</li>
+																	<%}%>
+																<%}%>
+																<li class="json-cl">}</li>
+															<%}catch(error) {%>
+																<%=data[c]['content']%>
+															<% }%>	
+													</ul>
+													<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+												<%}%>
 											</th>
                                             <th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
                                         </tr>
@@ -478,7 +483,6 @@ th{
         var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
-		var objcontent=JSON.parse(content);
 		
 		$("#myModal").modal();
 		$( "#iditem" ).css("display", "block");
@@ -486,6 +490,10 @@ th{
 		
         $( "input[name='id_item']" ).val(id);
         $( "input[name='name_item']" ).val(name);
+
+		try{
+		
+		var objcontent=JSON.parse(content);
 
 		var cont=objcontent['Contact'];
 			$('#contact_name').val(cont['Full-Name']);
@@ -513,15 +521,22 @@ th{
 			$('#us2-lon').val(locat['Longitude']);
 			$('#us2-lat').val(locat['Latitude']);
 
+		}catch(error){
+			$("input[name='address_val']").val('');
+			$("input[name='contact_val']").val('');
+			$("input[name='general_val']").val('');
+		}
+		
+
     });
 	
     $('#btn-addnew').click(function(){
 		$('#form-post').attr('action','/organization/action');
 		$( "#iditem" ).css("display", "none");
+
 		$( "input[name='id_item']" ).val(uuidv4());
         $( "input[name='name_item']" ).val('');
-        $( "input[name='type_item']" ).val('');
-        $( "input[name='parent_item']" ).val('');
+
 		$("input[name='address_val']").val('');
 		$("input[name='contact_val']").val('');
 		$("input[name='general_val']").val('');

@@ -27,11 +27,11 @@ module.exports.action_api002 = function(req, res) {
 				if(Object.keys(data).length>0){
 					res.render('template/api/audit-action',{data:data,message:'',status:0});
 				}else{
-					res.render('template/api/audit-action',{data:data,message:'Không tìm thấy yêu cầu !!!',status:2});
+					res.render('template/api/audit-action',{data:data,message:'No data found!',status:2});
 				}
 			}
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/audit-action',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+			res.render('template/api/audit-action',{data:'',message:'No data found!',status:2});
 		}else{
 			res.render('template/api/audit-action',{data:'',message:error,status:2});
 		}
@@ -55,7 +55,7 @@ module.exports.action_api004 = function(req, res) {
 			var data=JSON.parse(body);
 			res.render('template/api/audit-action',{data:data,message:'',status:1});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/audit-action',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+			res.render('template/api/audit-action',{data:'',message:'No data found!',status:2});
 		}else{
 			res.render('template/api/audit-action',{data:'',message:error,status:2});
 		}
@@ -108,15 +108,13 @@ module.exports.action_api001 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/audit-action',{data:data,message:'Thực hiện thành công !!!',status:1});
-				  }else if(!error && response.statusCode!=200){
-					  res.render('template/api/audit-action',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+					  res.render('template/api/audit-action',{data:data,message:"Successfully added audit-actions to system.",status:1});
 				  }else{
-					  res.render('template/api/audit-action',{data:'',message:error,status:2});
+					  res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/audit-action',{data:'',message:JSON.stringify(response),status:2});
+				res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
 			}else{
 				res.render('template/api/audit-action',{data:'',message:error,status:2});
 			}
@@ -166,15 +164,13 @@ module.exports.action_api003 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/audit-action',{data:data,message:'Thực hiện thành công !!!',status:1});
-				  }else if(!error && response.statusCode!=200){
-					  res.render('template/api/audit-action',{data:'',message:'Không tìm thấy yêu cầu !!!',status:2});
+					  res.render('template/api/audit-action',{data:data,message:"Successfully updated audit-actions to system.",status:1});
 				  }else{
-					  res.render('template/api/audit-action',{data:'',message:error,status:2});
+					  res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/audit-action',{data:'',message:JSON.stringify(response),status:2});
+				res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
 			}else{
 				res.render('template/api/audit-action',{data:'',message:error,status:2});
 			}

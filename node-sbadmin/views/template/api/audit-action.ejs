@@ -331,29 +331,36 @@ th{
 										<th class="location"><%=data[c]['location']%></th>
 										<th class="auditor"><%=data[c]['auditor']%></th>
 										<th class="product"><%=data[c]['objectId']%></th>
-										<th class= "content">
+										<th class= "row-content">
+											<%if(typeof data[c]['content'] == "undefined"){%>
 												<ul class="menu-json">
-	
-													<li class="json-op">{</li>
-													<%												
-													var objj=JSON.parse(data[c]['content'])
-													for(var o in objj) {
-														if(typeof objj[o]!='object'){
-													%>
-													<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-														<%}else{%>
-															<li class="json-cap1"><%= o %>: {</li>
-															<%for(var d in objj[o]) {%>
-																<li class="json-cap2"><%= d %>: "<%= objj[o][d] %>"</li>
-	
-															<%}%>
-															<li class="json-cap1">}</li>
-														<%}%>
-													<%}%>
-													<li class="json-cl">}</li>
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
 												</ul>
-												<textarea class="input-content" hidden="hidden" ><%= data[c]['content'] %></textarea>       
-											</th>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(data[c]['content'])%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
+										</th>
 										<th class="action">
 											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
 										</th>
@@ -396,20 +403,27 @@ th{
 
 		var id= $('.row-'+$(this).attr('id')).find('.id').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
-		var objcontent=JSON.parse(content);
 
-		$("#myModal").modal();
-		$('#form-post').attr('action','/audit-action/action?_method=put');
-		$( "#iditem" ).css("display", "block");
-		$( "input[name='id_item']" ).val(id);
+			$("#myModal").modal();
+			$('#form-post').attr('action','/audit-action/action?_method=put');
+			$( "#iditem" ).css("display", "block");
+			$( "input[name='id_item']" ).val(id);
 
-        $( ".gr-1" ).each(function(index){
-			$(this).val(Object.values(obj_input)[index]);
-		});
+			$( ".gr-1" ).each(function(index){
+				$(this).val(Object.values(obj_input)[index]);
+			});
+
+		try{
 		
-		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(objcontent)[index]);
-		});
+			var objcontent=JSON.parse(content);
+			
+			$("input[name='general_val']").each(function(index){
+				$(this).val(Object.values(objcontent)[index]);
+			});
+
+		}catch(error){
+			$("input[name='general_val']").val('');
+		}
 
     });
 

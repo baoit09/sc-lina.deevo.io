@@ -463,7 +463,7 @@ th{
 		var locaton= $('.row-'+$(this).attr('id')).find('.location').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 		var id= $('.row-'+$(this).attr('id')).find('.id').text();
-;
+		
 		$("#myModal").modal();
 		$('#form-post').attr('action','/logistic/action?_method=put');
 
