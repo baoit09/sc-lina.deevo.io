@@ -10,12 +10,20 @@ var action=require('../controller/api/audit-action');
 var logistic=require('../controller/api/logistic');
 var modal=require('../controller/api/ajax');
 var loadajax=require('../controller/api/loaddata');
+var history=require('../controller/api/view-history');
 
 module.exports = function(app) {  
 
 	app.get('/permission',function(req,res){
 		res.render('template/api/permission',{data:'',message:'',status:0});
 	});
+
+	app.route('/view-history')
+		.get(history.views_products);
+
+	app.route('/view-history/action')
+		.get(history.view_product);
+
 
 	app.route('/organization/action')
 		.get(isAuthenticated, organization.org_api003)
