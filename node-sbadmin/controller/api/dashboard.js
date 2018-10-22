@@ -10,7 +10,8 @@ module.exports.dashboard_api001 = function(req, res) {
 		Locations : [],
 		Products : [],
 		SupplyChains : [],
-		CTELogs : []
+		CTELogs : [],
+		lastUpdated : new Date().toUTCString()
 	};		
 
 	request({ url: baseURL + '/orgs/', method: 'GET'}, function (error, response, body) 
