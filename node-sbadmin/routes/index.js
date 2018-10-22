@@ -1,4 +1,5 @@
 var Bbs = require('../persister/bbs');
+var dashboard = require('../controller/api/dashboard');
 
 module.exports = function(app, passport){
 
@@ -37,9 +38,11 @@ module.exports = function(app, passport){
 	app.get('/readme',isAuthenticated, function(req, res) {
 	   res.render('template/readme', {});
 	});
-	app.get('/dashboard',isAuthenticated, function(req, res) {
-	   res.render('template/index', {});
-	});
+	// app.get('/dashboard',isAuthenticated, function(req, res) {	
+	//    res.render('template/index', {});
+	// });
+	app.get('/dashboard',isAuthenticated, dashboard.dashboard_api001);
+
 	app.get('/flot',isAuthenticated, function(req, res) {
 	   res.render('template/flot', {});
 	});
