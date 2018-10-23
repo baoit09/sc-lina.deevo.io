@@ -1,6 +1,6 @@
 var request = require('request');
 
-module.exports.log_api002 = function(req, res) {
+module.exports.get_log_farm = function(req, res) {
 	
 		var logid=req.param('orgid_key');
 		var logtype=req.param('type_search');
@@ -21,20 +21,20 @@ module.exports.log_api002 = function(req, res) {
 			if(!error && response.statusCode==200){
 				if(logtype==0){
 					var data=[JSON.parse(body)];
-					res.render('template/api/log',{data:data,message:'',status:0});
+					res.render('template/api/farm-orchard',{data:data,message:'',status:0});
 				}else{
 					var data=JSON.parse(body);
 					if(Object.keys(data).length>0){
-						res.render('template/api/log',{data:data,message:'',status:0});
+						res.render('template/api/farm-orchard',{data:data,message:'',status:0});
 					}else{
-						res.render('template/api/log',{data:data,message:'No data found!',status:2});
+						res.render('template/api/farm-orchard',{data:data,message:'No data found!',status:2});
 					}
 				}
 				
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/log',{data:'',message:'No data found!',status:2});
+				res.render('template/api/farm-orchard',{data:'',message:'No data found!',status:2});
 			}else{
-				res.render('template/api/log',{data:'',message:error,status:2});
+				res.render('template/api/farm-orchard',{data:'',message:error,status:2});
 			}
 		 });
 	
@@ -43,7 +43,7 @@ module.exports.log_api002 = function(req, res) {
 
 /* ///////////////////////// */
 
-module.exports.log_api004 = function(req, res) {
+module.exports.getall_log_farm = function(req, res,view) {
 	
 	var logid=req.param('orgid_key');
 	var options = {
@@ -54,11 +54,11 @@ module.exports.log_api004 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=JSON.parse(body);
-			res.render('template/api/log',{data:data,message:'',status:0});
+			res.render('template/api/'+view,{data:data,message:'',status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/log',{data:'',message:'No data found!',status:2});
+			res.render('template/api/'+view,{data:'',message:'No data found!',status:2});
 		}else{
-			res.render('template/api/log',{data:'',message:error,status:2});
+			res.render('template/api/'+view,{data:'',message:error,status:2});
 		}
 	 });
 
@@ -115,15 +115,15 @@ module.exports.log_api001 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/log',{data:data,message:"Successfully added "+ logid +" to system.",status:1});
+					  res.render('template/api/farm-orchard',{data:data,message:"Successfully added "+ logid +" to system.",status:1});
 				  }else{
-					  res.render('template/api/log',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+					  res.render('template/api/farm-orchard',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/log',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+				res.render('template/api/farm-orchard',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
 			}else{
-				res.render('template/api/log',{data:'',message:error,status:2});
+				res.render('template/api/farm-orchard',{data:'',message:error,status:2});
 			}
 		 });
 		
@@ -144,28 +144,13 @@ module.exports.log_api003 = function(req, res) {
 		var general_key=req.body.general_key;
 		var general_val=req.body.general_val;
 
-		var detail_key=req.body.detail_key;
-		var detail_val=req.body.detail_val;
-
-		if(req.body.view_tpl){
-			var view=req.body.view_tpl;
-		}else{
-			var view='log';
-		}
-		
 		var general = {};
-		var detail= {};
-
 		
 		for (var i = 0; i <= general_key.length; i++) {
 			general[general_key[i]] = general_val[i];
 		};
+
 		
-		for (var i = 0; i <=  detail_key.length; i++) {
-			detail[detail_key[i]] = detail_val[i];
-		};
-		
-		general["detail"]=detail;
 		var ref= [];
 
 		var options = {
@@ -193,15 +178,15 @@ module.exports.log_api003 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/'+view,{data:data,message:"Successfully updated "+ logid +" to system.",status:1});
+					  res.render('template/api/farm-orchard',{data:data,message:"Successfully updated "+ logid +" to system.",status:1});
 				  }else{
-					  res.render('template/api/'+view,{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+					  res.render('template/api/farm-orchard',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/'+view,{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+				res.render('template/api/farm-orchard',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
 			}else{
-				res.render('template/api/'+view,{data:'',message:error,status:2});
+				res.render('template/api/farm-orchard',{data:'',message:error,status:2});
 			}
 		 });
 };
