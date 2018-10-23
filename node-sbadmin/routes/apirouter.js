@@ -115,6 +115,8 @@ module.exports = function(app) {
 
 	app.route('/log')
 		.get(isAuthenticated, log.log_api004);
+	app.route('/log/:page')
+		.get(isAuthenticated, log.log_api004);
 
 
 	app.route('/auditor/action')
