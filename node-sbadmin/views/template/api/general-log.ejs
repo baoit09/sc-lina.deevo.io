@@ -1,0 +1,534 @@
+<%layout('/layout')%> 
+
+<style>
+
+
+.menu-json {
+
+overflow-y: scroll;
+height: 150px;
+background-color: antiquewhite;
+padding-left: 15px;
+
+}
+
+.json-cap1, .json-cap2,.json-op,.json-cl {
+	list-style: none;
+}
+
+.json-cap1 {
+
+padding-left: 15px;
+
+}
+
+.json-cap2 {
+
+padding-left: 75px;
+
+}
+
+.mytable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.mytable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mytable td,
+.mytable th {
+  text-align: left;
+  padding: 5px 10px;
+  white-space: initial;
+  word-wrap:break-word;
+}
+
+
+.select-parent{
+    width: 100%;
+}
+
+th.row-parent {
+    border-top: none !important;
+}
+
+th.co-th.mybutton {
+    padding: 0 3px;
+}
+
+.box-co{
+	border-radius: 1px; 
+}
+
+th.co-th {
+    border: none !important;
+}
+.modal-dialog{
+    width: 100em;
+}
+
+.title-group{
+    text-align: center;
+    font-size: 18px;
+}
+.group-1{
+    width: 20%;
+    padding: 5px 5px;
+    float: left;
+}
+
+.group-2 {
+    width: 80%;
+    float: left;
+    padding: 5px 5px;
+}
+
+.modal-body {
+   overflow-y: auto;
+}
+
+#myDIV  {
+    overflow-y: scroll;
+    height: 550px;
+}
+
+.table-responsive {
+    width: 100%;
+}
+select.form-control.type_search{
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+.type_search {
+    display: block;
+    width: 40%;    
+
+}
+.search{
+    width: 50%;
+    float: right;
+}
+.orgid_key{
+    float: right;
+    width: 60%;
+	padding-left: 3px;
+}
+.btn {
+    padding: 6px 20px;
+}
+.btn-edit{
+        padding: 6px 1px;
+        width: 60px;
+}
+textarea {
+    resize: none;
+}
+th{
+    vertical-align: middle !important;
+    font-weight: normal !important;
+}
+.row-title{
+    font-weight: bold !important;
+}
+.col-action{
+    width: 20px;
+}
+</style>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+			<h1 class="page-header"><%= logVM.Header %></h1>
+			<label id="label_role" hidden><%= logVM.Role %></label>
+			<label id="label_eventName" hidden><%= logVM.EventName %></label>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>  
+    <% if ( message && status== 1 ) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>    
+    <% }%>
+    <% if ( message && status== 2 ) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>   
+    <%} %>
+    <div class="row">
+		<div class="col-lg-12">					
+                    <div class="panel-body">
+							<div class="search">
+								<form role="form" id="form-search" method="GET" action="/log/action">
+									<div class="form-group input-group">
+										<div class="group-search">
+											<div class="input-group-btn type_search">
+												<select  class="form-control type_search" id="type_search" name="type_search">
+													<option value="0">---select---</option>
+												</select>
+											</div>
+											<div class="input-group-btn orgid_key">
+												<input type="text" class="form-control orgid_key" name="orgid_key" value="">
+											</div>
+										</div>
+										<div class="input-group-btn">
+											<button class="btn btn-default" id="btn-search" type="submit"><i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+                            <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <form role = 'form' id="form-post" method="POST" action="/general-log">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">Add new <%= logVM.EventName %> Log</h4>
+                                                    </div>
+												<div id="myDIV">
+                                                    <div class="modal-body">
+                                                        <div class="group-1">
+                                                            <div class="form-group" id="iditem">
+                                                                <label>ID</label>
+                                                                <input class="form-control box-co" id="id_item" name="id_item" value="">
+                                                            </div>  
+                                                            <div class="form-group">
+                                                                <label>Time (*)</label>
+                                                                <input class="form-control box-co gr-1" id="time_item" name="time_item" value="">
+															</div>  
+															<div class="form-group">
+																<label>CTE (*)</label>
+																<select class="form-control box-co gr-1" id="cte_item" name="cte_item" >
+																		<option value="0">--- select ---</option>
+																  </select>
+															</div>  
+															<div class="form-group">
+																<label>Asset (*)</label>
+																<select class="form-control box-co gr-1" id="asset_item" name="asset_item" >
+																		<option value="0">--- select ---</option>
+																  </select>
+															</div>  
+															<div class="form-group col-3">
+																<label>Supplychain (*)</label>
+																<select class="form-control box-co gr-1" id="supplychain_item" name="supplychain_item" >
+																		<option value="0">--- select ---</option>
+																  </select>
+                                                            </div>  
+															<div class="form-group col-3">
+																<label>Location (*)</label>
+																<select class="form-control box-co gr-1" id="location_item" name="location_item" >
+																		<option value="0">--- select ---</option>
+																  </select>
+															</div>  
+															<div class="form-group col-3">
+																<label>Product (*)</label>
+																<select class="form-control box-co gr-1" id="product_item" name="product_item" >
+																		<option value="0">--- select ---</option>
+																  </select>
+                                                            </div>  													
+                                                        </div>  
+                                                  <div class="group-2">
+													<div class="panel">
+															<!-- /.panel-heading -->
+														<div class="panel-body">
+															<!-- Nav tabs -->
+															<ul class="nav nav-tabs">
+																<li class="active"><a href="#content" data-toggle="tab"  style="font-weight: bold;">Content</a>
+																</li>
+																<li ><a href="#general" data-toggle="tab"  style="font-weight: bold;">General</a>
+																</li>																
+															 </ul>
+
+															<!-- Tab panes -->
+															<div class="tab-content">
+																<div class="tab-pane fade" id="general">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-general">
+																			<tbody>
+																				<tr class="general-rows general-1">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Sender" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
+																				</tr>
+																				<tr class="general-rows general-2">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="SCM" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GSIN" value=""></th>																					
+																				</tr>		
+																				<tr class="general-rows general-3">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Source CTE" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_SSCC" value=""></th>																					
+																				</tr>
+																				<tr class="general-rows general-4">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Datetime" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GTIN" value=""></th>																					
+																				</tr>
+																				<tr class="general-rows general-5">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Source Item" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
+																				</tr>																				
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+																<div class="tab-pane fade  in active" id="content">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-content">
+																			<tbody>																			
+																				<tr class="end_sc" style="display:none;">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Sender" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
+																				</tr>																				
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+														<!-- /.panel-body -->
+													</div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" name="send" id="btnclick" class="btn btn-success">Apply</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                    </form>
+                                    </div>                
+                    <div class="table-responsive">
+                        <table class="table mytable">                         
+                            <thead>
+                                <tr>
+									<th class="row-title" width="10%">ID</th>
+									<th class="row-title" width="10%">Time</th>
+									<th class="row-title" width="10%">CTE</th>
+									<th class="row-title" width="10%">Supplychain</th>
+									<th class="row-title" width="10%">Asset</th>
+									<th class="row-title" width="10%">Product</th>
+									<th class="row-title" width="10%">Location</th>
+									<th class="row-title" width="20%">Content</th>									
+                                </tr>
+                            </thead>
+                            <tbody>
+								<%  var rowid=1 
+									for(var c in logVM.LogsByEventName){ 
+								%>
+									<tr class="row-<%= rowid %>"></tr>
+										<th class="id"><%= logVM.LogsByEventName[c]['id'] %></th>
+										<th class="time"><%= logVM.LogsByEventName[c]['time'] %></th>
+										<th class="cte"><%= logVM.LogsByEventName[c]['cte'] %></th>
+										<th class="supplychain"><%= logVM.LogsByEventName[c]['supplychain_id'] %></th>
+										<th class="asset"><%= logVM.LogsByEventName[c]['asset'] %></th>
+										<th class="product"><%= logVM.LogsByEventName[c]['product'] %></th>
+										<th class="location"><%= logVM.LogsByEventName[c]['location'] %></th>
+										<th class= "row-content">
+											<%if(typeof logVM.LogsByEventName[c]['content'] == "undefined"){%>
+												<ul class="menu-json">
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
+												</ul>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(JSON.parse(logVM.LogsByEventName[c]['content']))%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=logVM.LogsByEventName[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%= logVM.LogsByEventName[c]['content'] %></textarea>       
+											<%}%>
+										</th>										
+									</tr>
+                                <% rowid++}; 
+                                %> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+ 	</div>
+</div>
+<script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<script>
+
+	var _eventName = "";
+	var _cteEvents = [];
+	var _locations = [];
+	var _assets = [];
+	var _products = [];
+	var _supplyChains = [];
+	var _contentTemplate = [];
+
+	$( document ).ready(function() {
+
+		_eventName = $("#label_eventName").text();
+		get_locations();
+	});
+
+	function get_locations()
+	{
+		get_objects("/supply-chain/locations", (items) =>
+		{
+			_locations = items;
+			get_assets();
+		})
+	}
+
+	function get_assets()
+	{
+		get_objects("/supply-chain/assets", (items) =>
+		{
+			_assets = items;
+			get_products();
+		})
+	}
+
+	function get_products()
+	{
+		get_objects("/supply-chain/products", (items) =>
+		{
+			_products = items;
+			get_supply_chains()
+		})
+	}
+
+	function get_supply_chains()
+	{
+		get_objects("/supply-chain/scms", (items) =>
+		{
+			_supplyChains = items;
+			get_content_template();
+		})
+	}
+
+	function get_content_template()
+	{
+		get_objects("/supply-chain/templates?template=" + _eventName, (items) =>
+		{
+			_contentTemplate = items;
+
+			addCTEEvents();
+		})
+	}
+
+	function get_objects(url, callback)
+	{
+		$.getJSON( url, function( items ) {
+			items.forEach(function( item ) {
+				if(item.content)
+				{
+					try {
+						item.content = JSON.parse(item.content);
+					} catch(e) {}
+				}
+			});
+			callback(items)
+		});
+	}
+
+	$('#type_search').change(function(){
+		var str=$(this).val();
+		if(str==0){
+			$('.orgid_key').prop('disabled', false);
+		}else{
+			$('.orgid_key').prop('disabled', true);
+		};
+	});
+
+    $('#btn-addnew').click(function(){
+
+		var log = init_log();
+		reset_ui(log);
+	});
+
+	function init_log()
+	{
+		var log = {
+				id : uuidv4(),
+				time: Date.now(),
+				cte : _eventName				
+			};
+
+		return log;
+	}
+
+	function reset_ui(log)
+	{
+		$( "input[name='id_item']" ).val(log.id);
+		$( "input[name='id_item']" ).prop('readonly', true);
+
+		$( "input[name='time_item']" ).val(log.time);
+		$( "input[name='time_item']" ).prop('readonly', true);
+
+		show_items(_cteEvents, $("#cte_item"));
+		$("#cte_item").val(log.cte);
+
+		show_items(_locations, 		$("#location_item"));
+		show_items(_assets,			$("#asset_item"));
+		show_items(_products, 		$("#product_item"));
+		show_items(_supplyChains, 	$("#supplychain_item"));
+
+		generateContent();
+	}
+
+	function addCTEEvents()
+	{		
+		console.log(_eventName);
+		_cteEvents.push({ id: _eventName, name : _eventName})
+	}
+
+	function generateContent()
+	{
+		for(i=0; i < _contentTemplate.length; i++)
+		{
+			var html='<tr class="general-rows general-1">';			
+			html+='<th width="200px" class="co-th"> <input class="form-control box-co" name="content_key" value="' + _contentTemplate[i] + '" readonly /> </th>';
+			html+='<th class="co-th"> <input class="form-control box-co" name="content_val" /></th>';
+			html+="</tr>";
+
+			$(html).insertBefore( ".end_sc" );
+		}
+	}
+
+	function show_items(items, select, isShowAll){
+		select.empty();
+		for (i = 0; i < items.length; i++) {
+			if(isShowAll || items[i].isAdded === undefined || items[i].isAdded === false)
+			{
+				select.append('<option value=\"' + items[i].id + '\">' + items[i].name + '</option>')
+			}
+  		}
+	}
+
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}	
+</script>

@@ -404,7 +404,7 @@ module.exports.schain_api015 = function(req, res) {
 
 	scmID = req.query.scmID;
 	var options = {
-		  url: baseURL + '/supply-chains/' + scmID,
+		  url: baseURL + '/supply-chains/' + (scmID === undefined ? '' : scmID ),
 		  method: 'GET',
 	};
 	
@@ -429,3 +429,19 @@ module.exports.schain_api015 = function(req, res) {
 		}
      });
 };
+
+module.exports.schain_api016 = function(req, res) {
+
+	var templateName = req.query.template;	
+	if(templateName == "Receive")
+	{
+		var Receive = [ "From Company Name", "Product Name", "Quantity" ];
+		res.json(Receive);	
+	}
+	else if(templateName == "Store")
+	{
+		var Store = [ "Stored Location Name", "Product Name", "Quantity" ];
+		res.json(Store);	
+	}
+};
+

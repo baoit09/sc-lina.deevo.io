@@ -52,8 +52,7 @@ module.exports.dashboard_api001 = function(req, res) {
 function convertIDToName(dashboard)
 {
 	dashboard.CTELogs.forEach(function(item)
-	{
-		
+	{		
 		item.timeUTC = item.time ? new Date(item.time).toUTCString() : "";
 		item.cte = item.cte ? item.cte : "";
 		item.productName =  item.product; //findName(item.product, dashboard.Products);
