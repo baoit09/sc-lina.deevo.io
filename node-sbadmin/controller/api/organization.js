@@ -102,23 +102,6 @@ module.exports.org_api002 = function(req,res) {
 
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
-<<<<<<< HEAD
-			var options = {
-				url: 'http://18.136.205.13:3000/api/v1/orgs',
-				method: 'GET',
-				};
-		
-			request(options, function (error, response, body) {
-				if(!error && response.statusCode==200){
-					var refresh=JSON.parse(body);
-					res.render('template/api/organization',{data:refresh,message:"Thực hiện thành công !!!",status:1});
-				}else if(!error && response.statusCode!=200){
-					res.render('template/api/organization',{data:'',message: JSON.stringify(response),status:2});
-				}else{
-					res.render('template/api/organization',{data:'',message:error,status:2});
-				}
-			});
-=======
 			var orgid=req.param('orgid_key');
 			var options = {
 				  url: 'http://18.136.205.13:3000/api/v1/orgs/',
@@ -133,7 +116,6 @@ module.exports.org_api002 = function(req,res) {
 					res.render('template/api/organization',{data:'',message:"Failed to add "+ name + " to system.",status:2});
 				}
 			 });
->>>>>>> 3fb575124be3722b12bc0f09c34a83022192b53c
 		}else if(!error && response.statusCode!=200){
 			res.render('template/api/organization',{data:'',message: "Failed to add "+ name + " to system.",status:2});
 		}else{
