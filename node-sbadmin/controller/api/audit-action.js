@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.action_api002 = function(req, res) {
-	
+	var user=req.user.username;
 	var actiontype=  req.param('type_search');
 	var actionid= req.param('orgid_key');
 	var url;
@@ -21,19 +21,19 @@ module.exports.action_api002 = function(req, res) {
 		if(!error && response.statusCode==200){
 			if(actiontype==0){
 				var data=[JSON.parse(body)];
-				res.render('template/api/audit-action',{data:data,message:'',status:0});
+				res.render('template/api/audit-action',{data:data,user:user,message:'',status:0});
 			}else{
 				var data=JSON.parse(body);
 				if(Object.keys(data).length>0){
-					res.render('template/api/audit-action',{data:data,message:'',status:0});
+					res.render('template/api/audit-action',{data:data,user:user,message:'',status:0});
 				}else{
-					res.render('template/api/audit-action',{data:data,message:'No data found!',status:2});
+					res.render('template/api/audit-action',{data:'',user:user,message:'No data found!',status:2});
 				}
 			}
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/audit-action',{data:'',message:'No data found!',status:2});
+			res.render('template/api/audit-action',{data:'',user:user,message:'No data found!',status:2});
 		}else{
-			res.render('template/api/audit-action',{data:'',message:error,status:2});
+			res.render('template/api/audit-action',{data:'',user:user,message:error,status:2});
 		}
 	 });
 };
@@ -42,7 +42,7 @@ module.exports.action_api002 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.action_api004 = function(req, res) {
-	
+	var user=req.user.username;
 	var auditorid=  req.param('type_search');
 	var actionid= req.param('orgid_key');
 	var options = {
@@ -53,11 +53,11 @@ module.exports.action_api004 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=JSON.parse(body);
-			res.render('template/api/audit-action',{data:data,message:'',status:1});
+			res.render('template/api/audit-action',{data:data,user:user,message:'',status:1});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/audit-action',{data:'',message:'No data found!',status:2});
+			res.render('template/api/audit-action',{data:'',user:user,message:'No data found!',status:2});
 		}else{
-			res.render('template/api/audit-action',{data:'',message:error,status:2});
+			res.render('template/api/audit-action',{data:'',user:user,message:error,status:2});
 		}
 	 });
 
@@ -68,7 +68,7 @@ module.exports.action_api004 = function(req, res) {
 
 
 module.exports.action_api001 = function(req, res) {
-	
+	var user=req.user.username;
 	var auditor=  req.body.auditor_item;
 	// var auditorid=  req.body.auditor_id;
 	var actionid=  req.body.id_item;
@@ -108,15 +108,15 @@ module.exports.action_api001 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/audit-action',{data:data,message:"Successfully added audit-actions to system.",status:1});
+					  res.render('template/api/audit-action',{data:data,user:user,message:"Successfully added audit-actions to system.",status:1});
 				  }else{
-					  res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
+					  res.render('template/api/audit-action',{data:'',user:user,message:"Failed to add audit-actions to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
+				res.render('template/api/audit-action',{data:'',user:user,message:"Failed to add audit-actions to system.",status:2});
 			}else{
-				res.render('template/api/audit-action',{data:'',message:error,status:2});
+				res.render('template/api/audit-action',{data:'',user:user,message:error,status:2});
 			}
 		 });
 
@@ -125,7 +125,7 @@ module.exports.action_api001 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.action_api003 = function(req, res) {
-	
+	var user=req.user.username;
 	var auditor=  req.body.auditor_item;
 	// var auditorid=  req.body.auditor_id;
 	var actionid=  req.body.id_item;
@@ -164,15 +164,15 @@ module.exports.action_api003 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/audit-action',{data:data,message:"Successfully updated audit-actions to system.",status:1});
+					  res.render('template/api/audit-action',{data:data,user:user,message:"Successfully updated audit-actions to system.",status:1});
 				  }else{
-					  res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
+					  res.render('template/api/audit-action',{data:'',user:user,message:"Failed to add audit-actions to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/audit-action',{data:'',message:"Failed to add audit-actions to system.",status:2});
+				res.render('template/api/audit-action',{data:'',user:user,message:"Failed to add audit-actions to system.",status:2});
 			}else{
-				res.render('template/api/audit-action',{data:'',message:error,status:2});
+				res.render('template/api/audit-action',{data:'',user:user,message:error,status:2});
 			}
 		 });
 

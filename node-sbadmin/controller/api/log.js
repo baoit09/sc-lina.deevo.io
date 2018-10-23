@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.log_api002 = function(req, res) {
-	
+		var user=req.user.username;
 		var logid=req.param('orgid_key');
 		var logtype=req.param('type_search');
 		var url;
@@ -27,20 +27,20 @@ module.exports.log_api002 = function(req, res) {
 			if(!error && response.statusCode==200){
 				if(logtype==0){
 					var data=[JSON.parse(body)];
-					res.render('template/api/'+view,{data:data,message:'',status:0});
+					res.render('template/api/'+view,{data:data,user:user,message:'',status:0});
 				}else{
 					var data=JSON.parse(body);
 					if(Object.keys(data).length>0){
-						res.render('template/api/'+view,{data:data,message:'',status:0});
+						res.render('template/api/'+view,{data:data,user:user,message:'',status:0});
 					}else{
-						res.render('template/api/'+view,{data:data,message:'No data found!',status:2});
+						res.render('template/api/'+view,{data:data,user:user,message:'No data found!',status:2});
 					}
 				}
 				
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/'+view,{data:'',message:'No data found!',status:2});
+				res.render('template/api/'+view,{data:'',user:user,message:'No data found!',status:2});
 			}else{
-				res.render('template/api/'+view,{data:'',message:error,status:2});
+				res.render('template/api/'+view,{data:'',user:user,message:error,status:2});
 			}
 		 });
 	
@@ -50,7 +50,7 @@ module.exports.log_api002 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.log_api004 = function(req, res) {
-	
+	var user=req.user.username;
 	var logid=req.param('orgid_key');
 
 	if(req.params.page){
@@ -67,11 +67,11 @@ module.exports.log_api004 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=JSON.parse(body);
-			res.render('template/api/'+view,{data:data,message:'',status:0});
+			res.render('template/api/'+view,{data:data,user:user,message:'',status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/'+view,{data:'',message:'No data found!',status:2});
+			res.render('template/api/'+view,{data:'',user:user,message:'No data found!',status:2});
 		}else{
-			res.render('template/api/'+view,{data:'',message:error,status:2});
+			res.render('template/api/'+view,{data:'',user:user,message:error,status:2});
 		}
 	 });
 
@@ -82,7 +82,7 @@ module.exports.log_api004 = function(req, res) {
 
 
 module.exports.log_api001 = function(req, res) {
-	
+	var user=req.user.username;
 	var objectType= req.body.objectType_item;
 	var logid= req.body.id_item;
 	var time= req.body.time_item;
@@ -145,15 +145,15 @@ module.exports.log_api001 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/'+view,{data:data,message:"Successfully added "+ logid +" to system.",status:1});
+					  res.render('template/api/'+view,{data:data,user:user,message:"Successfully added "+ logid +" to system.",status:1});
 				  }else{
-					  res.render('template/api/'+view,{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+					  res.render('template/api/'+view,{data:'',user:user,message:"Failed to add "+ logid + " to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/'+view,{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+				res.render('template/api/'+view,{data:'',user:user,message:"Failed to add "+ logid + " to system.",status:2});
 			}else{
-				res.render('template/api/'+view,{data:'',message:error,status:2});
+				res.render('template/api/'+view,{data:'',user:user,message:error,status:2});
 			}
 		 });
 		
@@ -162,7 +162,7 @@ module.exports.log_api001 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.log_api003 = function(req, res) {
-	
+		var user=req.user.username;
 		var objectType= req.body.objectType_item;
 		var logid= req.body.id_item;
 		var time= req.body.time_item;
@@ -223,15 +223,15 @@ module.exports.log_api003 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/'+view,{data:data,message:"Successfully updated "+ logid +" to system.",status:1});
+					  res.render('template/api/'+view,{data:data,user:user,message:"Successfully updated "+ logid +" to system.",status:1});
 				  }else{
-					  res.render('template/api/'+view,{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+					  res.render('template/api/'+view,{data:'',user:user,message:"Failed to add "+ logid + " to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/'+view,{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+				res.render('template/api/'+view,{data:'',user:user,message:"Failed to add "+ logid + " to system.",status:2});
 			}else{
-				res.render('template/api/'+view,{data:'',message:error,status:2});
+				res.render('template/api/'+view,{data:'',user:user,message:error,status:2});
 			}
 		 });
 };

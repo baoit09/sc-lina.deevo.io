@@ -15,15 +15,16 @@ var history=require('../controller/api/view-history');
 module.exports = function(app) {  
 
 
-	app.get('/permission',function(req,res){
-		res.render('template/api/permission',{data:'',message:'',status:0});
+	app.get('/permission',isAuthenticated,function(req,res){
+		var user=req.user.username;
+		res.render('template/api/permission',{data:'',user:user,message:'',status:0});
 	});
 
 	app.route('/view-history')
-		.get(history.views_products);
+		.get(isAuthenticated,history.views_products);
 
 	app.route('/view-history/action')
-		.get(history.view_product);
+		.get(isAuthenticated,history.view_product);
 
 
 	app.route('/organization/action')

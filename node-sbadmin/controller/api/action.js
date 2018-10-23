@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.action_api002 = function(req, res) {
-	
+		var user=req.user.username;
 		var auditorid="9999999";
 		var actionid="61011b10-c888-11e8-b18d-2b334b2a0b06";
 		var options = {
@@ -21,7 +21,7 @@ module.exports.action_api002 = function(req, res) {
 
 
 module.exports.action_api001 = function(req, res) {
-	
+		var user=req.user.username;
 		var auditorid="9999999";
 		var time=1538223545;
 		var ref=[];
@@ -53,7 +53,7 @@ module.exports.action_api001 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.action_api003 = function(req, res) {
-	
+		var user=req.user.username;
 		var auditorid="9999999";
 		var actionid="61011b10-c888-11e8-b18d-2b334b2a0b06";
 		var time=1538223545;

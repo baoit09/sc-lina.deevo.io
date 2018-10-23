@@ -3,7 +3,7 @@ var request = require('request');
 let baseURL = 'http://18.136.205.13:3000/api/v1';
 
 module.exports.dashboard_api001 = function(req, res) {
-
+	var user=req.user.username;
 	var dashboard = {
 		Orgs : [],
 		Parties : [],
@@ -40,7 +40,7 @@ module.exports.dashboard_api001 = function(req, res) {
 							
 							convertIDToName(dashboard);
 								
-							res.render('template/index', { dashboard: dashboard, message:"", status:0});		
+							res.render('template/index', { dashboard: dashboard,user:user, message:"", status:0});		
 						});
 					});
 				});

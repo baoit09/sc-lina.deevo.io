@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.logistic_api002 = function(req, res) {
-	
+		var user=req.user.username;
 		var logistic_id=req.param('orgid_key');
 	
 		var options = {
@@ -12,11 +12,11 @@ module.exports.logistic_api002 = function(req, res) {
 		request(options, function (error, response, body) {
 			if(!error && response.statusCode==200){
 				var data=[JSON.parse(body)];
-				res.render('template/api/logistic',{data:data,message:'',status:0});
+				res.render('template/api/logistic',{data:data,user:user,message:'',status:0});
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/logistic',{data:'',message:'No data found!',status:2});
+				res.render('template/api/logistic',{data:'',user:user,message:'No data found!',status:2});
 			}else{
-				res.render('template/api/logistic',{data:'',message:error,status:2});
+				res.render('template/api/logistic',{data:'',user:user,message:error,status:2});
 			}
 		 });
 };
@@ -25,7 +25,7 @@ module.exports.logistic_api002 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.logistic_api004 = function(req, res) {
-	
+	var user=req.user.username;
     var logistic_id=req.param('orgid_key');
 	
     var options = {
@@ -36,11 +36,11 @@ module.exports.logistic_api004 = function(req, res) {
     request(options, function (error, response, body) {
         if(!error && response.statusCode==200){
             var data=JSON.parse(body);
-            res.render('template/api/logistic',{data:data,message:'',status:0});
+            res.render('template/api/logistic',{data:data,user:user,message:'',status:0});
         }else if(!error && response.statusCode!=200){
-            res.render('template/api/logistic',{data:'',message:'No data found!',status:2});
+            res.render('template/api/logistic',{data:'',user:user,message:'No data found!',status:2});
         }else{
-            res.render('template/api/logistic',{data:'',message:error,status:2});
+            res.render('template/api/logistic',{data:'',user:user,message:error,status:2});
         }
      });
 
@@ -51,7 +51,7 @@ module.exports.logistic_api004 = function(req, res) {
 
 
 module.exports.logistic_api001 = function(req, res) {
-	
+		var user=req.user.username;
 		var objectType= req.body.objectType_item;
 		var logistic_id= req.body.id_item;
         var name= req.body.name_item;
@@ -97,15 +97,15 @@ module.exports.logistic_api001 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/logistic',{data:data,message:"Successfully added "+ name +" to system.",status:1});
+					  res.render('template/api/logistic',{data:data,user:user,message:"Successfully added "+ name +" to system.",status:1});
 				  }else{
-					  res.render('template/api/logistic',{data:'',message:"Failed to add "+ name + " to system.",status:2});
+					  res.render('template/api/logistic',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/logistic',{data:'',message:"Failed to add "+ name + " to system.",status:2});
+				res.render('template/api/logistic',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
 			}else{
-				res.render('template/api/logistic',{data:'',message:error,status:2});
+				res.render('template/api/logistic',{data:'',user:user,message:error,status:2});
 			}
 		 });
 		
@@ -114,7 +114,7 @@ module.exports.logistic_api001 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.logistic_api003 = function(req, res) {
-	
+	var user=req.user.username;
     var objectType= req.body.objectType_item;
     var logistic_id= req.body.id_item;
     var name= req.body.name_item;
@@ -160,15 +160,15 @@ module.exports.logistic_api003 = function(req, res) {
 			  request(options, function (error, response, body) {
 				  if(!error && response.statusCode==200){
 					  var data=JSON.parse(body);
-					  res.render('template/api/logistic',{data:data,message:"Successfully updated "+ name +" to system.",status:1});
+					  res.render('template/api/logistic',{data:data,user:user,message:"Successfully updated "+ name +" to system.",status:1});
 				  }else{
-					  res.render('template/api/logistic',{data:'',message:"Failed to add "+ name + " to system.",status:2});
+					  res.render('template/api/logistic',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
 				  }
 			   });
 			}else if(!error && response.statusCode!=200){
-				res.render('template/api/logistic',{data:'',message:"Failed to add "+ name + " to system.",status:2});
+				res.render('template/api/logistic',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
 			}else{
-				res.render('template/api/logistic',{data:'',message:error,status:2});
+				res.render('template/api/logistic',{data:'',user:user,message:error,status:2});
 			}
 		 });
 };

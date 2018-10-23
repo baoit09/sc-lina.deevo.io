@@ -1,7 +1,7 @@
 ﻿var request = require('request');
 
 module.exports.party_api0012 = function(req, res) {
-	
+		var user=req.user.username;
 		var partyid=req.param('orgid_key');
 		var options = {
   			url: 'http://18.136.205.13:3000/api/v1/parties/'+ partyid,
@@ -11,11 +11,11 @@ module.exports.party_api0012 = function(req, res) {
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
 			var data=[JSON.parse(body)];
-			res.render('template/api/party',{data:data,message:"",status:0});
+			res.render('template/api/party',{data:data,user:user,message:"",status:0});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/party',{data:'',message:'No data found!',status:2});
+			res.render('template/api/party',{data:'',user:user,message:'No data found!',status:2});
 		}else{
-			res.render('template/api/party',{data:'',message:error,status:2});
+			res.render('template/api/party',{data:'',user:user,message:error,status:2});
 		}
      });
 };
@@ -23,7 +23,7 @@ module.exports.party_api0012 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.party_api0014 = function(req, res) {
-	
+	var user=req.user.username;
 	var partyid=req.param('orgid_key');
 	var options = {
 		  url: 'http://18.136.205.13:3000/api/v1/parties/',
@@ -33,11 +33,11 @@ module.exports.party_api0014 = function(req, res) {
 request(options, function (error, response, body) {
 	if(!error && response.statusCode==200){
 		var data=JSON.parse(body);
-		res.render('template/api/party',{data:data,message:"",status:0});
+		res.render('template/api/party',{data:data,user:user,message:"",status:0});
 	}else if(!error && response.statusCode!=200){
-		res.render('template/api/party',{data:'',message:'No data found!',status:2});
+		res.render('template/api/party',{data:'',user:user,message:'No data found!',status:2});
 	}else{
-		res.render('template/api/party',{data:'',message:error,status:2});
+		res.render('template/api/party',{data:'',user:user,message:error,status:2});
 	}
  });
 };
@@ -47,7 +47,7 @@ request(options, function (error, response, body) {
 
 module.exports.party_api0011 = function(req, res) {
 	
-	
+		var user=req.user.username;
 		var name=req.body.name_item;
 		var parent=req.body.parent_item;
 		var partyid=req.body.id_item;
@@ -116,15 +116,15 @@ module.exports.party_api0011 = function(req, res) {
 			request(options, function (error, response, body) {
 				if(!error && response.statusCode==200){
 					var data=JSON.parse(body);
-					res.render('template/api/party',{data:data,message:"Successfully added "+ name +" to system.",status:1});
+					res.render('template/api/party',{data:data,user:user,message:"Successfully added "+ name +" to system.",status:1});
 				}else{
-					res.render('template/api/party',{data:'',message:"Failed to add "+ name + " to system.",status:2});
+					res.render('template/api/party',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
 				}
 			});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/party',{data:'',message: "Failed to add "+ name + " to system.",status:2});
+			res.render('template/api/party',{data:'',user:user,message: "Failed to add "+ name + " to system.",status:2});
 		}else{
-			res.render('template/api/party',{data:'',message:error,status:2});
+			res.render('template/api/party',{data:'',user:user,message:error,status:2});
 		}
      });
 
@@ -132,7 +132,7 @@ module.exports.party_api0011 = function(req, res) {
 /* ///////////////////////// */
 
 module.exports.party_api0013 = function(req, res) {
-	
+		var user=req.user.username;
 		var name=req.body.name_item;
 		var parent=req.body.parent_item;
 		var partyid=req.body.id_item;
@@ -199,15 +199,15 @@ module.exports.party_api0013 = function(req, res) {
 			request(options, function (error, response, body) {
 				if(!error && response.statusCode==200){
 					var data=JSON.parse(body);
-					res.render('template/api/party',{data:data,message:"Successfully updated "+ name +" to system.",status:1});
+					res.render('template/api/party',{data:data,user:user,message:"Successfully updated "+ name +" to system.",status:1});
 				}else{
-					res.render('template/api/party',{data:'',message:"Failed to add "+ name + " to system.",status:2});
+					res.render('template/api/party',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
 				}
 			});
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/party',{data:'',message: "Failed to add "+ name + " to system.",status:2});
+			res.render('template/api/party',{data:'',user:user,message: "Failed to add "+ name + " to system.",status:2});
 		}else{
-			res.render('template/api/party',{data:'',message:error,status:2});
+			res.render('template/api/party',{data:'',user:user,message:error,status:2});
 		}
      });
 		

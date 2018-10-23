@@ -3,7 +3,7 @@ var request = require('request');
 let baseURL = 'http://18.136.205.13:3000/api/v1';
 
 module.exports.schain_api001 = function(req, res) {
-
+	var user=req.user.username;
 	var id = req.param('id');
 
 	var options = {
@@ -41,20 +41,20 @@ module.exports.schain_api001 = function(req, res) {
 					noneDeletedSCMS.push(item)
 				}
 		  	})
-			res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:"", status:0});
+			res.render('template/api/supplychain', { scms:noneDeletedSCMS,user:user, message:"", status:0});
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ scms:'', message: "No data found", status:2});
+			res.render('template/api/supplychain',{ scms:'',user:user, message: "No data found", status:2});
 
 		}else {
 
-			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
+			res.render('template/api/supplychain',{ scms:'',user:user,message:error,status:2} );
 		}
 	});
 };
 
 module.exports.schain_api002 = function(req, res) {
-		
+	var user=req.user.username;	
 	var scm = {		
 		id: req.body.id_item || req.body.id_to_delete,
 		name: req.body.name_item || req.body.name_to_delete,		
@@ -199,22 +199,22 @@ module.exports.schain_api002 = function(req, res) {
 				}
 
 				  var message = "Successfully " + action + " a Supply Chain Model [" + (scm.name ? scm.name : "") + " (#" + (scm.id ? scm.id: "")  + ")]";
-				  res.render('template/api/supplychain', { scms:noneDeletedSCMS, message:message, status:1});
+				  res.render('template/api/supplychain', { scms:noneDeletedSCMS,user:user, message:message, status:1});
 			  } 
 		  });			
 
 		} else if(!error && response.statusCode != 200){
 
-			res.render('template/api/supplychain',{ scms:'', message: "Failed to add or update Supply chain model", status:2});
+			res.render('template/api/supplychain',{ scms:'',user:user, message: "Failed to add or update Supply chain model", status:2});
 
 		}else {
-			res.render('template/api/supplychain',{ scms:'',message:error,status:2} );
+			res.render('template/api/supplychain',{ scms:'',user:user,message:error,status:2} );
 		}
 	});
 };
 
 module.exports.schain_api010 = function(req, res) {
-
+	var user=req.user.username;
 	var options = {
 		  url: baseURL + '/orgs',
 		  method: 'GET',
@@ -253,7 +253,7 @@ module.exports.schain_api010 = function(req, res) {
 };
 
 module.exports.schain_api010 = function(req, res) {
-
+	var user=req.user.username;
 	var options = {
 		  url: baseURL + '/orgs',
 		  method: 'GET',
@@ -282,7 +282,7 @@ module.exports.schain_api010 = function(req, res) {
 
 
 module.exports.schain_api011 = function(req, res) {
-
+	var user=req.user.username;
 	var options = {
 		  url: baseURL + '/parties',
 		  method: 'GET',
@@ -312,7 +312,7 @@ module.exports.schain_api011 = function(req, res) {
 };
 
 module.exports.schain_api012 = function(req, res) {
-
+	var user=req.user.username;
 	var options = {
 		  url: baseURL + '/locations',
 		  method: 'GET',
@@ -342,7 +342,7 @@ module.exports.schain_api012 = function(req, res) {
 };
 
 module.exports.schain_api013 = function(req, res) {
-
+	var user=req.user.username;
 	var options = {
 		  url: baseURL + '/assets',
 		  method: 'GET',
@@ -372,7 +372,7 @@ module.exports.schain_api013 = function(req, res) {
 };
 
 module.exports.schain_api014 = function(req, res) {
-
+	var user=req.user.username;
 	var options = {
 		  url: baseURL + '/products',
 		  method: 'GET',
@@ -401,7 +401,7 @@ module.exports.schain_api014 = function(req, res) {
 };
 
 module.exports.schain_api015 = function(req, res) {
-
+	var user=req.user.username;
 	scmID = req.query.scmID;
 	var options = {
 		  url: baseURL + '/supply-chains/' + scmID,
