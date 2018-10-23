@@ -11,22 +11,8 @@ var logistic=require('../controller/api/logistic');
 var modal=require('../controller/api/ajax');
 var loadajax=require('../controller/api/loaddata');
 var history=require('../controller/api/view-history');
-var farm=require('../controller/api/farm-orchard');
 
 module.exports = function(app) {  
-
-	// app.route('/farm-orchard')
-	// 	.get(farm.getall_log_farm);
-	// app.route('/farm-orchard/action')
-	// 	.get(farm.getall_log_farm);
-
-
-	// app.route('/supplier')
-	// 	.get(farm.views_products);
-
-
-
-
 
 
 	app.get('/permission',function(req,res){
