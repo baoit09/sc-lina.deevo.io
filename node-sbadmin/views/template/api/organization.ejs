@@ -2,6 +2,30 @@
 
 <style>
 
+.menu-json {
+
+overflow-y: scroll;
+height: 150px;
+background-color: antiquewhite;
+
+}
+
+.json-cap1, .json-cap2,.json-op,.json-cl {
+	list-style: none;
+}
+
+.json-cap1 {
+
+padding-left: 15px;
+
+}
+
+.json-cap2 {
+
+padding-left: 90px;
+
+}
+
 .mytable {
   table-layout: fixed;
   width: 100%;
@@ -96,6 +120,8 @@ th.co-th {
 .btn {
     padding: 6px 20px;
 }
+
+
 .btn-edit{
         padding: 6px 1px;
         width: 60px;
@@ -147,7 +173,8 @@ th{
                                         </span>
                                     </div>
                                 </form>
-                            </div>
+							</div>
+							
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -396,7 +423,8 @@ th{
                                     <th class="row-title td-obj" >Object Type</th>
                                     <th class="row-title td-parent">Parent</th>
                                     <th class="row-title td-content">Content</th>
-                                    <th class= "td-action row-title">Action</th>
+									<th class= "td-action row-title">Action</th>
+									<th class= "td-action row-title">View Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -410,8 +438,31 @@ th{
                                             <th class= "row-name"><%=data[k]['name']%></th>
                                             <th class= "row-obj"><%=data[k]['objectType']%></th>
                                             <th class= "row-parent"><%=data[k]['parent']%></th>
-                                            <th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
-                                            <th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+											<th class= "row-content">
+												<ul class="menu-json">
+
+													<li class="json-op">{</li>
+													<%												
+													var objj=JSON.parse(data[k]['content'])
+													for(var o in objj) {
+														if(typeof objj[o]!='object'){
+													%>
+													<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+														<%}else{%>
+															<li class="json-cap1"><%= o %>: {</li>
+															<%for(var c in objj[o]) {%>
+																<li class="json-cap2"><%= c %>: "<%= objj[o][c] %>"</li>
+
+															<%}%>
+															<li class="json-cap1">}</li>
+														<%}%>
+													<%}%>
+													<li class="json-cl">}</li>
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%= data[k]['content'] %></textarea>       
+											</th>
+											<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th>
+											<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[k]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
                                         </tr>
                                     <% rowid++}; 
                                     %> 
@@ -422,6 +473,7 @@ th{
         </div>
  	</div>
 </div>
+<% var cont=JSON.stringify(data);%>
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>    
@@ -431,43 +483,43 @@ th{
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
         var obj=$('.row-'+$(this).attr('id')).find('.row-obj').text();
         var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
-		var content=$('.row-'+$(this).attr('id')).find('.row-content').text();
-		var parseJS=JSON.parse(content);
-		var objcontent=JSON.parse(parseJS);
+		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 		
-		$("#myModal").modal();
-        $('#form-post').attr('action','/organization/action?_method=put');
+		var obj= <%= cont%>;
+		alert(obj);
+		// $("#myModal").modal();
+        // $('#form-post').attr('action','/organization/action?_method=put');
 		
-        $( "input[name='id_item']" ).val(id);
-        $( "input[name='name_item']" ).val(name);
-        $( "input[name='type_item']" ).val(obj);
-        $( "input[name='parent_item']" ).val(parent);
+        // $( "input[name='id_item']" ).val(id);
+        // $( "input[name='name_item']" ).val(name);
+        // $( "input[name='type_item']" ).val(obj);
+        // $( "input[name='parent_item']" ).val(parent);
 
-		var cont=objcontent['Contact'];
-			$('#contact_name').val(cont['Full-Name']);
-			$('#contact_email').val(cont['Email']);
-			$('#contact_phone').val(cont['Phone']);
-			$('#contact_role').val(cont['Role']);
-			$('#contact_account').val(cont['DEEVO-Account']);
+		// var cont=objcontent['Contact'];
+		// 	$('#contact_name').val(cont['Full-Name']);
+		// 	$('#contact_email').val(cont['Email']);
+		// 	$('#contact_phone').val(cont['Phone']);
+		// 	$('#contact_role').val(cont['Role']);
+		// 	$('#contact_account').val(cont['DEEVO-Account']);
 	
 	
-		var add=objcontent['Address'];
-			$('#address_house').val(add['House']);
-			$('#address_street').val(add['Street']);
-			$('#address_ward').val(add['Ward']);
-			$('#address_district').val(add['District']);
-			$('#address_city').val(add['City']);
-			$('#address_country').val(add['Country-Code']);
+		// var add=objcontent['Address'];
+		// 	$('#address_house').val(add['House']);
+		// 	$('#address_street').val(add['Street']);
+		// 	$('#address_ward').val(add['Ward']);
+		// 	$('#address_district').val(add['District']);
+		// 	$('#address_city').val(add['City']);
+		// 	$('#address_country').val(add['Country-Code']);
 
 
-		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(objcontent)[index]);
-		});
+		// $("input[name='general_val']").each(function(index){
+		// 	$(this).val(Object.values(objcontent)[index]);
+		// });
 
 
-		var locat=objcontent['Location'];
-			$('#us2-lon').val(locat['Longitude']);
-			$('#us2-lat').val(locat['Latitude']);
+		// var locat=objcontent['Location'];
+		// 	$('#us2-lon').val(locat['Longitude']);
+		// 	$('#us2-lat').val(locat['Latitude']);
 
     });
 

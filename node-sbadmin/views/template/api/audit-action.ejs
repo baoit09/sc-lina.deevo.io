@@ -290,6 +290,7 @@ th{
 									<th class="row-title" width="10%">Auditor</th>
 									<th class="row-title" width="25%">Object ID</th>
 									<th class="row-title" width="10%">Action</th>
+									<th class="row-title" width="10%">View Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -307,6 +308,7 @@ th{
 											<input id="content-<%=rowid%>" type="hidden" name="content" value="<%=data[c]['content']%>">
 											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
 										</th>
+										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
 									</tr>
                                 <% rowid++}; 
                                 %> 
