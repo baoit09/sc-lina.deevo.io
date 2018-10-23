@@ -108,7 +108,7 @@
              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                <thead>
                  <tr>
-                   <th>ID</th>
+                   <th style="display:none;">ID</th>
                    <th>Time</th>
                    <th>Event</th>
                    <th>Product</th>
@@ -119,7 +119,7 @@
                </thead>
                <tfoot>
                  <tr>
-                    <th>ID</th>
+                    <th style="display:none;">ID</th>
                     <th>Time</th>
                     <th>Event</th>
                     <th>Product</th>
@@ -134,12 +134,12 @@
                for(var k in dashboard.CTELogs ) {
             %>
                <tr class="row-<%=rowid%>">
-                   <td ><%=dashboard.CTELogs[k]['id']%></td>                   
-                   <td ><%=dashboard.CTELogs[k]['time']%></td>
+                   <td style="display:none;"><%=dashboard.CTELogs[k]['id']%></td>                   
+                   <td ><%=dashboard.CTELogs[k]['timeUTC']%></td>
                    <td ><%=dashboard.CTELogs[k]['cte']%></td>
-                   <td ><%=dashboard.CTELogs[k]['product']%></td>
-                   <td ><%=dashboard.CTELogs[k]['location']%></td>
-                   <td ><%=dashboard.CTELogs[k]['supplychain_id']%></td>
+                   <td ><%=dashboard.CTELogs[k]['productName']%></style="display:none;"td>
+                   <td ><%=dashboard.CTELogs[k]['locationName']%></td>
+                   <td ><%=dashboard.CTELogs[k]['supplychainName']%></td>
                    <td>
                        <a href="/log/action?type_search=0&orgid_key=<%= dashboard.CTELogs[k]['id'] %>">
                             <span class="pull-center">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;&nbsp;&nbsp;&nbsp;</span>                            
@@ -152,7 +152,7 @@
              </table>
            </div>
          </div>
-         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+         <div class="card-footer small text-muted">Last updated at <%=dashboard.lastUpdated%></div>
        </div>
     </div>
    

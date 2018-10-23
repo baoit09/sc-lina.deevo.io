@@ -8,8 +8,10 @@ module.exports.dashboard_api001 = function(req, res) {
 		Orgs : [],
 		Parties : [],
 		Locations : [],
+		Products : [],
 		SupplyChains : [],
-		CTELogs : []
+		CTELogs : [],
+		lastUpdated : new Date().toUTCString()
 	};		
 
 	request({ url: baseURL + '/orgs/', method: 'GET'}, function (error, response, body) 
@@ -24,21 +26,53 @@ module.exports.dashboard_api001 = function(req, res) {
 			{				
 				dashboard.Locations = buildArrayNonDeleted(error, response, body);
 
-				request({ url: baseURL + '/supply-chains/', method: 'GET'}, function (error, response, body) 
+				request({ url: baseURL + '/products/', method: 'GET'}, function (error, response, body) 
 				{				
-					dashboard.SupplyChains = buildArrayNonDeleted(error, response, body);	
+					dashboard.Products = buildArrayNonDeleted(error, response, body);	
 
-					request({ url: baseURL + '/logs/', method: 'GET'}, function (error, response, body) 
+					request({ url: baseURL + '/supply-chains/', method: 'GET'}, function (error, response, body) 
 					{				
-						dashboard.CTELogs = buildArrayNonDeleted(error, response, body);	
+						dashboard.SupplyChains = buildArrayNonDeleted(error, response, body);	
+
+						request({ url: baseURL + '/logs/', method: 'GET'}, function (error, response, body) 
+						{				
+							dashboard.CTELogs = buildArrayNonDeleted(error, response, body);
 							
-						res.render('template/index', { dashboard: dashboard, message:"", status:0});		
+							convertIDToName(dashboard);
+								
+							res.render('template/index', { dashboard: dashboard, message:"", status:0});		
+						});
 					});
 				});
 			});
 		});
 	});
 };
+
+function convertIDToName(dashboard)
+{
+	dashboard.CTELogs.forEach(function(item)
+	{
+		
+		item.timeUTC = item.time ? new Date(item.time).toUTCString() : "";
+		item.cte = item.cte ? item.cte : "";
+		item.productName =  item.product; //findName(item.product, dashboard.Products);
+		item.locationName = item.location; //findName(item.location, dashboard.Locations);
+		item.supplychainName = item.supplychain_id; //findName(item.supplychain_id, dashboard.SupplyChains);
+	})
+}
+
+function findName(id, list)
+{
+	if(id && list){
+		for(i=0; i < list.length; i++)
+		{
+			if(list[i].id === id)
+				return list[i].name;
+		}
+	}
+	return "";
+}
 
 function buildArrayNonDeleted(error, response, body)
 {
