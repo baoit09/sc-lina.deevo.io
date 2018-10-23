@@ -289,6 +289,7 @@ th{
 									<!-- <th class="row-title td-obj" >Object Type</th> -->
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
+									<th class="td-action row-title">View Detail</th>
 								</tr>
                             </thead>
                             <tbody>
@@ -330,6 +331,7 @@ th{
 											<%}%>
 										</th>
 										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[k]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
 									</tr>
 								<% rowid++}; 
 								%> 
