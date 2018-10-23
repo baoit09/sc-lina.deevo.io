@@ -1,0 +1,618 @@
+<%layout('/layout')%> 
+
+<style>
+
+
+/* .mytable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+/* Column widths are based on these cells */
+/* .td-id {
+  width: 10%;
+}
+.td-name {
+  width: 15%;
+}
+.td-obj {
+  width: 10%;
+}
+.td-parent {
+  width: 10%;
+}
+.td-content {
+  width: 48%;
+}
+.td-action {
+  width: 7%;
+}
+.mytable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mytable td,
+.mytable th {
+  text-align: left;
+  padding: 5px 10px;
+  white-space: initial;
+  word-wrap:break-word;
+} */ 
+
+.table>thead>tr>th {
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+}
+
+input[type="checkbox"] {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+.select-parent{
+    width: 100%;
+}
+
+
+th.co-th.mybutton {
+    padding: 0 3px;
+}
+
+.box-co{
+	border-radius: 1px; 
+}
+
+th.co-th {
+    border: none !important;
+}
+.modal-dialog{
+    width: 100em;
+}
+
+.title-group{
+    text-align: center;
+    font-size: 18px;
+}
+.group-1{
+    width: 20%;
+    padding: 5px 5px;
+    float: left;
+}
+
+.group-2 {
+    width: 80%;
+    float: left;
+    padding: 5px 5px;
+}
+
+.modal-body {
+   overflow-y: auto;
+}
+
+#myDIV  {
+    overflow-y: scroll;
+    height: 550px;
+}
+
+.table-responsive {
+    width: 100%;
+}
+.search{
+    width: 30%;
+    float: right;
+}
+.btn {
+    padding: 6px 20px;
+}
+.btn-edit{
+        padding: 6px 1px;
+        width: 60px;
+}
+textarea {
+    resize: none;
+}
+th{
+    vertical-align: middle !important;
+    font-weight: normal !important;
+}
+.row-title{
+    font-weight: bold !important;
+}
+.col-action{
+    width: 20px;
+}
+</style>
+
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">PERMISSION</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>  
+    <% if ( message && status== 1 ) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>    
+    <% }%>
+    <% if ( message && status== 2 ) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>   
+    <%} %>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table mytable">  
+                    <thead>
+                        <tr>
+                            <th class="row-title" colspan="2">Action Name <i class="fa fa-angle-double-right"></i></th>
+                            <th class="row-title" colspan="2" style="text-align: center;">Farm / Orchard</th>
+                            <th class="row-title" colspan="4" style="text-align: center;">Supplier</th>
+                            <th class="row-title" >Packer Repacker</th>
+                            <th class="row-title">Distributor Trader</th>
+                            <th class="row-title" colspan="2" style="text-align: center;">Manufacturer</th>
+                            <th class="row-title" colspan="2"style="text-align: center;" >Retailer</th>
+                            <th class="row-title">Consumer</th>
+                            <th class="row-title">Logistic Services Provider</th>
+                            <th class="row-title" colspan="2" style="text-align: center;">Arbitrator</th>
+                        </tr>
+                        <tr>
+                            <th class="row-title" colspan="2" ><i class="fa fa-angle-double-down"></i> Action Name</th>
+                            <th class="row-title" >Farmer Fisherman</th>
+                            <th class="row-title">Frruit-Farming Fish-Farming</th>
+                            <th class="row-title" >Row Marerial Supplier Base Marerial Supplier</th>
+                            <th class="row-title" >Crop Protection Product Supplier</th>
+                            <th class="row-title">Grower</th>
+                            <th class="row-title" >Packing Material Supplier</th>
+                            <th class="row-title" ></th>
+                            <th class="row-title"></th>
+                            <th class="row-title">Factory</th>
+                            <th class="row-title">Factory Process</th>
+                            <th class="row-title">Retail Store</th>
+                            <th class="row-title">Food Service Operator</th>
+                            <th class="row-title"></th>
+                            <th class="row-title"></th>
+                            <th class="row-title">Regulatory Organisation</th>
+                            <th class="row-title">Auditor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Grow</th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th></th>
+                            <th>Plant</th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th></th>
+                            <th>Water</th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Harvest</th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Aggregate</th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Store</th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Pack</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Unpack</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Adjust</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Sell</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Ship</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Produce</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Convert</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Prepare</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Transport</th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Consume</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Destroy</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Provide</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                        <tr>
+                            <th>Inspect</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                        </tr> 
+                        <tr>
+                            <th>Approve</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                        </tr> 
+                        <tr>
+                            <th>Certify</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                            <th><input type="checkbox" name="checkbok" checked></th>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+ 	</div>
+</div>
+<script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+<script>    
+    $(document).ready(function() {
+        $('input[type="checkbox"]').attr('disabled',true);
+    })
+</script>

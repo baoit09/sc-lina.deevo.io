@@ -11,24 +11,26 @@ module.exports.modal_product = function(req, res) {
 				"<div id='myDIV'>"+
 					"<div class='modal-body'>"+
 						"<div class='group-1'>"+
-							"<div class='form-group col-3'>"+
+							"<div class='form-group col-3' id='iditem'>"+
 								"<label>ID</label>"+
 								"<input class='form-control box-co' name='id_item' value='"+req.body.id+"'>"+
 							"</div>"+
 							"<div class='form-group'>"+
-								"<label>Name</label>"+
+								"<label>Name (*)</label>"+
 								"<input class='form-control box-co' name='name_item' value='"+req.body.name+"'>"+
-							"</div>"+
+							"</div>"+ 
 							"<div class='form-group col-3'>"+
-								"<label>Parent</label>"+
-								"<input class='form-control box-co' name='parent_item' value='"+req.body.parent+"'>"+
-							"</div>"+    															
+								"<label>Location (*)</label>"+
+								"<select class='form-control box-co' id='parent_item' name='parent_item' >"+
+									"<option value='0'>--- select ---</option>"+
+								"</select>"+
+							"</div>"+									
 						"</div>"+  
 						"<div class='group-2'>"+
 							"<div class='panel'>"+
 								"<div class='panel-body'>"+
 									"<ul class='nav nav-tabs'>"+
-										"<li class='active'><a href='#general' data-toggle='tab' style='font-weight: bold;'>General</a>"+
+										"<li class='active'><a href='#general' data-toggle='tab' style='font-weight: bold;'>GS1</a>"+
 										"</li>"+
 									 "</ul>"+
 									"<div class='tab-content'>"+

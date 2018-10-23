@@ -1,6 +1,54 @@
 <%layout('/layout')%> 
 
 <style>
+
+
+.menu-json {
+
+overflow-y: scroll;
+height: 150px;
+background-color: antiquewhite;
+padding-left: 15px;
+
+}
+
+.json-cap1, .json-cap2,.json-op,.json-cl {
+	list-style: none;
+}
+
+.json-cap1 {
+
+padding-left: 15px;
+
+}
+
+.json-cap2 {
+
+padding-left: 75px;
+
+}
+
+.mytable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.mytable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mytable td,
+.mytable th {
+  text-align: left;
+  padding: 5px 10px;
+  white-space: initial;
+  word-wrap:break-word;
+}
+
+
 .select-parent{
     width: 100%;
 }
@@ -21,7 +69,7 @@ th.co-th {
     border: none !important;
 }
 .modal-dialog{
-    width: 90%;
+    width: 100em;
 }
 
 .title-group{
@@ -46,15 +94,29 @@ th.co-th {
 
 #myDIV  {
     overflow-y: scroll;
-    height: 400px;
+    height: 550px;
 }
 
 .table-responsive {
     width: 100%;
 }
+select.form-control.type_search{
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+.type_search {
+    display: block;
+    width: 40%;    
+
+}
 .search{
     width: 30%;
     float: right;
+}
+.orgid_key{
+    float: right;
+    width: 60%;
+	padding-left: 3px;
 }
 .btn {
     padding: 6px 20px;
@@ -83,7 +145,7 @@ th{
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">PRODUCT</h1>
+            <h1 class="page-header">LOGISTIC</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -100,42 +162,44 @@ th{
     <div class="row">
         <div class="col-lg-12">
                     <div class="panel-body">
-                        	<div class="search">
-                                <form role="form" id="form-search" method="GET" action="/product/action">
-                                    <div class="form-group input-group">
-                                        <input type="text" class="form-control" name="orgid_key" value="">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
+							<div class="search">
+								<form role="form" id="form-search" method="GET" action="/logistic/action">
+									<div class="form-group input-group">
+										<input type="text" class="form-control" name="orgid_key" value="">
+										<span class="input-group-btn">
+											<button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
+											</button>
+										</span>
+									</div>
+								</form>
+							</div>
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/product/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/logistic/action">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">PRODUCT</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">LOGISTIC</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
                                                         <div class="group-1">
-                                                            <div class="form-group col-3">
+                                                            <div class="form-group" id="iditem">
                                                                 <label>ID</label>
-                                                                <input class="form-control box-co" name="id_item" value="">
-                                                            </div>
+                                                                <input class="form-control box-co" id="id_item" name="id_item" value="" readonly>
+                                                            </div>  
                                                             <div class="form-group">
-                                                                <label>Name</label>
-                                                                <input class="form-control box-co" name="name_item" value="">
-                                                            </div>    
-                                                            <div class="form-group col-3">
-                                                                <label>Parent</label>
-                                                                <input class="form-control box-co" name="parent_item" value="">
-                                                            </div>    															
+                                                                <label>Name (*)</label>
+                                                                <input class="form-control box-co gr-1" id="name_item" name="name_item" value="">
+															</div>  
+															<div class="form-group col-3">
+																<label>Location (*)</label>
+																<select class="form-control box-co gr-1" id="location_item" name="location_item" >
+																		<option value="0">--- select ---</option>
+																  </select>
+															</div>  													
                                                         </div>  
                                                   <div class="group-2">
 													<div class="panel">
@@ -143,13 +207,59 @@ th{
 														<div class="panel-body">
 															<!-- Nav tabs -->
 															<ul class="nav nav-tabs">
-																<li class="active"><a href="#general" data-toggle="tab" style="font-weight: bold;">General</a>
+																<li class="active"><a href="#lable" data-toggle="tab"  style="font-weight: bold;">Lable</a>
+																</li>
+																<li><a href="#general" data-toggle="tab" style="font-weight: bold;">GS1</a>
 																</li>
 															 </ul>
 
 															<!-- Tab panes -->
 															<div class="tab-content">
-																<div class="tab-pane fade in active" id="general">
+																<div class="tab-pane fade  in active" id="lable">
+																	<div class="row show-grid">
+																		<table class="table table-content" id="tbl-lable">
+																			<tbody>
+																				<tr class="lable-rows lable-1">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Datetime" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Datetime" id="lable_Datetime" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-2">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Valid Datetime" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Valid_Datetime" id="lable_Valid_Datetime" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-3">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="GPS" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_GPS" id="lable_GPS" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-4">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="GTIN" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_GTIN" id="lable_GTIN" name="lable_val" value=""></th>
+																				</tr>		
+																				<tr class="lable-rows lable-5">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Lot Batch" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Lot_Batch" id="lable_Lot_Batch" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-6">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Logistic Unit" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Logistic_Unit" id="lable_Logistic_Unit" name="lable_val" value=""></th>
+																				</tr>	
+																				<tr class="lable-rows lable-7">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Country" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Country" id="lable_Country" name="lable_val" value=""></th>
+																				</tr>
+																				<tr class="lable-rows lable-8">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Agency Name" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Agency_Name" id="lable_Agency_Name" name="lable_val" value=""></th>
+																				</tr>		
+																				<tr class="lable-rows lable-9">
+																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="lable_key" value="Label Type" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co lable_Label_Type" id="lable_Label_Type" name="lable_val" value=""></th>
+																				</tr>																					
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+																<div class="tab-pane fade" id="general">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-general">
 																			<tbody>
@@ -202,18 +312,14 @@ th{
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Scientific_Name" value=""></th>																					
 																					</tr>
 																					<tr class="general-rows general-13">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Quantity" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Quantity" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-14">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Weight" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Weight" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-15">
+																					</tr>		
+																					<tr class="general-rows general-14">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Price" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Price" value=""></th>																					
 																					</tr>	
-																					<tr class="general-rows general-16">
+																					<tr class="general-rows general-15">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Destination" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Destination" value=""></th>																					
 																					</tr>	
@@ -224,11 +330,11 @@ th{
 																					<tr class="general-rows general-17">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Source Zone" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Source_Zone" value=""></th>																					
-																					</tr>	
+																					</tr>
 																					<tr class="general-rows general-18">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Source Date" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Source_Date" value=""></th>																					
-																					</tr>	
+																					</tr>		
 																					<tr class="general-rows general-19">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Fresh Flag" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Fresh_Flag" value=""></th>																					
@@ -236,43 +342,35 @@ th{
 																					<tr class="general-rows general-20">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Freezing Flag" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Freezing_Flag" value=""></th>																					
-																					</tr>		
-																					<tr class="general-rows general-21">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Receiving Date" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Receiving_Date" value=""></th>																					
 																					</tr>	
+																					<tr class="general-rows general-21">
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Receiving_Date" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Receiving_Date" value=""></th>																					
+																					</tr>		
 																					<tr class="general-rows general-22">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Storage Condition" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Storage_Condition" value=""></th>																					
-																					</tr>	
+																					</tr>
 																					<tr class="general-rows general-23">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Invoice No" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Invoice" value=""></th>																					
-																					</tr>	
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Invoice_No" value=""></th>																					
+																					</tr>		
 																					<tr class="general-rows general-24">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Ordered Receipt No" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Ordered_Receipt" value=""></th>																					
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Ordered_Receipt_No" value=""></th>																					
 																					</tr>	
 																					<tr class="general-rows general-25">
 																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Specifications" readonly></th>
 																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Specifications" value=""></th>																					
 																					</tr>	
 																					<tr class="general-rows general-26">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Code" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Code" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-27">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Stored Location" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Stored_Location" value=""></th>																					
-																					</tr>	
-																					<tr class="general-rows general-28">
-																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Structure" readonly></th>
-																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Structure" value=""></th>																					
-																					</tr>	
+																						<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Product" readonly></th>
+																						<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_Product" value=""></th>																					
+																					</tr>		
 																			</tbody>
 																		</table>
 																	</div>
-																</div>																			
+																</div>
 															</div>
 														</div>
 													</div>
@@ -292,34 +390,62 @@ th{
                                     </form>
                                     </div>                
                     <div class="table-responsive">
-                        <table class="table mytable">
-                            
+                        <table class="table mytable">                         
                             <thead>
                                 <tr>
-                                    <th class="row-title">ID</th>
-                                    <th class="row-title">Name</th>
-                                    <th class="row-title">Object Type</th>
-                                    <th class="row-title">Parent</th>
-                                    <th class="row-title">Content</th>
-                                    <th class= "col-action row-title">Action</th>
+									<th class="row-title" width="20%">ID</th>
+									<!-- <th class="row-title" width="10%">Object Type</th> -->
+									<th class="row-title" width="20%">Name</th>
+									<th class="row-title" width="20%">Location</th>
+									<th class="row-title" width="30%">Content</th>
+									<th class="row-title" width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                    <% 
-                                        var rowid=1 
-                                        for(var k in data ) {
-                                     %>
-                                        <tr class="row-<%=rowid%>">
-                                            <th class="id"><%=data[k]['id']%></th>
-                                            <th class="name"><%=data[k]['name']%></th>
-                                            <th class="obj"><%=data[k]['objectType']%></th>
-                                            <th class="parent"><%=data[k]['parent']%></th>
-                                            <th class="content"><%=JSON.stringify(data[k]['content'])%></th>
-                                            <th><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
-                                        </tr>
-                                    <% rowid++}; 
-                                    %> 
+								<%  var rowid=1 
+									for(var c in data){ 
+								%>
+									<tr class="row-<%=rowid%>"</tr>
+										<th class="id"><%=data[c]['id']%></th>
+										<!-- <th class="obj"><%=data[c]['objectType']%></th> -->
+										<th class="name"><%=data[c]['name']%></th>
+										<th class="location"><%=data[c]['parent']%></th>
+										<th class= "row-content">
+											<%if(typeof data[c]['content'] == "undefined"){%>
+												<ul class="menu-json">
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
+												</ul>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(data[c]['content'])%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
+										</th>
+										<th class="action">
+											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
+										</th>
+									</tr>
+                                <% rowid++}; 
+                                %> 
                             </tbody>
                         </table>
                     </div>
@@ -329,104 +455,92 @@ th{
 </div>
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-<script>    
+<script>   
 
 	$('.btn-edit').click(function(){
-        var id=$('.row-'+$(this).attr('id')).find('.id').text();
-        var name=$('.row-'+$(this).attr('id')).find('.name').text();
-        var parent=$('.row-'+$(this).attr('id')).find('.parent').text();
-		var content=$('.row-'+$(this).attr('id')).find('.content').text();
-		var parseJS=JSON.parse(content);
-		var objcontent=JSON.parse(parseJS);
+
+		var name= $('.row-'+$(this).attr('id')).find('.name').text();
+		var locaton= $('.row-'+$(this).attr('id')).find('.location').text();
+		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
+		var id= $('.row-'+$(this).attr('id')).find('.id').text();
 		
 		$("#myModal").modal();
-        $('#form-post').attr('action','/product/action?_method=put');
-		
-        $( "input[name='id_item']" ).val(id);
-        $( "input[name='name_item']" ).val(name);
-        $( "input[name='parent_item']" ).val(parent);
-		
-		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(objcontent)[index]);
-		});
+		$('#form-post').attr('action','/logistic/action?_method=put');
 
+		$("#iditem").css("display", "block");
+
+		$("#id_item").val(id);
+		$("#name_item").val(name);
+		$("#location_item").val(locaton);
+
+		try{
+			var objcontent=JSON.parse(content);
+
+			$("input[name='general_val']").each(function(index){
+				$(this).val(Object.values(objcontent)[index]);
+			});
+
+			$("input[name='lable_val']").each(function(index){
+				$(this).val(Object.values(objcontent['Lable'])[index]);
+			});
+		}catch(error){
+			$("input[name='general_val']").val('');
+			$("input[name='lable_val']").val('');
+		}
     });
 
     $('#btn-addnew').click(function(){
-        $('#form-post').attr('action','/product/action');
-        $( "input[name='id_item']" ).val('');
-        $( "input[name='name_item']" ).val('');
-        $( "input[name='parent_item']" ).val('');
+
+		$("#iditem").css("display", "none");
+
+		$("input[name='id_item']").val(uuidv4());
+		$("input[name='name_item']").val('');
+		$('#form-post').attr('action','/logistic/action');
+		
 		$("input[name='general_val']").val('');
+		$("input[name='lable_val']").val('');
 	
 	});
 
-	function insert_general(key,val){
-	
-		var row_id=$('#tbl-general>tbody>tr.general-rows').length+1;
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
 
-		var html='<tr class="general-rows general-'+row_id+'">';
-			html+='<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="'+key+'"></th>';
-			html+='<th class="co-th"> <input class="form-control box-co" name="general_val" value="'+val+'"></th>';
-			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-warning mybutton del_general"><i class="fa fa-minus"></i></button></th>';
-			html+='</tr>';
+$(document).ready(function(){
 
-	  $(html).insertBefore( ".end_general" );
-	
-	};
-	
-	function del_general(id){
-		
-	  var i=1;
+	var loca="/loadajax/location";
 
-	  $('.general-'+id).remove();
+	loadauditor(function(html){
+		$('#location_item').html(html);
+	},loca);
+});
 
-	  $('#tbl-general>tbody>tr.general-rows').each(function(){
-		var z=i++;
-		$(this).attr('class','general-rows general-'+z);
-		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
-	  });
+function loadauditor(callback,url){
 
-	};
-
-	$('.add_general').on('click',function() {
-		var key='';
-		var val='';
-		insert_general(key,val);
-
-	});
-	
-
-	function getLocation() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-		} else { 
-			alert("Geolocation is not supported by this browser.");
+	$.ajax({
+		url:url,
+		type: "POST",
+		data:{
+		},
+		success:function(response){
+			console.log(response);
+		var res = JSON.parse(response);
+		var html='';
+				for(var c in res ) {
+					html+='<option value="'+res[c]['name']+'">';
+					html+= res[c]['name'];
+					html+='</option>';
+				}
+			callback(html);
+		},
+		error:function(error){
+			console.log(error);
 		}
-	}
+	});
+}
 
-	function showPosition(position) {
-		alert("Geolocation is not supported by this browser.");
-		$('#location_longitude').val(position.coords.longitude);
-		$('#location_latitude').val(position.coords.latitude);
-	}
-		
-	function xoa_dau(str) {
-		str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-		str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-		str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-		str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-		str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-		str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-		str = str.replace(/đ/g, "d");
-		str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
-		str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
-		str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
-		str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
-		str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
-		str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
-		str = str.replace(/Đ/g, "D");
-		return str;
-	}
 
 </script>

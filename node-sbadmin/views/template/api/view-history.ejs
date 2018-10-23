@@ -116,13 +116,64 @@ th.co-th {
 }
 
 .table-responsive {
+    width: 80%;
+    margin: 0 auto;
+}
+.icon-btn {
     width: 100%;
+    padding: 3px 3px;
+}
+textarea:focus, input:focus{
+    outline: none;
 }
 
-.search{
-    width: 30%;
+.input {
+    width: 80%;
+    float: left;
+    padding-right: 5px;
+}
+.action {
+    width: 20%;
+    float: left;
+    height: 100%;
+}
+span.vien {
+    border-left: 0.5px solid #ccc;
+    padding: 3px 2px;
+    vertical-align: middle;
+}
+.method-search {
+    border: none;
+    padding: 6px 5px !important;
+    color: #333333;
+    font-size: 19px;
+    display: inline-flex;
+    width:45%;
+    vertical-align: middle;
+    height: 100%;
+}
+.keyword{
+    box-shadow: none;
+    margin-right: 5px;
+}
+.mysearch{
+    width: 100%;
     float: right;
 }
+.search-group{
+    box-sizing: border-box;
+    height: 37px;
+    border: 1px solid #ccc;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.keyword {
+    border: none;
+}
+
 .btn {
     padding: 6px 20px;
 }
@@ -143,6 +194,18 @@ th{
 .col-action{
     width: 20px;
 }
+th.td-id {
+    width: 30%;
+}
+th.td-name {
+    width: 50%;
+}
+th.td-n0{
+    width: 10%;
+}
+th.td-action {
+    width: 10%;
+}
 </style>
 
 
@@ -150,7 +213,7 @@ th{
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">PRODUCT</h1>
+            <h1 class="page-header">SEARCH PRODUCTS</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -167,18 +230,28 @@ th{
     <div class="row">
         <div class="col-lg-12">
 			<div class="panel-body">
-					<div class="search">
-						<form role="form" id="form-search" method="GET" action="/product/action">
-							<div class="form-group input-group">
-								<input type="text" class="form-control" name="orgid_key" value="">
-								<span class="input-group-btn">
-									<button class="btn btn-default" id="btn-search" type="submit" name="search_id"><i class="fa fa-search"></i>
+					<div class="mysearch">
+                            <form id="form-search-pr" method="GET" action="/view-history/action">
+							<div class="form-group search-group">
+
+                      
+                                <div class="input">
+                                    <input type="text" class="form-control keyword" name="orgid_key" value="" placeholder="keyword ...">
+                                </div>
+                                <div class="action">
+                                    <a class="btn btn-default method-search" id="btn-qrcode" name="search_qrcode"><i class="fa fa-qrcode icon-btn"></i>
+									</a>
+                                    <span class="vien">
+                                    </span>
+									<button class="btn btn-default method-search" id="btn-search" type="submit" name="search_id"><i class="fa fa-search icon-btn"></i>
 									</button>
-								</span>
+
+                                </div>
+                         
 							</div>
-						</form>
+                        </form>
 					</div>
-					<button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
+					
 							<!-- Modal -->
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">                                   
 								<div class="modal-dialog">
@@ -186,7 +259,7 @@ th{
 										<div class='modal-content'>
 											<div class='modal-header'>
 												<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-												<h4 class='modal-title' id='myModalLabel'>PRODUCT</h4>
+												<h4 class='modal-title' id='myModalLabel'>PRODUCT DETAIL</h4>
 											</div>
 												<div id="myDIV">
                                                     <div class="modal-body">
@@ -197,11 +270,11 @@ th{
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Name (*)</label>
-                                                                <input class="form-control box-co" name="name_item" value="">
+                                                                <input class="form-control box-co" name="name_item" value="" disabled>
                                                             </div>    
                                                             <div class="form-group col-3">
 																<label>Location (*)</label>
-																<select class="form-control box-co" id="parent_item" name="parent_item" >
+																<select class="form-control box-co" id="parent_item" name="parent_item" disabled>
 																		<option value="0">--- select ---</option>
 																  </select>
                                                             </div>    															
@@ -359,7 +432,6 @@ th{
                                              	</div>
 											<div class='modal-footer'>
 												<button type='button' class='btn btn-info' data-dismiss='modal'>Close</button>
-												<button type='submit' name='send' id='btnclick' class='btn btn-success'>Save</button>
 											</div>
 										</div>
 									</form>
@@ -370,65 +442,25 @@ th{
                             
                             <thead>
 								<tr>
+                                    <th class="row-title td-n0" >#</th>
 									<th class="row-title td-id" >ID</th>
-									<th class="row-title td-name" >Name</th>
-									<th class="row-title td-parent">Location</th>
-									<th class="row-title td-content">Content</th>
+									<th class="row-title td-name">Name</th>
 									<th class= "td-action row-title">Action</th>
-									<th class="td-action row-title">View Detail</th>
 								</tr>
                             </thead>
                             <tbody>
 
-									<% 
+								<% 
 									var rowid=1 
 									for(var c in data ) {
 								 %>
 									<tr class="row-<%=rowid%>">
-<<<<<<< HEAD
-										<th class= "row-id"><%=data[k]['id']%></th>
-										<th class= "row-name"><%=data[k]['name']%></th>
-										<th class= "row-obj"><%=data[k]['objectType']%></th>
-										<th class= "row-parent"><%=data[k]['parent']%></th>
-										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
-										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i> Edit</button></th>
-										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[k]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th> 
-=======
+                                        <th class= "row-n0"><%=rowid%>.</th>
 										<th class= "row-id"><%=data[c]['id']%></th>
-										<th class= "row-name"><%=data[c]['name']%></th>
-										<th class= "row-parent"><%=data[c]['parent']%></th>
-										<th class= "row-content">
-											<%if(typeof data[c]['content'] == "undefined"){%>
-												<ul class="menu-json">
-													<li class="json-op">{...}</li>
-													<textarea class="input-content" hidden="hidden" ></textarea>
-												</ul>
-											<%}else{%>
-												<ul class="menu-json">														
-														<%try {%>
-															<%var objj=JSON.parse(data[c]['content'])%>
-															<li class="json-op">{</li>
-															<%for(var o in objj) {%>
-																<%if(typeof objj[o]!='object'){%>
-																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-																<%}else{%>
-																	<li class="json-cap1"><%= o %>: {</li>
-																	<%for(var k in objj[o]) {%>
-																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
-																	<%}%>
-																	<li class="json-cap1">}</li>
-																<%}%>
-															<%}%>
-															<li class="json-cl">}</li>
-														<%}catch(error) {%>
-															<%=data[c]['content']%>
-														<% }%>	
-												</ul>
-												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
-											<%}%>
-										</th>
-										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
->>>>>>> 3fb575124be3722b12bc0f09c34a83022192b53c
+                                        <th class= "row-name"><%=data[c]['name']%>
+                                        <input type="hidden" class="row-parent" name="row-parent" value="<%=data[c]['parent']%>">
+										<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea></th>
+										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-outline btn-success btn-view"><i class="fa fa-eye"></i> View</button></th> 
 									</tr>
 								<% rowid++}; 
 								%> 
@@ -443,11 +475,11 @@ th{
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>    
 
-	$('.btn-edit').click(function(){
+	$('.btn-view').click(function(){
 		
 		var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
-        var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
+        var parent=$('.row-'+$(this).attr('id')).find('.row-parent').val();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 
 		$("#myModal").modal();
@@ -456,7 +488,8 @@ th{
 		$( "input[name='id_item']" ).val(id);
         $( "input[name='name_item']" ).val(name);
         $( "#parent_item" ).val(parent);
-			
+        $("input[name='general_val']").attr('disabled',true)
+
 		try{
 		
 		var objcontent=JSON.parse(content);
@@ -471,22 +504,6 @@ th{
 		}
 		
     });
-
-    $('#btn-addnew').click(function(){
-		$('#form-post').attr('action','/product/action');
-		$( "#iditem" ).css("display", "none");
-        $( "input[name='id_item']" ).val(uuidv4());
-        $( "input[name='name_item']" ).val('');
-
-		$("input[name='general_val']").val('');
-	});
-
-	function uuidv4() {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-			return v.toString(16);
-		});
-	}
 
 $(document).ready(function(){
 

@@ -2,6 +2,32 @@
 
 <style>
 
+.menu-json {
+
+overflow-y: scroll;
+height: 150px;
+background-color: antiquewhite;
+padding-left: 15px;
+
+}
+
+.json-cap1, .json-cap2,.json-op,.json-cl {
+	list-style: none;
+}
+
+.json-cap1 {
+
+padding-left: 15px;
+
+}
+
+.json-cap2 {
+
+padding-left: 90px;
+
+}
+
+
 .mytable {
   table-layout: fixed;
   width: 100%;
@@ -9,10 +35,10 @@
 }
 /* Column widths are based on these cells */
 .td-id {
-  width: 10%;
+  width: 15%;
 }
 .td-name {
-  width: 15%;
+  width: 35%;
 }
 .td-obj {
   width: 10%;
@@ -21,7 +47,7 @@
   width: 10%;
 }
 .td-content {
-  width: 48%;
+  width: 50%;
 }
 .td-action {
   width: 7%;
@@ -58,7 +84,7 @@ th.co-th {
     border: none !important;
 }
 .modal-dialog{
-    width: 90%;
+    width: 100em;
 }
 
 .title-group{
@@ -83,7 +109,7 @@ th.co-th {
 
 #myDIV  {
     overflow-y: scroll;
-    height: 400px;
+    height: 550px;
 }
 
 .table-responsive {
@@ -161,12 +187,12 @@ th{
 												<div id="myDIV">
                                                     <div class="modal-body">
                                                         <div class="group-1">
-                                                            <div class="form-group col-3">
+                                                            <div class="form-group col-3" id="iditem">
                                                                 <label>ID</label>
-                                                                <input class="form-control box-co" name="id_item" value="">
+                                                                <input class="form-control box-co" name="id_item" value="" readonly>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Name</label>
+                                                                <label>Name (*)</label>
                                                                 <input class="form-control box-co" name="name_item" value="">
                                                             </div>      															
                                                         </div>  
@@ -260,7 +286,7 @@ th{
 								<tr>
 									<th class="row-title td-id" >ID</th>
 									<th class="row-title td-name" >Name</th>
-									<th class="row-title td-obj" >Object Type</th>
+									<!-- <th class="row-title td-obj" >Object Type</th> -->
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
 									<th class="td-action row-title">View Detail</th>
@@ -269,13 +295,41 @@ th{
                             <tbody>
 									<% 
 									var rowid=1 
-									for(var k in data ) {
+									for(var c in data ) {
 								 %>
 									<tr class="row-<%=rowid%>">
-										<th class= "row-id"><%=data[k]['id']%></th>
-										<th class= "row-name"><%=data[k]['name']%></th>
-										<th class= "row-obj"><%=data[k]['objectType']%></th>
-										<th class= "row-content"><%=JSON.stringify(data[k]['content'])%></th>
+										<th class= "row-id"><%=data[c]['id']%></th>
+										<th class= "row-name"><%=data[c]['name']%></th>
+										<th class= "row-content">
+											<%if(typeof data[c]['content'] == "undefined"){%>
+												<ul class="menu-json">
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
+												</ul>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(data[c]['content'])%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
+										</th>
 										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
 										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[k]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
 									</tr>
@@ -297,96 +351,42 @@ th{
 
 		var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
-		var content=$('.row-'+$(this).attr('id')).find('.row-content').text();
-		var parseJS=JSON.parse(content);
-		var objcontent=JSON.parse(parseJS);
+		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 		
 		$("#myModal").modal();
         $('#form-post').attr('action','/auditor/action?_method=put');
-		
+		$( "#iditem" ).css("display", "block");
 		$( "input[name='id_item']" ).val(id);
         $( "input[name='name_item']" ).val(name);
 		
+		try{
+		
+		var objcontent=JSON.parse(content);
+
 		$("input[name='general_val']").each(function(index){
 			$(this).val(Object.values(objcontent)[index]);
 		});
 
+		}catch(error){
+			$("input[name='general_val']").val('');
+		}
+
     });
 
     $('#btn-addnew').click(function(){
-        $('#form-post').attr('action','/auditor/action');
-        $( "input[name='id_item']" ).val('');
+		$('#form-post').attr('action','/auditor/action');
+		$( "#iditem" ).css("display", "none");
+		$( "input[name='id_item']" ).val(uuidv4())
         $( "input[name='name_item']" ).val('');
 		$("input[name='general_val']").val('');
 	
 	});
 
-	function insert_general(key,val){
-	
-		var row_id=$('#tbl-general>tbody>tr.general-rows').length+1;
-
-		var html='<tr class="general-rows general-'+row_id+'">';
-			html+='<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="'+key+'"></th>';
-			html+='<th class="co-th"> <input class="form-control box-co" name="general_val" value="'+val+'"></th>';
-			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-warning mybutton del_general"><i class="fa fa-minus"></i></button></th>';
-			html+='</tr>';
-
-	  $(html).insertBefore( ".end_general" );
-	
-	};
-	
-	function del_general(id){
-		
-	  var i=1;
-
-	  $('.general-'+id).remove();
-
-	  $('#tbl-general>tbody>tr.general-rows').each(function(){
-		var z=i++;
-		$(this).attr('class','general-rows general-'+z);
-		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
-	  });
-
-	};
-
-	$('.add_general').on('click',function() {
-		var key='';
-		var val='';
-		insert_general(key,val);
-
-	});
-	
-
-	function getLocation() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-		} else { 
-			alert("Geolocation is not supported by this browser.");
-		}
-	}
-
-	function showPosition(position) {
-		alert("Geolocation is not supported by this browser.");
-		$('#location_longitude').val(position.coords.longitude);
-		$('#location_latitude').val(position.coords.latitude);
-	}
-		
-	function xoa_dau(str) {
-		str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-		str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-		str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-		str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-		str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-		str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-		str = str.replace(/đ/g, "d");
-		str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
-		str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
-		str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
-		str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
-		str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
-		str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
-		str = str.replace(/Đ/g, "D");
-		return str;
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
 	}
 
 </script>

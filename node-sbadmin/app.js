@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-//app.use(expressSession({secret: 'mySecretKey'}));
+app.use(expressSession({secret: 'mySecretKey'}));
 
 
 app.use(logger('dev'));
@@ -35,8 +35,7 @@ app.use(methodOverride('_method'));
 
 require('./passport/pass')(passport);
 require('./routes/index')(app, passport);
-var apirouter = require('./routes/apirouter');  
-apirouter(app);
+require('./routes/apirouter')(app,passport);
  
 
 
@@ -59,15 +58,15 @@ if (app.get('env') === 'development') {
   });
 }
 
-// Database.config(
-//   config && config.mongodb && config.mongodb.address ? config.mongodb.address : '', 'sbadmin',
+Database.config(
+  config && config.mongodb && config.mongodb.address ? config.mongodb.address : '', 'sbadmin',
   
-//   config.mongodb && config.mongodb.options ? config.mongodb.options : undefined,
-//   function(err, message) {
-//     if (!err) console.info('  - Mongodb is connected');
+  config.mongodb && config.mongodb.options ? config.mongodb.options : undefined,
+  function(err, message) {
+    if (!err) console.info('  - Mongodb is connected');
     
-//   }
-// );
+  }
+);
 
 // production error handler
 // no stacktraces leaked to user

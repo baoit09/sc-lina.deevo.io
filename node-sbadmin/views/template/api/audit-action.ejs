@@ -2,6 +2,32 @@
 
 <style>
 
+.menu-json {
+
+overflow-y: scroll;
+height: 150px;
+background-color: antiquewhite;
+padding-left: 15px;
+
+}
+
+.json-cap1, .json-cap2,.json-op,.json-cl {
+	list-style: none;
+}
+
+.json-cap1 {
+
+padding-left: 15px;
+
+}
+
+.json-cap2 {
+
+padding-left: 90px;
+
+}
+
+
 select.form-control.type_search{
     border-top-left-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
@@ -61,7 +87,7 @@ th.co-th {
     border: none !important;
 }
 .modal-dialog{
-    width: 90%;
+    width: 100em;
 }
 
 .title-group{
@@ -86,7 +112,7 @@ th.co-th {
 
 #myDIV  {
     overflow-y: scroll;
-    height: 400px;
+    height: 550px;
 }
 
 .table-responsive {
@@ -143,7 +169,7 @@ th{
 											<div class="group-search">
 												<div class="input-group-btn type_search">
 													<select  class="form-control type_search" id="type_search" name="type_search">
-													  <option value="0">---select---</option>
+														<option value="0">---select---</option>
 													</select>
 												</div>
 												<div class="input-group-btn orgid_key">
@@ -170,32 +196,33 @@ th{
 												<div id="myDIV">
                                                     <div class="modal-body">
                                                         <div class="group-1"> 
-															<div class="form-group">
-																<label>Action ID</label>
-																<input class="form-control box-co gr-1" id="id_item" name="id_item" value="" readonly>
+															<div class="form-group" id="iditem">
+																<label>ID</label>
+																<input class="form-control box-co" id="id_item" name="id_item" value="" readonly>
 															</div>
 															<div class="form-group">
-                                                                <label>Time</label>
+                                                                <label>Times (*)</label>
                                                                 <input class="form-control box-co gr-1" id="time_item" name="time_item" value="">
 															</div>  
 															<div class="form-group">
-																<label>Auditor</label>
+																<label>Auditor (*)</label>
 																<select class="form-control box-co gr-1" id="auditor_item" name="auditor_item"> 
 																		<option value="0">---select---</option>
 																</select>
+																<!-- <input type="hidden" id="auditor_item" name="auditor_item" value=""> -->
 															</div>  
 															<div class="form-group">
-																<label>Location</label>
+																<label>Locations (*)</label>
 																<select class="form-control box-co gr-1" id="location_item" name="location_item"> 
 																	<option value="0">---select---</option>
 																</select>
 															</div>  
 															<div class="form-group">
-																<label>Object ID</label>
-																<select class="form-control box-co gr-1" id="object_item" name="object_item"> 
+																<label>Products (*)</label>
+																<select class="form-control box-co gr-1" id="product_item" name="product_item"> 
 																	<option value="0">---select---</option>
 																</select>
-															</div>  													
+															</div>  														
                                                         </div>  
                                                   <div class="group-2">
 													<div class="panel">
@@ -283,12 +310,13 @@ th{
                         <table class="table mytable">                         
                             <thead>
                                 <tr>
-									<th class="row-title" width="25%">ID</th>
-									<th class="row-title" width="10%">Object Type</th>
+									<th class="row-title" width="10%">ID</th>
+									<!-- <th class="row-title" width="10%">Object Type</th> -->
 									<th class="row-title" width="10%">Time</th>
 									<th class="row-title" width="10%">Location</th>
 									<th class="row-title" width="10%">Auditor</th>
-									<th class="row-title" width="25%">Object ID</th>
+									<th class="row-title" width="10%">Product</th>
+									<th class="row-title" width="40%">Content</th>
 									<th class="row-title" width="10%">Action</th>
 									<th class="row-title" width="10%">View Detail</th>
                                 </tr>
@@ -299,13 +327,42 @@ th{
 								%>
 									<tr class="row-<%=rowid%>"</tr>
 										<th class="id"><%=data[c]['id']%></th>
-										<th class="objecttype"><%=data[c]['objectType']%></th>
+										<!-- <th class="objecttype"><%=data[c]['objectType']%></th> -->
 										<th class="time"><%=data[c]['time']%></th>
 										<th class="location"><%=data[c]['location']%></th>
 										<th class="auditor"><%=data[c]['auditor']%></th>
-										<th class="objectID"><%=data[c]['objectId']%></th>
+										<th class="product"><%=data[c]['objectId']%></th>
+										<th class= "row-content">
+											<%if(typeof data[c]['content'] == "undefined"){%>
+												<ul class="menu-json">
+													<li class="json-op">{...}</li>
+													<textarea class="input-content" hidden="hidden" ></textarea>
+												</ul>
+											<%}else{%>
+												<ul class="menu-json">														
+														<%try {%>
+															<%var objj=JSON.parse(data[c]['content'])%>
+															<li class="json-op">{</li>
+															<%for(var o in objj) {%>
+																<%if(typeof objj[o]!='object'){%>
+																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																<%}else{%>
+																	<li class="json-cap1"><%= o %>: {</li>
+																	<%for(var k in objj[o]) {%>
+																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																	<%}%>
+																	<li class="json-cap1">}</li>
+																<%}%>
+															<%}%>
+															<li class="json-cl">}</li>
+														<%}catch(error) {%>
+															<%=data[c]['content']%>
+														<% }%>	
+												</ul>
+												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+											<%}%>
+										</th>
 										<th class="action">
-											<input id="content-<%=rowid%>" type="hidden" name="content" value="<%=data[c]['content']%>">
 											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
 										</th>
 										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
@@ -321,154 +378,149 @@ th{
 </div>
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-<script>    
-	$(document).ready(function(){
+<script>  
 
-		var url="/loaddata/auditor";
-		var url_location="/loaddata/location";
-		var url_obj="/loaddata/obj";
+	// $('#auditor_id').change(function(){
+	// 	var text=$('#auditor_id option:selected').text();
+	// 	$('#auditor_item').val(text);
+	// })
 
-		loadauditor(function(html){
-			$('#type_search').html(html);
-			$('#auditor_item').html(html);
-		},url);
-
-		loadauditor(function(html){
-			$('#location_item').html(html);
-		},url_location);
-
-		loadauditor(function(html){
-			$('#object_item').html(html);
-		},url_obj);
-
+	$('#type_search').change(function(){
+		var str=$(this).val();
+		if(str==0){
+			$('.orgid_key').prop('disabled', false);
+		}else{
+			$('.orgid_key').prop('disabled', true);
+		};
 	});
-
-	function loadauditor(callback,url){
-		
-		$.ajax({
-			url:url,
-			type: "POST",
-			data:{
-			},
-			success:function(response){
-				console.log(response);
-			var res = JSON.parse(response);
-			var html='';
-					for(var c in res ) {
-						html+='<option value="'+res[c]['id']+'">';
-						html+= res[c]['name'];
-						html+='</option>';
-					}
-				callback(html);
-			},
-			error:function(error){
-				console.log(error);
-			}
-		})
-	}
 
 	$('.btn-edit').click(function(){
 
 		var obj_input={
-			id: $('.row-'+$(this).attr('id')).find('.id').text(),
 			time: $('.row-'+$(this).attr('id')).find('.time').text(),
 			auditor: $('.row-'+$(this).attr('id')).find('.auditor').text(),
 			location: $('.row-'+$(this).attr('id')).find('.location').text(),
-			obj: $('.row-'+$(this).attr('id')).find('.objectID').text(),
+			obj: $('.row-'+$(this).attr('id')).find('.product').text(),
 		}
 
-		var content= JSON.parse($('#content-'+$(this).attr('id')).val());
+		var id= $('.row-'+$(this).attr('id')).find('.id').text();
+		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 
-		$("#myModal").modal();
-		$('#form-post').attr('action','/audit-action/action?_method=put');
+			$("#myModal").modal();
+			$('#form-post').attr('action','/audit-action/action?_method=put');
+			$( "#iditem" ).css("display", "block");
+			$( "input[name='id_item']" ).val(id);
 
-        $( ".gr-1" ).each(function(index){
-			$(this).val(Object.values(obj_input)[index]);
-		});
+			$( ".gr-1" ).each(function(index){
+				$(this).val(Object.values(obj_input)[index]);
+			});
+
+		try{
 		
-		$("input[name='general_val']").each(function(index){
-			$(this).val(Object.values(content)[index]);
-		});
+			var objcontent=JSON.parse(content);
+			
+			$("input[name='general_val']").each(function(index){
+				$(this).val(Object.values(objcontent)[index]);
+			});
+
+		}catch(error){
+			$("input[name='general_val']").val('');
+		}
 
     });
 
 
     $('#btn-addnew').click(function(){
-	
+
+		$( "input[name='id_item']" ).val(uuidv4())
+		$( "#iditem" ).css("display", "none");
+
         $( ".gr-1" ).each(function(index){
 			$(this).val('');
 		});
-        $('#form-post').attr('action','/audit-action/action');
+		
+		$('#form-post').attr('action','/audit-action/action');
 		$("input[name='general_val']").val('');
 	
 	});
 
-	function insert_general(key,val){
-	
-		var row_id=$('#tbl-general>tbody>tr.general-rows').length+1;
-
-		var html='<tr class="general-rows general-'+row_id+'">';
-			html+='<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="'+key+'"></th>';
-			html+='<th class="co-th"> <input class="form-control box-co" name="general_val" value="'+val+'"></th>';
-			html+='<th width="7px" class="co-th mybutton"><button type="button" onclick="del_general('+row_id+')" class="btn btn-warning mybutton del_general"><i class="fa fa-minus"></i></button></th>';
-			html+='</tr>';
-
-	  $(html).insertBefore( ".end_general" );
-	
-	};
-	
-	function del_general(id){
-		
-	  var i=1;
-
-	  $('.general-'+id).remove();
-
-	  $('#tbl-general>tbody>tr.general-rows').each(function(){
-		var z=i++;
-		$(this).attr('class','general-rows general-'+z);
-		$(this).find('.del_general').attr('onclick','del_general('+(z)+')');
-	  });
-
-	};
-
-	$('.add_general').on('click',function() {
-		var key='';
-		var val='';
-		insert_general(key,val);
-
-	});
-	
-
-	function getLocation() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-		} else { 
-			alert("Geolocation is not supported by this browser.");
-		}
+	function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
 	}
 
-	function showPosition(position) {
-		alert("Geolocation is not supported by this browser.");
-		$('#location_longitude').val(position.coords.longitude);
-		$('#location_latitude').val(position.coords.latitude);
+	$(document).ready(function(){
+
+var loca="/loadajax/location";
+var product="/loadajax/product";
+var audit="/loadajax/auditor";
+
+loadauditor(function(html){
+	$('#location_item').html(html);
+},loca);
+
+loadauditor(function(html){
+	$('#auditor_item').html(html);
+},audit);
+
+search(function(html){
+	$('#type_search').html(html);
+},audit);
+
+loadauditor(function(html){
+	$('#product_item').html(html);
+},product);
+
+});
+
+function loadauditor(callback,url){
+
+$.ajax({
+	url:url,
+	type: "POST",
+	data:{
+	},
+	success:function(response){
+		console.log(response);
+	var res = JSON.parse(response);
+	var html='';
+			for(var c in res ) {
+				html+='<option value="'+res[c]['name']+'">';
+				html+= res[c]['name'];
+				html+='</option>';
+			}
+		callback(html);
+	},
+	error:function(error){
+		console.log(error);
 	}
-		
-	function xoa_dau(str) {
-		str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-		str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-		str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-		str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-		str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-		str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-		str = str.replace(/đ/g, "d");
-		str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
-		str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
-		str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
-		str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
-		str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
-		str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
-		str = str.replace(/Đ/g, "D");
-		return str;
+});
+}
+
+function search(callback,url){
+
+$.ajax({
+	url:url,
+	type: "POST",
+	data:{
+	},
+	success:function(response){
+		console.log(response);
+	var res = JSON.parse(response);
+	var html='<option value="0">--- search by auditor ---';
+			for(var c in res ) {
+				html+='<option value="'+res[c]['name']+'">';
+				html+= res[c]['name'];
+				html+='</option>';
+			}
+		callback(html);
+	},
+	error:function(error){
+		console.log(error);
 	}
+});
+}
 
 </script>
