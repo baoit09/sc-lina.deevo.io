@@ -16,6 +16,7 @@ var generalLog=require('../controller/api/general-log');
 
 module.exports = function(app) {  
 
+
 	app.get('/permission',function(req,res){
 		res.render('template/api/permission',{data:'',message:'',status:0});
 	});
@@ -103,6 +104,9 @@ module.exports = function(app) {
 
 	app.route('/log')
 		.get(isAuthenticated, log.log_api004);
+	app.route('/log/:page')
+		.get(isAuthenticated, log.log_api004);
+
 
 	app.route('/auditor/action')
 		.get(isAuthenticated, auditor.auditor_api002)
