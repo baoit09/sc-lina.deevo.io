@@ -433,7 +433,8 @@ module.exports.schain_api015 = function(req, res) {
 module.exports.schain_api016 = function(req, res) {
 
 	var role = req.query.role;	
-	var eventName = req.query.eventName;	
+	var eventName = req.query.eventName;
+	//Supplier	
 	if(role === "Supplier" && eventName == "Receive")
 	{
 		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
@@ -442,9 +443,63 @@ module.exports.schain_api016 = function(req, res) {
 	{
 		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
 	}
-	else if(role === "Supplier" && eventName  == "Delivery")
+	else if(role === "Supplier" && eventName  == "Deliver")
 	{
 		res.json([ "To Company Name", "Quantity" ]);	
+	}
+	else if(role === "Supplier" && eventName  == "Purchase")
+	{
+		res.json([ "To Company Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Supplier" && eventName  == "Transport")
+	{
+		res.json([ "To Company Name", "Product Name", "Quantity" ]);	
+	}
+	//Manufacturer
+	else if(role === "Manufacturer" && eventName === "Store")
+	{
+		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Manufacturer" && eventName  == "Receive")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Manufacturer" && eventName  == "Deliver")
+	{
+		res.json([ "To Company Name", "Quantity" ]);	
+	}
+	else if(role === "Manufacturer" && eventName  == "Purchase")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
+	}
+		else if(role === "Manufacturer" && eventName === "Packing (sachet)")
+		{
+			res.json([ "Product Name", "Quantity" ]);	
+		}
+		else if(role === "Manufacturer" && eventName  == "Packing (die-cut bag)")
+		{
+			res.json([ "Product Name", "Quantity" ]);	
+		}
+		else if(role === "Manufacturer" && eventName  == "Packing (dozen bag)")
+		{
+			res.json([ "Product Name", "Quantity" ]);	
+		}
+		else if(role === "Manufacturer" && eventName  == "Packing (carton)")
+		{
+			res.json([ "Product Name", "Quantity" ]);
+		}
+		//Auditor
+	else if(role === "Auditor" && eventName === "Inspect")
+	{
+		res.json([ "Company Name", "Location", "Product Name", "Evidences", "Comment" ]);	
+	}
+	else if(role === "Auditor" && eventName  == "Approve")
+	{
+		res.json([ "Company Name", "Location", "Product Name", "Evidences", "Comment" ]);	
+	}
+	else if(role === "Auditor" && eventName  == "Certify")
+	{
+		res.json([ "Company Name", "Location", "Product Name", "Evidences", "Comment" ]);	
 	}
 };
 
