@@ -432,16 +432,19 @@ module.exports.schain_api015 = function(req, res) {
 
 module.exports.schain_api016 = function(req, res) {
 
-	var templateName = req.query.template;	
-	if(templateName == "Receive")
+	var role = req.query.role;	
+	var eventName = req.query.eventName;	
+	if(role === "Supplier" && eventName == "Receive")
 	{
-		var Receive = [ "From Company Name", "Product Name", "Quantity" ];
-		res.json(Receive);	
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
 	}
-	else if(templateName == "Store")
+	else if(role === "Supplier" && eventName === "Store")
 	{
-		var Store = [ "Stored Location Name", "Product Name", "Quantity" ];
-		res.json(Store);	
+		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Supplier" && eventName  == "Delivery")
+	{
+		res.json([ "To Company Name", "Quantity" ]);	
 	}
 };
 

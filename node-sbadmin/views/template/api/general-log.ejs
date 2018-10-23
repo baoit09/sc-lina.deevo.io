@@ -376,6 +376,7 @@ th{
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script>
 
+	var _role = "";
 	var _eventName = "";
 	var _cteEvents = [];
 	var _locations = [];
@@ -386,6 +387,7 @@ th{
 
 	$( document ).ready(function() {
 
+		_role = $("#label_role").text();
 		_eventName = $("#label_eventName").text();
 		get_locations();
 	});
@@ -428,7 +430,7 @@ th{
 
 	function get_content_template()
 	{
-		get_objects("/supply-chain/templates?template=" + _eventName, (items) =>
+		get_objects("/supply-chain/templates?role=" + _role + "&eventName=" + _eventName, (items) =>
 		{
 			_contentTemplate = items;
 
