@@ -191,11 +191,11 @@ module.exports.org_api004 = function(req, res) {
 					var data=JSON.parse(body);
 					res.render('template/api/organization',{data:data,user:user,message:"Successfully updated "+ name +" to system.",status:1});
 				}else{
-					res.render('template/api/organization',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
+					res.render('template/api/organization',{data:'',user:user,message:JSON.stringify(body),status:2});
 				}
 			 });
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/organization',{data:'',user:user,message:"Failed to add "+ name + " to system.",status:2});
+			res.render('template/api/organization',{data:'',user:user,message:JSON.stringify(body),status:2});
 		}else{
 			res.render('template/api/organization',{data:'',user:user,message:error,status:2});
 		}

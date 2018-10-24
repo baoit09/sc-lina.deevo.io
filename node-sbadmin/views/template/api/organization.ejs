@@ -486,44 +486,48 @@ th{
 	$('.btn-edit').click(function(){
         var id=$('.row-'+$(this).attr('id')).find('.row-id').text();
         var name=$('.row-'+$(this).attr('id')).find('.row-name').text();
+        var obj=$('.row-'+$(this).attr('id')).find('.row-obj').text();
+        var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 		
+
 		$("#myModal").modal();
-		$( "#iditem" ).css("display", "block");
+
         $('#form-post').attr('action','/organization/action?_method=put');
-		
+		$("#iditem").css("display", "block");
+
         $( "input[name='id_item']" ).val(id);
         $( "input[name='name_item']" ).val(name);
-
-		try{
+        $( "input[name='type_item']" ).val(obj);
+        $( "input[name='parent_item']" ).val(parent);
 		
-		var objcontent=JSON.parse(content);
-
-		var cont=objcontent['Contact'];
-			$('#contact_name').val(cont['Full-Name']);
-			$('#contact_email').val(cont['Email']);
-			$('#contact_phone').val(cont['Phone']);
-			$('#contact_role').val(cont['Role']);
-			$('#contact_account').val(cont['DEEVO-Account']);
-	
-	
-		// var add=objcontent['Address'];
-		// 	$('#address_house').val(add['House']);
-		// 	$('#address_street').val(add['Street']);
-		// 	$('#address_ward').val(add['Ward']);
-		// 	$('#address_district').val(add['District']);
-		// 	$('#address_city').val(add['City']);
-		// 	$('#address_country').val(add['Country-Code']);
-
-
-		// $("input[name='general_val']").each(function(index){
-		// 	$(this).val(Object.values(objcontent)[index]);
-		// });
+		try{
+			var objcontent=JSON.parse(content);
+			var cont=objcontent['Contact'];
+				$('#contact_name').val(cont['Full-Name']);
+				$('#contact_email').val(cont['Email']);
+				$('#contact_phone').val(cont['Phone']);
+				$('#contact_role').val(cont['Role']);
+				$('#contact_account').val(cont['DEEVO-Account']);
+		
+		
+			var add=objcontent['Address'];
+				$('#address_house').val(add['House']);
+				$('#address_street').val(add['Street']);
+				$('#address_ward').val(add['Ward']);
+				$('#address_district').val(add['District']);
+				$('#address_city').val(add['City']);
+				$('#address_country').val(add['Country-Code']);
 
 
-		// var locat=objcontent['Location'];
-		// 	$('#us2-lon').val(locat['Longitude']);
-		// 	$('#us2-lat').val(locat['Latitude']);
+			$("input[name='general_val']").each(function(index){
+				$(this).val(Object.values(objcontent)[index]);
+			});
+
+
+			var locat=objcontent['Location'];
+				$('#us2-lon').val(locat['Longitude']);
+				$('#us2-lat').val(locat['Latitude']);
 
 		}catch(error){
 			$("input[name='address_val']").val('');
@@ -535,6 +539,7 @@ th{
     });
 	
     $('#btn-addnew').click(function(){
+
 		$('#form-post').attr('action','/organization/action');
 		$( "#iditem" ).css("display", "none");
 
