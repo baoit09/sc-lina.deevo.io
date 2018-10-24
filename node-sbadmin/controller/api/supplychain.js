@@ -413,15 +413,15 @@ module.exports.schain_api015 = function(req, res) {
 		if(!error && response.statusCode == 200)
 		{
 			var data = JSON.parse(body);			
-			if ( !(data instanceof Array)  )
+			if (!(data instanceof Array))
 			{
 				items.push(data);
 			}
 			else
 			{
-				items = data;	
+				items = data;
 			}
-			res.json(items);		
+			res.json(items);
 		}
 		else
 		{
@@ -434,6 +434,7 @@ module.exports.schain_api016 = function(req, res) {
 
 	var role = req.query.role;	
 	var eventName = req.query.eventName;
+
 	// Farm & Orchard	
 	if (role == "Farm and Orchard" && eventName == "Plant (tree)")
 	{
