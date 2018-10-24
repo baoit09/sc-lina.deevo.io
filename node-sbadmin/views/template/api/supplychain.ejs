@@ -324,10 +324,10 @@ th{
 												<button type="button" id="<%=rowid%>" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#myDeleteModal" title="Delete this Supply Chain Model"><i class="fa fa-trash"></i></button>
 											</th>
 											<th>
-												<button type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal" title="Duplicate this Supply Chain Model"><i class="fa fa-copy"></i></button>
+												<button title="Edit the supply chain" type="button" id="<%=rowid%>" class="btn btn-success btn-duplicate"  data-toggle="modal" data-target="#myModal" title="Duplicate this Supply Chain Model"><i class="fa fa-copy"></i></button>
 											</th>
 											<th>
-												<a target="_blank" href="https://insight.deevo.io/doc/<%=scms[k]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a>
+												<a title="View the supply chain on blockchain" target="_blank" href="https://insight.deevo.io/doc/<%=scms[k]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a>
 											</th>
                                         </tr>
                                     <% rowid++};

@@ -8,7 +8,6 @@ overflow-y: scroll;
 height: 150px;
 background-color: antiquewhite;
 padding-left: 15px;
-
 }
 
 .json-cap1, .json-cap2,.json-op,.json-cl {
@@ -425,7 +424,7 @@ th{
                                     <th class="row-title td-parent">Parent</th> -->
                                     <th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
-									<th class= "td-action row-title">View Detail</th>
+									<th class= "td-action row-title"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -467,8 +466,8 @@ th{
 													<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
 												<%}%>
 											</th>
-											<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
-											<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
+											<th class= "row-btn"><button title="Edit the organization" type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+											<th class= "row-detail"><a title="View the organization on blockchain" target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
                                         </tr>
                                     <% rowid++}; 
                                     %> 
@@ -540,8 +539,6 @@ th{
     });
 	
     $('#btn-addnew').click(function(){
-
-		$("#iditem").css("display", "none");
 
 		$('#form-post').attr('action','/organization/action');
 		$( "#iditem" ).css("display", "none");
