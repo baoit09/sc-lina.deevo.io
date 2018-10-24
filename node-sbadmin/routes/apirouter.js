@@ -97,7 +97,7 @@ module.exports = function(app) {
 		.get(isAuthenticated, schain.schain_api015);
 	app.route('/supply-chain/templates')
 		.get(isAuthenticated, schain.schain_api016);
-
+		
 	app.route('/log/action')
 		.get(isAuthenticated, log.log_api002)
 		.post(isAuthenticated, log.log_api001)
