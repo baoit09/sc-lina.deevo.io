@@ -11,6 +11,8 @@ var logistic=require('../controller/api/logistic');
 var modal=require('../controller/api/ajax');
 var loadajax=require('../controller/api/loaddata');
 var history=require('../controller/api/view-history');
+var history=require('../controller/api/view-history');
+var generalLog=require('../controller/api/general-log');
 
 module.exports = function(app) {  
 
@@ -42,7 +44,6 @@ module.exports = function(app) {
 
 	app.route('/party')
 		.get(isAuthenticated, party.party_api0014);
-
 
 	app.route('/location/action')
 		.get(isAuthenticated, location.location_api002)
@@ -94,6 +95,8 @@ module.exports = function(app) {
 		.get(isAuthenticated, schain.schain_api014);
 	app.route('/supply-chain/scms')
 		.get(isAuthenticated, schain.schain_api015);
+	app.route('/supply-chain/templates')
+		.get(isAuthenticated, schain.schain_api016);
 
 	app.route('/log/action')
 		.get(isAuthenticated, log.log_api002)
@@ -133,6 +136,9 @@ module.exports = function(app) {
 	app.route('/loadajax/:action')
 		.post(loadajax.get_ajax);
 	
+	app.route('/general-log')
+		.get(isAuthenticated, generalLog.general_log_api001)
+		.post(isAuthenticated, generalLog.general_log_api002);
 }
 
 var isAuthenticated = function (req, res, next) {

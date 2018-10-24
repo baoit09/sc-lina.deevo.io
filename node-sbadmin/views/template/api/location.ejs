@@ -356,6 +356,7 @@ th{
 									<th class="row-title td-parent">Party</th>
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
+									<th class= "td-action row-title">View Detail</th>
 								</tr>
                             </thead>
                             <tbody>
@@ -365,39 +366,40 @@ th{
 								 %>
 									<tr class="row-<%=rowid%>">
 										<th class= "row-id"><%=data[c]['id']%></th>
-										<th class= "row-name"><%=data[c]['name']%></th>
+										<th class= "row-name"><%=data[c]['name']%></th>										
 										<th class= "row-parent"><%=data[c]['parent']%></th>
 										<th class= "row-content">
-											<%if(typeof data[c]['content'] == "undefined"){%>
-												<ul class="menu-json">
-													<li class="json-op">{...}</li>
-													<textarea class="input-content" hidden="hidden" ></textarea>
-												</ul>
-											<%}else{%>
-												<ul class="menu-json">														
-														<%try {%>
-															<%var objj=JSON.parse(data[c]['content'])%>
-															<li class="json-op">{</li>
-															<%for(var o in objj) {%>
-																<%if(typeof objj[o]!='object'){%>
-																	<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
-																<%}else{%>
-																	<li class="json-cap1"><%= o %>: {</li>
-																	<%for(var k in objj[o]) {%>
-																		<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+												<%if(typeof data[c]['content'] == "undefined"){%>
+													<ul class="menu-json">
+														<li class="json-op">{...}</li>
+														<textarea class="input-content" hidden="hidden" ></textarea>
+													</ul>
+												<%}else{%>
+													<ul class="menu-json">														
+															<%try {%>
+																<%var objj=JSON.parse(data[c]['content'])%>
+																<li class="json-op">{</li>
+																<%for(var o in objj) {%>
+																	<%if(typeof objj[o]!='object'){%>
+																		<li class="json-cap1"><%= o %>: "<%= objj[o] %>"</li>
+																	<%}else{%>
+																		<li class="json-cap1"><%= o %>: {</li>
+																		<%for(var k in objj[o]) {%>
+																			<li class="json-cap2"><%= k %>: "<%= objj[o][k] %>"</li>
+																		<%}%>
+																		<li class="json-cap1">}</li>
 																	<%}%>
-																	<li class="json-cap1">}</li>
 																<%}%>
-															<%}%>
-															<li class="json-cl">}</li>
-														<%}catch(error) {%>
-															<%=data[c]['content']%>
-														<% }%>	
-												</ul>
-												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
-											<%}%>
-										</th>
-										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+																<li class="json-cl">}</li>
+															<%}catch(error) {%>
+																<%=data[c]['content']%>
+															<% }%>	
+													</ul>
+													<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+												<%}%>
+											</th>
+										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th>
+										<th><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th> 
 									</tr>
 								<% rowid++}; 
 								%>  

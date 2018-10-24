@@ -3,10 +3,10 @@
     <div class="alert alert-danger" style="margin-top:20px; font-size: 15px; line-height: 1.8em; text-align: center">         
         Experience DEEVO backed by Blockchain, powered by DEEVO TECH PTE.<br/>          
         Key features designed are compliant with AimThaiFruit's operating procedures.
-        All testing data  will be cleared without prior notice. See Privacy, Policy.
+        All testing data  will be cleared without prior notice. 
     </div>        
         <!-- /.col-lg-12 -->
-
+    <!--    See Privacy, Policy. -->
     <!-- /.row -->    
     <div class="row">
         <div class="col-lg-3 col-md-6">
@@ -108,7 +108,7 @@
              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                <thead>
                  <tr>
-                   <th style="display:none;">ID</th>
+                   <th>ID</th>
                    <th>Time</th>
                    <th>Event</th>
                    <th>Product</th>
@@ -116,25 +116,16 @@
                    <th>Supplychain</th>                  
                    <th>Details</th> 
                  </tr>
-               </thead>
-               <tfoot>
-                 <tr>
-                    <th style="display:none;">ID</th>
-                    <th>Time</th>
-                    <th>Event</th>
-                    <th>Product</th>
-                    <th>Location</th>
-                    <th>Supplychain</th> 
-                    <th>Details</th>                  
-                 </tr>
-               </tfoot>
+               </thead>               
                <tbody>
                <%
                var rowid=1
                for(var k in dashboard.CTELogs ) {
             %>
                <tr class="row-<%=rowid%>">
-                   <td style="display:none;"><%=dashboard.CTELogs[k]['id']%></td>                   
+                   <td >
+                        <a target="_blank" href="https://insight.deevo.io/doc/<%=dashboard.CTELogs[k]['id']%>"><%=dashboard.CTELogs[k]['id'].substring(0,20)%></a>
+                   </td>                   
                    <td ><%=dashboard.CTELogs[k]['timeUTC']%></td>
                    <td ><%=dashboard.CTELogs[k]['cte']%></td>
                    <td ><%=dashboard.CTELogs[k]['productName']%></style="display:none;"td>

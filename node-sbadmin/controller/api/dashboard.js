@@ -52,13 +52,12 @@ module.exports.dashboard_api001 = function(req, res) {
 function convertIDToName(dashboard)
 {
 	dashboard.CTELogs.forEach(function(item)
-	{
-		
+	{		
 		item.timeUTC = item.time ? new Date(item.time).toUTCString() : "";
 		item.cte = item.cte ? item.cte : "";
-		item.productName =  item.product; //findName(item.product, dashboard.Products);
-		item.locationName = item.location; //findName(item.location, dashboard.Locations);
-		item.supplychainName = item.supplychain_id; //findName(item.supplychain_id, dashboard.SupplyChains);
+		item.productName =  findName(item.product, dashboard.Products);
+		item.locationName = findName(item.location, dashboard.Locations);
+		item.supplychainName = findName(item.supplychain_id, dashboard.SupplyChains);
 	})
 }
 
@@ -71,7 +70,7 @@ function findName(id, list)
 				return list[i].name;
 		}
 	}
-	return "";
+	return id;
 }
 
 function buildArrayNonDeleted(error, response, body)

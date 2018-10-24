@@ -399,6 +399,7 @@ th{
 									<th class="row-title" width="20%">Location</th>
 									<th class="row-title" width="30%">Content</th>
 									<th class="row-title" width="10%">Action</th>
+									<th class="row-title" width="10%">View Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -443,6 +444,7 @@ th{
 										<th class="action">
 											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
 										</th>
+										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
 									</tr>
                                 <% rowid++}; 
                                 %> 

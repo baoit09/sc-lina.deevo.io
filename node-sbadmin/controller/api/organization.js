@@ -30,10 +30,13 @@ module.exports.org_api003 = function(req, res) {
   		method: 'GET',
 	};
 
+
 	request(options, function (error, response, body) {
 		if(!error && response.statusCode==200){
+			
 			var data=[JSON.parse(body)];
 			res.render('template/api/organization',{data:data,user:user,message:'',status:0});
+			
 		}else if(!error && response.statusCode!=200){
 			res.render('template/api/organization',{data:'',user:user,message:'No data found!',status:2});
 		}else{

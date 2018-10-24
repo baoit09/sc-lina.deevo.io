@@ -140,12 +140,12 @@ th{
 }
 </style>
 
-
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">LOG</h1>
+			<h1 class="page-header"><%= logVM.Header %></h1>
+			<label id="label_role" hidden><%= logVM.Role %></label>
+			<label id="label_eventName" hidden><%= logVM.EventName %></label>
         </div>
         <!-- /.col-lg-12 -->
     </div>  
@@ -160,44 +160,24 @@ th{
         </div>   
     <%} %>
     <div class="row">
-        <div class="col-lg-12">
-                    <div class="panel-body">
-							<div class="search">
-								<form role="form" id="form-search" method="GET" action="/log/action">
-									<div class="form-group input-group">
-										<div class="group-search">
-											<div class="input-group-btn type_search">
-												<select  class="form-control type_search" id="type_search" name="type_search">
-													<option value="0">---select---</option>
-												</select>
-											</div>
-											<div class="input-group-btn orgid_key">
-												<input type="text" class="form-control orgid_key" name="orgid_key" value="">
-											</div>
-										</div>
-										<div class="input-group-btn">
-											<button class="btn btn-default" id="btn-search" type="submit"><i class="fa fa-search"></i>
-											</button>
-										</div>
-									</div>
-								</form>
-							</div>
+		<div class="col-lg-12">					
+                    <div class="panel-body">							
                             <button class="btn btn-primary btn-success" id="btn-addnew" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <form role = 'form' id="form-post" method="POST" action="/log/action">
+                                        <form role = 'form' id="form-post" method="POST" action="/general-log">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <h4 class="modal-title" id="myModalLabel">LOG</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">Add new <%= logVM.EventName %> Log</h4>
                                                     </div>
 												<div id="myDIV">
                                                     <div class="modal-body">
                                                         <div class="group-1">
                                                             <div class="form-group" id="iditem">
                                                                 <label>ID</label>
-                                                                <input class="form-control box-co" id="id_item" name="id_item" value="" readonly>
+                                                                <input class="form-control box-co" id="id_item" name="id_item" value="">
                                                             </div>  
                                                             <div class="form-group">
                                                                 <label>Time (*)</label>
@@ -240,15 +220,15 @@ th{
 														<div class="panel-body">
 															<!-- Nav tabs -->
 															<ul class="nav nav-tabs">
-																<li class="active"><a href="#general" data-toggle="tab"  style="font-weight: bold;">General</a>
+																<li class="active"><a href="#content" data-toggle="tab"  style="font-weight: bold;">Content</a>
 																</li>
-																<li><a href="#content" data-toggle="tab"  style="font-weight: bold;">Content</a>
-																</li>
+																<li ><a href="#general" data-toggle="tab"  style="font-weight: bold;">General</a>
+																</li>																
 															 </ul>
 
 															<!-- Tab panes -->
 															<div class="tab-content">
-																<div class="tab-pane fade  in active" id="general">
+																<div class="tab-pane fade" id="general">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-general">
 																			<tbody>
@@ -271,27 +251,23 @@ th{
 																				<tr class="general-rows general-5">
 																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Source Item" readonly></th>
 																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GINC" value=""></th>																					
-																				</tr>
+																				</tr>																				
 																			</tbody>
 																		</table>
 																	</div>
 																</div>
-																<div class="tab-pane fade" id="content">
+																<div class="tab-pane fade  in active" id="content">
 																	<div class="row show-grid">
 																		<table class="table table-content" id="tbl-content">
-																			<tbody>
-																				<tr class="content-rows content-1">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="detail_key" value="Tree Name" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co detail_tree_name" id="detail_tree_name" name="detail_val" value=""></th>
-																				</tr>		
-																				<tr class="content-rows content-2">
-																					<th width="200px" class="co-th"> <input onchange="" class="form-control box-co" name="detail_key" value="Quantity" readonly></th>
-																					<th class="co-th"> <input class="form-control box-co detail_quantity" id="detail_quantity" name="detail_val" value=""></th>
-																				</tr>	
+																			<tbody>																			
+																				<tr class="end_sc" style="display:none;">
+																					<th width="200px" class="co-th "> <input onchange="" class="form-control box-co" name="general_key" value="Sender" readonly></th>
+																					<th class="co-th"> <input class="form-control box-co" name="general_val" id="general_GLN" value=""></th>																					
+																				</tr>																				
 																			</tbody>
 																		</table>
 																	</div>
-																</div>	
+																</div>
 															</div>
 														</div>
 													</div>
@@ -301,9 +277,8 @@ th{
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-														<button type="submit" name="send" id="btnclick" class="btn btn-success">Save</button>
-														<input type="hidden" name="view_tpl" value="log">      
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" name="send" id="btnclick" class="btn btn-success">Apply</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -322,25 +297,23 @@ th{
 									<th class="row-title" width="10%">Asset</th>
 									<th class="row-title" width="10%">Product</th>
 									<th class="row-title" width="10%">Location</th>
-									<th class="row-title" width="20%">Content</th>
-									<th class="row-title" width="10%">Action</th>
-									<th class="row-title" width="10%">View</th>
+									<th class="row-title" width="20%">Content</th>									
                                 </tr>
                             </thead>
                             <tbody>
 								<%  var rowid=1 
-									for(var c in data){ 
+									for(var c in logVM.LogsByEventName){ 
 								%>
-									<tr class="row-<%=rowid%>"</tr>
-										<th class="id"><%=data[c]['id']%></th>
-										<th class="time"><%=data[c]['time']%></th>
-										<th class="cte"><%=data[c]['cte']%></th>
-										<th class="supplychain"><%=data[c]['supplychain_id']%></th>
-										<th class="asset"><%=data[c]['asset']%></th>
-										<th class="product"><%=data[c]['product']%></th>
-										<th class="location"><%=data[c]['location']%></th>
+									<tr class="row-<%= rowid %>"></tr>
+										<th class="id"><%= logVM.LogsByEventName[c]['id'] %></th>
+										<th class="time"><%= logVM.LogsByEventName[c]['time'] %></th>
+										<th class="cte"><%= logVM.LogsByEventName[c]['cte'] %></th>
+										<th class="supplychain"><%= logVM.LogsByEventName[c]['supplychain_id'] %></th>
+										<th class="asset"><%= logVM.LogsByEventName[c]['asset'] %></th>
+										<th class="product"><%= logVM.LogsByEventName[c]['product'] %></th>
+										<th class="location"><%= logVM.LogsByEventName[c]['location'] %></th>
 										<th class= "row-content">
-											<%if(typeof data[c]['content'] == "undefined"){%>
+											<%if(typeof logVM.LogsByEventName[c]['content'] == "undefined"){%>
 												<ul class="menu-json">
 													<li class="json-op">{...}</li>
 													<textarea class="input-content" hidden="hidden" ></textarea>
@@ -348,7 +321,7 @@ th{
 											<%}else{%>
 												<ul class="menu-json">														
 														<%try {%>
-															<%var objj=JSON.parse(JSON.parse(data[c]['content']))%>
+															<%var objj=JSON.parse(JSON.parse(logVM.LogsByEventName[c]['content']))%>
 															<li class="json-op">{</li>
 															<%for(var o in objj) {%>
 																<%if(typeof objj[o]!='object'){%>
@@ -363,16 +336,12 @@ th{
 															<%}%>
 															<li class="json-cl">}</li>
 														<%}catch(error) {%>
-															<%=data[c]['content']%>
+															<%=logVM.LogsByEventName[c]['content']%>
 														<% }%>	
 												</ul>
-												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
+												<textarea class="input-content" hidden="hidden" ><%= logVM.LogsByEventName[c]['content'] %></textarea>       
 											<%}%>
-										</th>
-										<th class="action">
-											<button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button>
-										</th>
-										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
+										</th>										
 									</tr>
                                 <% rowid++}; 
                                 %> 
@@ -385,165 +354,163 @@ th{
 </div>
 <script src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-<script>   
+<script>
+
+	var _role = "";
+	var _eventName = "";
+	var _cteEvents = [];
+	var _locations = [];
+	var _assets = [];
+	var _products = [];
+	var _supplyChains = [];
+	var _contentTemplate = [];
+
+	$( document ).ready(function() {
+
+		_role = $("#label_role").text();
+		_eventName = $("#label_eventName").text();
+		get_locations();
+	});
+
+	function get_locations()
+	{
+		get_objects("/supply-chain/locations", (items) =>
+		{
+			_locations = items;
+			get_assets();
+		})
+	}
+
+	function get_assets()
+	{
+		get_objects("/supply-chain/assets", (items) =>
+		{
+			_assets = items;
+			get_products();
+		})
+	}
+
+	function get_products()
+	{
+		get_objects("/supply-chain/products", (items) =>
+		{
+			_products = items;
+			get_supply_chains()
+		})
+	}
+
+	function get_supply_chains()
+	{
+		get_objects("/supply-chain/scms", (items) =>
+		{
+			_supplyChains = items;
+			get_content_template();
+		})
+	}
+
+	function get_content_template()
+	{
+		get_objects("/supply-chain/templates?role=" + _role + "&eventName=" + _eventName, (items) =>
+		{
+			_contentTemplate = items;
+
+			addCTEEvents();
+		})
+	}
+
+	function get_objects(url, callback)
+	{
+		$.getJSON( url, function( items ) {
+			items.forEach(function( item ) {
+				if(item.content)
+				{
+					try {
+						item.content = JSON.parse(item.content);
+					} catch(e) {}
+				}
+			});
+			callback(items)
+		});
+	}
 
 	$('#type_search').change(function(){
-
 		var str=$(this).val();
-
 		if(str==0){
 			$('.orgid_key').prop('disabled', false);
 		}else{
 			$('.orgid_key').prop('disabled', true);
 		};
-
 	});
-
-	$('.btn-edit').click(function(){
-
-		var time= $('.row-'+$(this).attr('id')).find('.time').text();
-		var cte= $('.row-'+$(this).attr('id')).find('.cte').text();
-		var supplychain= $('.row-'+$(this).attr('id')).find('.supplychain').text();
-		var asset= $('.row-'+$(this).attr('id')).find('.asset').text();
-		var product= $('.row-'+$(this).attr('id')).find('.product').text();
-		var location= $('.row-'+$(this).attr('id')).find('.location').text();
-		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
-
-		var id= $('.row-'+$(this).attr('id')).find('.id').text();
-
-		$("#myModal").modal();
-		$('#form-post').attr('action','/log/action?_method=put');
-
-		$( "#iditem" ).css("display", "block");
-		$("#id_item").val(id);
-       
-		$("#asset_item").val(asset);
-		$("#time_item").val(time);
-		$("#cte_item").val(cte);
-		$('#supplychain_item').val(supplychain);
-		$('#location_item').val(location);
-		$('#product_item').val(product);
-
-		try{
-			
-			var objcontent=JSON.parse(JSON.parse(content));
-
-			$("input[name='general_val']").each(function(index){
-				$(this).val(Object.values(objcontent)[index]);
-			});
-
-			var detail=objcontent['detail'];
-				$('#detail_tree_name').val(detail['Tree Name']);
-				$('#detail_quantity').val(detail['Quantity']);
-
-		}catch(error){
-			$("input[name='general_val']").val('');
-			$("input[name='content_val']").val('');
-		}
-
-    });
 
     $('#btn-addnew').click(function(){
-		$( "#iditem" ).css("display", "none");
-		$("input[name='id_item']").val(uuidv4());
-		$("input[name='time_item']").val('');
-        $('#form-post').attr('action','/log/action');
-		$("input[name='general_val']").val('');
+
+		var log = init_log();
+		reset_ui(log);
 	});
+
+	function init_log()
+	{
+		var log = {
+				id : uuidv4(),
+				time: Date.now(),
+				cte : _eventName				
+			};
+
+		return log;
+	}
+
+	function reset_ui(log)
+	{
+		$( "input[name='id_item']" ).val(log.id);
+		$( "input[name='id_item']" ).prop('readonly', true);
+
+		$( "input[name='time_item']" ).val(log.time);
+		$( "input[name='time_item']" ).prop('readonly', true);
+
+		show_items(_cteEvents, $("#cte_item"));
+		$("#cte_item").val(log.cte);
+
+		show_items(_locations, 		$("#location_item"));
+		show_items(_assets,			$("#asset_item"));
+		show_items(_products, 		$("#product_item"));
+		show_items(_supplyChains, 	$("#supplychain_item"));
+
+		generateContent();
+	}
+
+	function addCTEEvents()
+	{		
+		console.log(_eventName);
+		_cteEvents.push({ id: _eventName, name : _eventName})
+	}
+
+	function generateContent()
+	{
+		for(i=0; i < _contentTemplate.length; i++)
+		{
+			var html='<tr class="general-rows general-1">';			
+			html+='<th width="200px" class="co-th"> <input class="form-control box-co" name="content_key" value="' + _contentTemplate[i] + '" readonly /> </th>';
+			html+='<th class="co-th"> <input class="form-control box-co" name="content_val" /></th>';
+			html+="</tr>";
+
+			$(html).insertBefore( ".end_sc" );
+		}
+	}
+
+	function show_items(items, select, isShowAll){
+		select.empty();
+		for (i = 0; i < items.length; i++) {
+			if(isShowAll || items[i].isAdded === undefined || items[i].isAdded === false)
+			{
+				select.append('<option value=\"' + items[i].id + '\">' + items[i].name + '</option>')
+			}
+  		}
+	}
 
 	function uuidv4() {
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
 			return v.toString(16);
 		});
-	}
-
-$(document).ready(function(){
-
-var asset="/loadajax/asset";
-var supply="/loadajax/supplychain";
-var loca="/loadajax/location";
-var product="/loadajax/product";
-var cte=["Grow", "Harvest", "Aggregate", "Store", "Pack", "Unpack", "Adjust", "Sell", 
-		"Ship", "Produce", "Convert", "Prepare", "Transport", "Consume", "Destroy", "Provide", "Inspect", "Certify", "Approve"];
-var str;
-
-for(var c in cte ) {
-	str+='<option value="'+cte[c]+'">';
-	str+= cte[c];
-	str+='</option>';
-}
-
-$('#cte_item').html(str);
-
-loadauditor(function(html){
-	$('#asset_item').html(html);
-},asset);
-
-loadauditor(function(html){
-	$('#supplychain_item').html(html);
-},supply);
-
-loadauditor(function(html){
-	$('#location_item').html(html);
-},loca);
-
-loadauditor(function(html){
-	$('#product_item').html(html);
-},product);
-
-search(function(html){
-	$('#type_search').html(html);
-},product);
-
-});
-
-function loadauditor(callback,url){
-
-$.ajax({
-	url:url,
-	type: "POST",
-	data:{
-	},
-	success:function(response){
-		console.log(response);
-	var res = JSON.parse(response);
-	var html='';
-			for(var c in res ) {
-				html+='<option value="'+res[c]['name']+'">';
-				html+= res[c]['name'];
-				html+='</option>';
-			}
-		callback(html);
-	},
-	error:function(error){
-		console.log(error);
-	}
-});
-}
-
-function search(callback,url){
-
-$.ajax({
-	url:url,
-	type: "POST",
-	data:{
-	},
-	success:function(response){
-		console.log(response);
-	var res = JSON.parse(response);
-	var html='<option value="0">--- search by product ---';
-			for(var c in res ) {
-				html+='<option value="'+res[c]['name']+'">';
-				html+= res[c]['name'];
-				html+='</option>';
-			}
-		callback(html);
-	},
-	error:function(error){
-		console.log(error);
-	}
-});
-}
-
+	}	
 </script>
