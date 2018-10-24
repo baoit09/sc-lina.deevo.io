@@ -440,27 +440,27 @@ module.exports.schain_api016 = function(req, res) {
 	{
 		res.json(["Tree Name", "Quantities"]);
 	}
-	else if (role == "Farm & Orchard" && eventName == "Take Care (of tree): Water")
+	else if (role == "Farm and Orchard" && eventName == "Take Care (of tree): Water")
 	{
 		res.json(["Total hours", "Quantities"]);
 	}
-	else if (role == "Farm & Orchard" && eventName == "Take Care (of tree): Fertilize")
+	else if (role == "Farm and Orchard" && eventName == "Take Care (of tree): Fertilize")
 	{
 		res.json(["Fertilizer Name", "Quantities"]);
 	}
-	else if (role == "Farm & Orchard" && eventName == "Harvest")
+	else if (role == "Farm and Orchard" && eventName == "Harvest")
 	{
 		res.json(["Tree Name", "Quantities"]);
 	}
-	else if (role == "Farm & Orchard" && eventName == "Receive")
+	else if (role == "Farm and Orchard" && eventName == "Receive")
 	{
 		res.json([ "From Company Name", "Product Name", "Quantity" ]);
 	}
-	else if (role == "Farm & Orchard" && eventName == "Store")
+	else if (role == "Farm and Orchard" && eventName == "Store")
 	{
 		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);
 	}
-	else if (role == "Farm & Orchard" && eventName == "Deliver")
+	else if (role == "Farm and Orchard" && eventName == "Deliver")
 	{
 		res.json([ "To Company Name", "Quantity" ]);
 	}
