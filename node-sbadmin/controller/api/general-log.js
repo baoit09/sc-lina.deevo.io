@@ -7,7 +7,7 @@ module.exports.general_log_api001 = function(req, res) {
 	{	
 		Role: req.param('role'),		
 		EventName: req.param('eventName'),
-		Header : "Logs of " + req.param('eventName'),
+		Header : req.param('eventName') + " Event Records",
 		Logs : [],
 		LogsByEventName : [],
 	}

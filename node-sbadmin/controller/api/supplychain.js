@@ -413,15 +413,15 @@ module.exports.schain_api015 = function(req, res) {
 		if(!error && response.statusCode == 200)
 		{
 			var data = JSON.parse(body);			
-			if ( !(data instanceof Array)  )
+			if (!(data instanceof Array))
 			{
 				items.push(data);
 			}
 			else
 			{
-				items = data;	
+				items = data;
 			}
-			res.json(items);		
+			res.json(items);
 		}
 		else
 		{
@@ -434,8 +434,38 @@ module.exports.schain_api016 = function(req, res) {
 
 	var role = req.query.role;	
 	var eventName = req.query.eventName;
+
+	// Farm & Orchard	
+	if (role == "Farm and Orchard" && eventName == "Plant (tree)")
+	{
+		res.json(["Tree Name", "Quantities"]);
+	}
+	else if (role == "Farm & Orchard" && eventName == "Take Care (of tree): Water")
+	{
+		res.json(["Total hours", "Quantities"]);
+	}
+	else if (role == "Farm & Orchard" && eventName == "Take Care (of tree): Fertilize")
+	{
+		res.json(["Fertilizer Name", "Quantities"]);
+	}
+	else if (role == "Farm & Orchard" && eventName == "Harvest")
+	{
+		res.json(["Tree Name", "Quantities"]);
+	}
+	else if (role == "Farm & Orchard" && eventName == "Receive")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);
+	}
+	else if (role == "Farm & Orchard" && eventName == "Store")
+	{
+		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);
+	}
+	else if (role == "Farm & Orchard" && eventName == "Deliver")
+	{
+		res.json([ "To Company Name", "Quantity" ]);
+	}
 	//Supplier	
-	if(role === "Supplier" && eventName == "Receive")
+	else if(role === "Supplier" && eventName == "Receive")
 	{
 		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
 	}
@@ -488,6 +518,36 @@ module.exports.schain_api016 = function(req, res) {
 		{
 			res.json([ "Product Name", "Quantity" ]);
 		}
+	//Distributor
+	else if(role === "Distributor" && eventName === "Store")
+	{
+		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Distributor" && eventName  == "Receive")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Distributor" && eventName  == "Deliver")
+	{
+		res.json([ "To Company Name", "Quantity" ]);	
+	}
+	//Retailer
+	else if(role === "Retailer" && eventName === "Store")
+	{
+		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Retailer" && eventName  == "Receive")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Retailer" && eventName  == "Deliver")
+	{
+		res.json([ "To Company Name", "Quantity" ]);	
+	}
+	else if(role === "Retailer" && eventName  == "Purchase")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
+	}
 		//Auditor
 	else if(role === "Auditor" && eventName === "Inspect")
 	{
