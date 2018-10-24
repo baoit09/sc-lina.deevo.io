@@ -518,27 +518,27 @@ module.exports.schain_api016 = function(req, res) {
 		{
 			res.json([ "Product Name", "Quantity" ]);
 		}
-	//Distributor	
-	else if(role === "Distributor" && eventName == "Receive")
-	{
-		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
-	}
+	//Distributor
 	else if(role === "Distributor" && eventName === "Store")
 	{
 		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Distributor" && eventName  == "Receive")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
 	}
 	else if(role === "Distributor" && eventName  == "Deliver")
 	{
 		res.json([ "To Company Name", "Quantity" ]);	
 	}
-	//Retailer	
-	else if(role === "Retailer" && eventName == "Receive")
-	{
-		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
-	}
+	//Retailer
 	else if(role === "Retailer" && eventName === "Store")
 	{
 		res.json([ "Stored Location Name", "Product Name", "Quantity" ]);	
+	}
+	else if(role === "Retailer" && eventName  == "Receive")
+	{
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
 	}
 	else if(role === "Retailer" && eventName  == "Deliver")
 	{
@@ -546,9 +546,9 @@ module.exports.schain_api016 = function(req, res) {
 	}
 	else if(role === "Retailer" && eventName  == "Purchase")
 	{
-		res.json([ "To Company Name", "Product Name", "Quantity" ]);	
+		res.json([ "From Company Name", "Product Name", "Quantity" ]);	
 	}
-	//Auditor
+		//Auditor
 	else if(role === "Auditor" && eventName === "Inspect")
 	{
 		res.json([ "Company Name", "Location", "Product Name", "Evidences", "Comment" ]);	
