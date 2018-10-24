@@ -369,8 +369,17 @@ th{
 
 		_role = $("#label_role").text();
 		_eventName = $("#label_eventName").text();
-		get_locations();
+		get_content_template();
 	});
+
+	function get_content_template()
+	{
+		get_objects("/supply-chain/templates?role=" + _role + "&eventName=" + _eventName, (items) =>
+		{
+			_contentTemplate = items;
+			get_locations();			
+		})
+	}
 
 	function get_locations()
 	{
@@ -404,16 +413,6 @@ th{
 		get_objects("/supply-chain/scms", (items) =>
 		{
 			_supplyChains = items;
-			get_content_template();
-		})
-	}
-
-	function get_content_template()
-	{
-		get_objects("/supply-chain/templates?role=" + _role + "&eventName=" + _eventName, (items) =>
-		{
-			_contentTemplate = items;
-
 			addCTEEvents();
 		})
 	}
