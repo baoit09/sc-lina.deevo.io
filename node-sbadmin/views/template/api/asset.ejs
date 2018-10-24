@@ -324,7 +324,7 @@ th{
 									<th class="row-title td-parent">Location</th>
 									<th class="row-title td-content">Content</th>
 									<th class= "td-action row-title">Action</th>
-									<th class="td-action row-title">View Detail</th>
+									<th class="td-action row-title"></th>
 								</tr>
                             </thead>
                             <tbody>
@@ -366,8 +366,8 @@ th{
 												<textarea class="input-content" hidden="hidden" ><%=data[c]['content'] %></textarea>       
 											<%}%>
 										</th>
-										<th class= "row-btn"><button type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
-										<th class= "row-detail"><a target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
+										<th class= "row-btn"><button title="Edit the asset on blockchain" type="button" id="<%=rowid%>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i> Edit</button></th> 
+										<th class= "row-detail"><a title="View the asset on blockchain" target="_blank" href="https://insight.deevo.io/doc/<%=data[c]['id']%>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>
 									</tr>
 								<% rowid++}; 
 								%> 
