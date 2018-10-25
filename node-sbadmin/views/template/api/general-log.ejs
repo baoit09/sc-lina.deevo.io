@@ -297,7 +297,8 @@ th{
 									<th class="row-title" width="10%">Asset</th>
 									<th class="row-title" width="10%">Product</th>
 									<th class="row-title" width="10%">Location</th>
-									<th class="row-title" width="20%">Content</th>									
+									<th class="row-title" width="20%">Content</th>	
+									<th class="row-title" width="10%">View On Blockchain</th>								
                                 </tr>
                             </thead>
                             <tbody>
@@ -341,7 +342,8 @@ th{
 												</ul>
 												<textarea class="input-content" hidden="hidden" ><%= logVM.LogsByEventName[c]['content'] %></textarea>       
 											<%}%>
-										</th>										
+										</th>	
+										<th class= "row-detail"><a title="View this event on blockchain" target="_blank" href="https://insight.deevo.io/doc/<%= logVM.LogsByEventName[c]['id'] %>" class="btn btn-warning"><i class="fa fa-info-circle"></i></a></th>									
 									</tr>
                                 <% rowid++}; 
                                 %> 
