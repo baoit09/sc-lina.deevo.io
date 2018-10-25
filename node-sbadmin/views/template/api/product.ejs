@@ -442,7 +442,7 @@ th{
         var parent=$('.row-'+$(this).attr('id')).find('.row-parent').text();
 		var content=$('.row-'+$(this).attr('id')).find('.input-content').val();
 
-		$("#myModal").modal();
+		// $("#myModal").modal();
         $('#form-post').attr('action','/product/action?_method=put');
 		$( "#iditem" ).css("display", "block");
 		$( "input[name='id_item']" ).val(id);
