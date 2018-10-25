@@ -2,7 +2,7 @@ var request = require('request');
 let baseURL = 'http://18.136.205.13:3000/api/v1';
 
 module.exports.general_log_api001 = function(req, res) {
-
+	var user=req.user.username;
 	var logVM = 
 	{	
 		Role: req.param('role'),		
@@ -18,7 +18,7 @@ module.exports.general_log_api001 = function(req, res) {
 
 		buildLogsByEventName(logVM);
 
-		res.render('template/api/general-log', { logVM:logVM, message:'', status:0});
+		res.render('template/api/general-log', { logVM:logVM,user:user, message:'', status:0});
 	});
 };
 
@@ -70,7 +70,7 @@ function buildArrayNonDeleted(error, response, body)
 }
 
 module.exports.general_log_api002 = function(req, res) {
-	
+	var user=req.user.username;
 	var objectType= req.body.objectType_item;
 	var logid= req.body.id_item;
 	var time= req.body.time_item;
@@ -124,15 +124,15 @@ module.exports.general_log_api002 = function(req, res) {
 		  request(options, function (error, response, body) {
 			  if(!error && response.statusCode==200){
 				  var data=JSON.parse(body);
-				  res.render('template/api/log',{data:data,message:"Successfully added "+ logid +" to system.",status:1});
+				  res.render('template/api/log',{data:data,user:user,message:"Successfully added "+ logid +" to system.",status:1});
 			  }else{
-				  res.render('template/api/log',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+				  res.render('template/api/log',{data:'',user:user,message:"Failed to add "+ logid + " to system.",status:2});
 			  }
 		   });
 		}else if(!error && response.statusCode!=200){
-			res.render('template/api/log',{data:'',message:"Failed to add "+ logid + " to system.",status:2});
+			res.render('template/api/log',{data:'',user:user,message:"Failed to add "+ logid + " to system.",status:2});
 		}else{
-			res.render('template/api/log',{data:'',message:error,status:2});
+			res.render('template/api/log',{data:'',user:user,message:error,status:2});
 		}
 	 });
 	
