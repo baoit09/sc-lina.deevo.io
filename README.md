@@ -119,7 +119,11 @@
 		sudo mkdir /etc/nginx/ssl				//tạo thư mục chứ file ssl
 		cd /etc/nginx/ssl					//đi vào bên trong thư mục
 		
-		openssl req -new -newkey rsa:2048 -nodes -keyout sitecuatui.com.key -out sitecuatui.com.csr	//tạo CSR và Private Key
+		sudo openssl genrsa -des3 -out server.key 2048
+		sudo openssl req -new -key server.key -out server.csr
+		sudo cp server.key server.key.org
+		sudo openssl rsa -in server.key.org -out server.key
+		sudo openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 	
 	//out put ---> điền thông tin phù hợp.
 		Generating a 2048 bit RSA private key
@@ -151,12 +155,10 @@
 		cat sitecuatui.com.csr
 		
 	//di chuyển vào thư mục sites-available và tạo thư mục example
-		sudo mkdir /etc/nginx/sites-available/example
+		cd /etc/nginx/sites-available/default
 		
-	//tạo file config, ở đây đặt tên file là sitecuatui.com.conf
-		sudo nano /etc/nginx/sites-available/example
+	//tạo config server
 	
-	//nhập nội dung bên dưới & chỉnh sửa thông tin cho phù hợp
 		server {
     			listen 80;
     			server_name localhost;
@@ -191,4 +193,7 @@
 		    }
 		}
 		
+	//khởi động lại nginx
+		sudo service nginx restart
+
 	
