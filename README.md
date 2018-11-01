@@ -174,7 +174,7 @@
 		    #include snippets/ssl-domain.com.conf;
 		    #include snippets/ssl-params.conf;
 		    ssl on;
-		    ssl_certificate /etc/nginx/ssl/sitecuatui.com.csr;
+		    ssl_certificate /etc/nginx/ssl/sitecuatui.com.crt;
 		    ssl_certificate_key /etc/nginx/ssl/sitecuatui.com.key;
 		    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; 
 		    ssl_prefer_server_ciphers on;
